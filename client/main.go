@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/Brandon-lz/tcp-transfor/client/config"
+	translocaltcp "github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
@@ -14,7 +16,9 @@ func main(){
     defer initLog().Close()
 	defer utils.RecoverAndLog()
 
-	
+    config.LoadConfig()
+
+    translocaltcp.Start()
 
 }
 
