@@ -27,11 +27,9 @@ func CommunicateToServer() {
 }
 
 type ServerCmd struct {
-	Type string    `json:"type"`
+	Type string      `json:"type"`
 	Data interface{} `json:"data"`
 }
-
-
 
 type HelloMessage struct {
 	Client struct {
@@ -77,52 +75,50 @@ func sayHelloToServer(serverConn net.Conn) {
 	}
 }
 
-
-func ListenServerCmd(serverConn net.Conn){
+func ListenServerCmd(serverConn net.Conn) {
 	for {
-		msgData,err := io.ReadAll(serverConn)
+		msgData, err := io.ReadAll(serverConn)
 		if err != nil {
 			log.Printf("Failed to communicate with server: %v\n", utils.WrapErrorLocation(err))
 			os.Exit(1)
 		}
-		
-	
-		cmd :=utils.SerializeData(msgData, &ServerCmd{})
-		switch cmd.Type{
-			case "new-conn-request":
-				newmsgconfig := utils.SerializeData(cmd.Data, &NewConnCreateRequestMessage{})
-				localConn, err := serverSignToCreateNewConnection(serverConn, newmsgconfig)
-				if err!=nil{
-					continue
-				}
-				LocalConnSet[newmsgconfig.LocalPort] = localConn
-	}
-	}
-	
-}
 
+		cmd := utils.SerializeData(msgData, &ServerCmd{})
+		switch cmd.Type {
+		case "ping":
+			log.Printf("Received ping message from server: %s\n", msgData)
+			serverConn.Write([]byte(utils.PrintDataAsJson(ResponseToServer{Code: 200, Msg: "pong"})))
+		case "new-conn-request":
+			newmsgconfig := utils.SerializeData(cmd.Data, &NewConnCreateRequestMessage{})
+			localConn, err := serverSignToCreateNewConnection(serverConn, newmsgconfig)
+			if err != nil {
+				continue
+			}
+			LocalConnSet[newmsgconfig.LocalPort] = localConn
+		}
+	}
+
+}
 
 type NewConnCreateRequestMessage struct {
 	LocalPort  int `json:"local-port"`
 	ServerPort int `json:"server-port"`
 }
 
-
 type ResponseToServer struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 }
 
-
-func serverSignToCreateNewConnection(serverConn net.Conn,newConnCreateRequestMessage NewConnCreateRequestMessage) (net.Conn, error) {
+func serverSignToCreateNewConnection(serverConn net.Conn, newConnCreateRequestMessage NewConnCreateRequestMessage) (net.Conn, error) {
 	localConn, err := createNewConnToLocalPort(newConnCreateRequestMessage.LocalPort)
 	if err != nil {
-		resData := utils.PrintDataAsJson(ResponseToServer{Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%s",newConnCreateRequestMessage.LocalPort)})
+		resData := utils.PrintDataAsJson(ResponseToServer{Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%s", newConnCreateRequestMessage.LocalPort)})
 		serverConn.Write([]byte(resData))
 		return nil, utils.WrapErrorLocation(err, fmt.Sprintf("Failed to create local connection %s: %v\n", newConnCreateRequestMessage.LocalPort, err))
 	}
 
-	return localConn,nil
+	return localConn, nil
 }
 
 func createNewConnToLocalPort(localPort int) (net.Conn, error) {
