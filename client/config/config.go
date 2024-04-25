@@ -7,9 +7,33 @@ import (
 
 var Config ConfigDF
 
+// config.toml
+// [server]
+// host = "127.0.0.1:8080"
+
+// [client]
+// name = "ubuntu1"            # 全局唯一的客户端名称
+
+// [[map]]
+// local-port = 9090
+// server-port = 9090
+
+// [[map]]
+// local-port = 9091
+// server-port = 9091
+
 type ConfigDF struct {
-	TargetAddr string `json:"target_addr" toml:"target_addr"`
-	SourceAddr string `json:"source_addr" toml:"source_addr"`
+	Server struct {
+		Host string `json:"host"`
+	} `json:"server"`
+	Client struct {
+		Name string `json:"name"`
+	} `json:"client"`
+	Map []struct {
+		LocalPort  int `json:"local-port"`
+		ServerPort int `json:"server-port"`
+	} `json:"map"`
+	
 } 
 
 func LoadConfig() {
