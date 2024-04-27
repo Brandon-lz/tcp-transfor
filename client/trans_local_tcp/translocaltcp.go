@@ -4,6 +4,8 @@ import (
 	"io"
 	"log"
 	"net"
+
+	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
 func Start() {
@@ -48,6 +50,7 @@ func Start() {
 }
 
 func transData(sourceConn, targetConn net.Conn) {
+	defer utils.RecoverAndLog()
 	defer sourceConn.Close()
 	defer targetConn.Close()
 
@@ -66,6 +69,7 @@ func transData(sourceConn, targetConn net.Conn) {
 	// }()
 
 	go func() {
+		defer utils.RecoverAndLog(func(err error){quit2 <- true})
 		// 将源连接的数据复制到目标连接
 		for {
 			if _, err := io.Copy(sourceConn, targetConn); err != nil {
@@ -73,7 +77,7 @@ func transData(sourceConn, targetConn net.Conn) {
 				break
 			}
 		}
-		quit2 <- true
+		
 	}()
 
 BackWard:

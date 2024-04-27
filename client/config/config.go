@@ -33,14 +33,13 @@ type ConfigDF struct {
 		LocalPort  int `json:"local-port"`
 		ServerPort int `json:"server-port"`
 	} `json:"map"`
-	
-} 
+}
 
 func LoadConfig() {
 	var configData map[string]interface{}
 	tomlFile := "config.toml"
-	if _, err := toml.DecodeFile(tomlFile, &configData); err!= nil {
+	if _, err := toml.DecodeFile(tomlFile, &configData); err != nil {
 		panic(err)
 	}
-	utils.SerializeData(configData,&Config)
+	utils.DeSerializeData(configData, &Config)
 }

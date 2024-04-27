@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-func SerializeData[T interface{}](source any, target *T) T { // target必须为指针类型
+func DeSerializeData[T interface{}](source any, target *T) T { // target必须为指针类型
     var jsonData []byte
     var err error
 
@@ -28,3 +28,6 @@ func SerializeData[T interface{}](source any, target *T) T { // target必须为�
     }
     return *target
 }
+
+
+
