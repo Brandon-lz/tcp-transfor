@@ -8,8 +8,28 @@ import (
 	"net"
 	"os"
 
+	"github.com/Brandon-lz/tcp-transfor/client/config"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
+
+
+type HelloMessage struct {
+	Type   string `json:"type"`                // main or sub
+	Client struct {
+		Name string `json:"name"`
+	} `json:"client"`
+	Map []struct {
+		LocalPort  int `json:"local-port"`
+		ServerPort int `json:"server-port"`
+	} `json:"map"`
+
+	ConnId int `json:"conn-id"` // 服务端-本客户端之间有多个连接，每个连接都有唯一的conn-id，拿着conn-id返回给服务端去注册新连接
+}
+
+type HelloRecv struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
 
 type ServerCmd struct {
 	Type string      `json:"type"`
@@ -44,18 +64,21 @@ func ListenServerCmd(serverConn net.Conn) {
 			serverConn.Write(resData)
 		case "new-conn-request":
 			newcmd := utils.DeSerializeData(cmd.Data, &NewConnCreateRequestMessage{})
-			serverConn, err := CreateNewConnToServer()
+			serverSubConn, err := CreateNewConnToServer()
 			if err != nil {
 				continue
 			}
 			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
 			if err != nil {
-				serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				serverSubConn.Write(utils.SerilizeData(ResponseToServer{Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				continue
 			}
+			hm := HelloMessage{Type:"sub",ConnId: newcmd.ConnId}
+			hm.Client.Name = config.Config.Client.Name
+			serverSubConn.Write(utils.SerilizeData(hm))
 			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId}))
 			serverConnSet[newcmd.ConnId] = localConn
-			TransForConnData(localConn, serverConn)
+			TransForConnData(localConn, serverSubConn)
 		}
 	}
 

@@ -22,26 +22,27 @@ func CommunicateToServer() {
 
 }
 
-type HelloMessage struct {
-	Client struct {
-		Name string `json:"name"`
-	} `json:"client"`
-	Map []struct {
-		LocalPort  int `json:"local-port"`
-		ServerPort int `json:"server-port"`
-	} `json:"map"`
-}
+// type HelloMessage struct {
+// 	Type   string `json:"type"`                // main or sub
+// 	Client struct {
+// 		Name string `json:"name"`
+// 	} `json:"client"`
+// 	Map []struct {
+// 		LocalPort  int `json:"local-port"`
+// 		ServerPort int `json:"server-port"`
+// 	} `json:"map"`
+// }
 
-type HelloRecv struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-}
+// type HelloRecv struct {
+// 	Code int    `json:"code"`
+// 	Msg  string `json:"msg"`
+// }
 
 func sayHelloToServer(serverConn net.Conn) {
-	var hello HelloMessage
+	var hello core.HelloMessage
 
 	utils.DeSerializeData(config.Config, &hello)
-
+	hello.Type = "main"
 	// 发送数据
 	_, err := serverConn.Write(utils.SerilizeData(hello))
 	if err != nil {
@@ -56,7 +57,7 @@ func sayHelloToServer(serverConn net.Conn) {
 		os.Exit(1)
 	}
 
-	var helloRecv HelloRecv
+	var helloRecv core.HelloRecv
 	utils.DeSerializeData(msgdata, &helloRecv)
 
 	log.Printf("Received message from server: %s\n", msgdata)
