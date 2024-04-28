@@ -1,9 +1,8 @@
 package core
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"os"
@@ -22,7 +21,9 @@ type ResponseToServer struct {
 
 func ListenServerCmd(serverConn net.Conn) {
 	for {
-		msgData, err := io.ReadAll(serverConn)
+
+		// msgData, err := io.ReadAll(serverConn)
+		msgData, err := common.ReadConn(serverConn)
 		if err != nil {
 			log.Printf("Failed to communicate with server: %v\n", utils.WrapErrorLocation(err))
 			os.Exit(1)
@@ -32,8 +33,8 @@ func ListenServerCmd(serverConn net.Conn) {
 		switch cmd.Type {
 		case "ping":
 			log.Printf("Received ping message from server: %s\n", msgData)
-			resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
-			serverConn.Write(resData)
+			// resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
+			// serverConn.Write(resData)
 		case "new-conn-request":
 			log.Println("Received new connection request from server")
 			newcmd := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})
@@ -51,7 +52,10 @@ func ListenServerCmd(serverConn net.Conn) {
 			newServerSubConn.Write(utils.SerilizeData(hello))                                                                     // hello to server
 			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
 			serverConnSet[newcmd.ConnId] = localConn
-			TransForConnData(localConn, newServerSubConn)
+			go TransForConnData(localConn, newServerSubConn)
+			log.Println("success new sub connection to server")
+		default:
+			log.Println("Unknown command received from server", cmd.Type)
 		}
 	}
 

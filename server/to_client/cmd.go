@@ -1,6 +1,7 @@
 package toclient
 
 import (
+	"log"
 	"net"
 
 	"github.com/Brandon-lz/tcp-transfor/common"
@@ -16,6 +17,7 @@ func cmdToClientGetNewConn(clientConn net.Conn, connId, LocalPort, ServerPort in
 			ServerPort: ServerPort,
 		},
 	}))
+	log.Println("send new conn request to client")
 	if err != nil {
 		return err
 	}

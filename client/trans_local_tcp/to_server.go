@@ -1,8 +1,6 @@
 package translocaltcp
 
 import (
-	"fmt"
-	"io"
 	"log"
 	"net"
 	"os"
@@ -19,7 +17,8 @@ func CommunicateToServer() {
 		log.Printf("Failed to create main connection to server: %v\n", utils.WrapErrorLocation(err))
 		os.Exit(1)
 	}
-	sayHelloToServer(serverConn)         // establish connection with server
+
+	sayHelloToServer(serverConn) // establish connection with server
 
 	log.Printf("success establish connection with server")
 
@@ -56,15 +55,14 @@ func sayHelloToServer(serverConn net.Conn) {
 		os.Exit(1)
 	}
 
-
+	log.Println("Sent hello message to server")
 	// 接收数据
-	msgdata, err := io.ReadAll(serverConn)
+
+	msgdata, err := common.ReadConn(serverConn)
 	if err != nil {
 		log.Printf("Failed to communicate with server: %v\n", err)
 		os.Exit(1)
 	}
-
-	fmt.Println(3333333333333,msgdata)
 
 	var helloRecv common.HelloRecv
 	utils.DeSerializeData(msgdata, &helloRecv)

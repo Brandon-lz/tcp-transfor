@@ -2,7 +2,6 @@ package toclient
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"time"
 
@@ -98,6 +97,6 @@ func CheckClientAlive() {
 			}
 		}
 
-		log.Println("keep alive")
+		// log.Println("keep alive")
 	}
 }

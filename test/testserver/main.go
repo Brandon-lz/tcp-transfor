@@ -13,8 +13,8 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
     http.HandleFunc("/", helloHandler) // 设置路由
 
-    fmt.Println("Starting server at port 8080") // 服务器将在8080端口上监听
-    if err := http.ListenAndServe(":8080", nil); err != nil { // 启动服务器
+    fmt.Println("Starting server at port 9090") // 服务器将在8080端口上监听
+    if err := http.ListenAndServe(":9090", nil); err != nil { // 启动服务器
         panic(err)
     }
 }
