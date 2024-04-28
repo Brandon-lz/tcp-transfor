@@ -49,11 +49,11 @@ func ListenServerCmd(serverConn net.Conn) {
 			}
 			hello := common.HelloMessage{Type: "sub", ConnId: newcmd.ConnId}
 			hello.Client.Name = config.Config.Client.Name
-			newServerSubConn.Write(utils.SerilizeData(hello))                                                                     // hello to server
-			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
+			newServerSubConn.Write(utils.SerilizeData(hello)) // hello to server
+			// serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
 			serverConnSet[newcmd.ConnId] = localConn
 			go TransForConnData(localConn, newServerSubConn)
-			log.Println("success new sub connection to server")
+			log.Println("success new sub connection to server", hello.ConnId)
 		default:
 			log.Println("Unknown command received from server", cmd.Type)
 		}

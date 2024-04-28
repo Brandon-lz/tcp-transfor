@@ -9,15 +9,16 @@ import (
 )
 
 func cmdToClientGetNewConn(clientConn net.Conn, connId, LocalPort, ServerPort int) error {
-	_, err := clientConn.Write(utils.SerilizeData(common.ServerCmd{
+	sercmd := common.ServerCmd{
 		Type: "new-conn-request",
 		Data: common.NewConnCreateRequestMessage{
 			ConnId:     connId,
 			LocalPort:  LocalPort,
 			ServerPort: ServerPort,
 		},
-	}))
-	log.Println("send new conn request to client")
+	}
+	_, err := clientConn.Write(utils.SerilizeData(sercmd))
+	log.Println("send new conn request to client",utils.PrintDataAsJson(sercmd))
 	if err != nil {
 		return err
 	}

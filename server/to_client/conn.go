@@ -33,7 +33,7 @@ func ListenClientConn() {
 			continue
 		}
 		log.Printf("New client conn from %s", conn.RemoteAddr())
-		go startCmdToClient(conn)
+		go dealCmdFromClient(conn)
 	}
 }
 
@@ -57,9 +57,12 @@ type clientConnManager struct {
 func (cm *clientConnManager) getNewConnId() int {
 	cm.clientSubConnIdLock.Lock()
 	defer cm.clientSubConnIdLock.Unlock()
+	log.Println(1111111111111, cm.clientSubConnIdSet)
+
 	for i := range 1000000 {
 		if _, ok := cm.clientSubConnIdSet[i]; !ok {
 			cm.clientSubConnIdSet[i] = struct{}{}
+			log.Println(22222222222222, cm.clientSubConnIdSet)
 			return i
 		}
 	}
@@ -73,13 +76,13 @@ func (cm *clientConnManager) delConnId(id int) {
 	delete(cm.ClientSubConnWithId, id)
 }
 
-func startCmdToClient(clientConn net.Conn) {
+func dealCmdFromClient(clientConn net.Conn) {
 	log.Printf("New client conn from %s", clientConn.RemoteAddr())
 
 	defer utils.RecoverAndLog()
-	defer clientConn.Close()
+	// defer clientConn.Close()
 	// clientName := clientConn.RemoteAddr().String()
-	for {
+	// for {
 		log.Println("wait for hello message from client")
 
 		hellodata, err := common.ReadConn(clientConn)
@@ -89,7 +92,7 @@ func startCmdToClient(clientConn net.Conn) {
 			return
 		}
 
-		log.Println("receive hello message from client: ", string(hellodata))
+		log.Println("receive hello message from client ", string(hellodata))
 
 		hello := utils.DeSerializeData(hellodata, &common.HelloMessage{})
 		switch hello.Type {
@@ -139,13 +142,15 @@ func startCmdToClient(clientConn net.Conn) {
 			close(listen_fail)
 		case "sub":
 			// new sub conn from client
-
 			ccm := CCMList[hello.Client.Name]
 			ccm.ClientSubConnWithId[hello.ConnId] = clientConn
+			return
 		case "ping":
-
+			;
+		default:
+			log.Println("unknown hello type", hello.Type)
 		}
-	}
+	// }
 }
 
 func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalPort int, failSign chan bool, wg *sync.WaitGroup) {
@@ -178,6 +183,8 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 				log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
 				return
 			}
+
+			log.Println("success get new conn to client id:", connId)
 
 			// wait new conn from client .....
 			for {

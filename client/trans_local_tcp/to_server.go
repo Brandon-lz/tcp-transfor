@@ -44,10 +44,9 @@ func CommunicateToServer() {
 // }
 
 func sayHelloToServer(serverConn net.Conn) {
-	var hello common.HelloMessage
+	var hello = common.HelloMessage{Type: "main"}
 
 	utils.DeSerializeData(config.Config, &hello)
-	hello.Type = "main"
 	// 发送数据
 	_, err := serverConn.Write(utils.SerilizeData(hello))
 	if err != nil {
