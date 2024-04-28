@@ -1,0 +1,90 @@
+未知异常：Failed to copy data from 192.168.129.15:59842 to 127.0.0.1:37226: error occurred at /workspace/tcp-transfor/server/to_client/conn.go:238 
+	read tcp 10.0.5.2:9091->192.168.129.15:59842: i/o timeout
+
+goroutine 38 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc0001a5db8, 0x1, 0xc000194540?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7a0?, 0xc000118400?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData.func2()
+	/workspace/tcp-transfor/server/to_client/conn.go:238 +0x48e
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData in goroutine 20
+	/workspace/tcp-transfor/server/to_client/conn.go:227 +0x207
+
+未知异常：Failed to copy data from 127.0.0.1:37226 to 192.168.129.15:59842: error occurred at /workspace/tcp-transfor/server/to_client/conn.go:263 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:37226: readfrom tcp 10.0.5.2:9091->192.168.129.15:59842: i/o timeout
+
+goroutine 20 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc0001a4d78, 0x1, 0xc000194000?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7a0?, 0xc0001aa210?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData({0x5b1598, 0xc00011a0e8}, {0x5b1598, 0xc000180098}, 0x0?, 0xffffffffffffffff?)
+	/workspace/tcp-transfor/server/to_client/conn.go:263 +0x478
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.newListenerOnClientMapPort.func1 in goroutine 36
+	/workspace/tcp-transfor/server/to_client/conn.go:190 +0x45b
+
+未知异常：Failed to copy data from 192.168.177.12:57366 to 127.0.0.1:55908: error occurred at /workspace/tcp-transfor/server/to_client/conn.go:238 
+	read tcp 10.0.5.2:9091->192.168.177.12:57366: i/o timeout
+
+goroutine 51 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00019edb8, 0x1, 0xc00021c000?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7a0?, 0xc000118450?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData.func2()
+	/workspace/tcp-transfor/server/to_client/conn.go:238 +0x48e
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData in goroutine 50
+	/workspace/tcp-transfor/server/to_client/conn.go:227 +0x207
+
+未知异常：Failed to copy data from 127.0.0.1:55908 to 192.168.177.12:57366: error occurred at /workspace/tcp-transfor/server/to_client/conn.go:263 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:55908: readfrom tcp 10.0.5.2:9091->192.168.177.12:57366: i/o timeout
+
+goroutine 50 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000085d78, 0x1, 0xc000007880?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7a0?, 0xc000202050?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData({0x5b1598, 0xc000070018}, {0x5b1598, 0xc000070020}, 0x0?, 0x0?)
+	/workspace/tcp-transfor/server/to_client/conn.go:263 +0x478
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.newListenerOnClientMapPort.func1 in goroutine 36
+	/workspace/tcp-transfor/server/to_client/conn.go:190 +0x45b
+
+未知异常：Failed to copy data from 192.168.177.12:55318 to 127.0.0.1:47234: error occurred at /workspace/tcp-transfor/server/to_client/conn.go:238 
+	read tcp 10.0.5.2:9091->192.168.177.12:55318: i/o timeout
+
+goroutine 7 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000086db8, 0x1, 0xc000007a40?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7a0?, 0xc0002020b0?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData.func2()
+	/workspace/tcp-transfor/server/to_client/conn.go:238 +0x48e
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData in goroutine 6
+	/workspace/tcp-transfor/server/to_client/conn.go:227 +0x207
+
+未知异常：Failed to copy data from 127.0.0.1:47234 to 192.168.177.12:55318: error occurred at /workspace/tcp-transfor/server/to_client/conn.go:263 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:47234: readfrom tcp 10.0.5.2:9091->192.168.177.12:55318: i/o timeout
+
+goroutine 6 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc0001a4d78, 0x1, 0xc000194000?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7a0?, 0xc0000160d0?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/server/to_client.TransForConnData({0x5b1598, 0xc00021e018}, {0x5b1598, 0xc00011a118}, 0x5b1598?, 0xc000070020?)
+	/workspace/tcp-transfor/server/to_client/conn.go:263 +0x478
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.newListenerOnClientMapPort.func1 in goroutine 36
+	/workspace/tcp-transfor/server/to_client/conn.go:190 +0x45b
+

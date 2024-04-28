@@ -144,7 +144,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
 		return
 	case "ping":
-		;
+
 	default:
 		log.Println("unknown hello type", hello.Type)
 	}
@@ -168,7 +168,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			userConn, err := listener.Accept()
 			if err != nil {
 				log.Printf("Failed to accept connection: %v", err)
-				if strings.Contains(err.Error(), "use of closed network connection") {
+				if strings.Contains(err.Error(), "use of closed network connection") { // exit goroutine
 					return
 				}
 				continue
@@ -184,12 +184,18 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			log.Println("success get new conn to client id:", connId)
 
 			// wait new conn from client .....
+			timeoutCount := 0
 			for {
 				if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
 					go TransForConnData(userConn, newSubConn, connId, ccm)
 					break
 				} else {
+					timeoutCount++
 					time.Sleep(20 * time.Microsecond)
+				}
+				if timeoutCount > 200 {
+					log.Printf("ERROR: Timeout to get new conn from client id:%d", connId)
+					break
 				}
 			}
 
@@ -217,13 +223,29 @@ func TransForConnData(src net.Conn, dst net.Conn, connid int, ccm *clientConnMan
 	defer src.Close()
 	defer dst.Close()
 
+
 	quit := make(chan bool)
 	go func() {
-		defer utils.RecoverAndLog(func(err error) { quit <- true })
+		defer utils.RecoverAndLog(func(err error) {
+			quit <- true
+		})
 		for {
-			_, err := io.Copy(dst, src)
+			// _, err := io.Copy(dst, src)
+			src.SetDeadline(time.Now().Add(8 * time.Hour))
+			dst.SetDeadline(time.Now().Add(8 * time.Hour))
+			data, err := common.ReadConn(src)
 			if err != nil {
 				panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", src.RemoteAddr(), dst.RemoteAddr(), utils.WrapErrorLocation(err)))
+			}
+			if len(data) == 0 {
+				log.Println("receive empty data from client, close conn")
+				break
+			}
+			_, err = dst.Write(data)
+
+
+			if err != nil {
+				panic(fmt.Errorf("Failed to write data to %s: %v\n", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
 			}
 
 		}
@@ -235,11 +257,15 @@ trans:
 		case <-quit:
 			break trans
 		default:
+			src.SetDeadline(time.Now().Add(8 * time.Hour))
+			dst.SetDeadline(time.Now().Add(8 * time.Hour))
 			_, err := io.Copy(src, dst)
 			if err != nil {
 				panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
 			}
 		}
 	}
+
+	log.Println("111111111111111111111 exit")
 
 }
