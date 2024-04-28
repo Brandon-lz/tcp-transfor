@@ -57,12 +57,10 @@ type clientConnManager struct {
 func (cm *clientConnManager) getNewConnId() int {
 	cm.clientSubConnIdLock.Lock()
 	defer cm.clientSubConnIdLock.Unlock()
-	log.Println(1111111111111, cm.clientSubConnIdSet)
 
 	for i := range 1000000 {
 		if _, ok := cm.clientSubConnIdSet[i]; !ok {
 			cm.clientSubConnIdSet[i] = struct{}{}
-			log.Println(22222222222222, cm.clientSubConnIdSet)
 			return i
 		}
 	}
@@ -83,74 +81,73 @@ func dealCmdFromClient(clientConn net.Conn) {
 	// defer clientConn.Close()
 	// clientName := clientConn.RemoteAddr().String()
 	// for {
-		log.Println("wait for hello message from client")
+	log.Println("wait for hello message from client")
 
-		hellodata, err := common.ReadConn(clientConn)
-		// hellodata, err := io.ReadAll(clientConn)
-		if err != nil {
-			log.Printf("Failed to read hello message from client: %v", err)
+	hellodata, err := common.ReadConn(clientConn)
+	// hellodata, err := io.ReadAll(clientConn)
+	if err != nil {
+		log.Printf("Failed to read hello message from client: %v", err)
+		return
+	}
+
+	log.Println("receive hello message from client ", string(hellodata))
+
+	hello := utils.DeSerializeData(hellodata, &common.HelloMessage{})
+	switch hello.Type {
+	case "main":
+
+		if err := AddNewClient(&Client{Name: hello.Client.Name, Conn: clientConn, Map: hello.Map}); err != nil {
+			hrc := utils.SerilizeData(&common.HelloRecv{Code: 500, Msg: fmt.Sprintf("client hello faild:%v", err)})
+
+			clientConn.Write(hrc)
 			return
 		}
 
-		log.Println("receive hello message from client ", string(hellodata))
+		// create new client conn manager
+		ccm := clientConnManager{
+			ClientConn:          clientConn,
+			ClientSubConnWithId: make(map[int]net.Conn),
+			clientSubConnIdSet:  make(map[int]struct{}),
+			clientSubConnIdLock: sync.Mutex{},
+			Quit:                make(chan bool),
+		}
 
-		hello := utils.DeSerializeData(hellodata, &common.HelloMessage{})
-		switch hello.Type {
-		case "main":
+		ccm.ClientName = hello.Client.Name
 
-			if err := AddNewClient(&Client{Name: hello.Client.Name, Conn: clientConn, Map: hello.Map}); err != nil {
-				hrc := utils.SerilizeData(&common.HelloRecv{Code: 500, Msg: fmt.Sprintf("client hello faild:%v", err)})
+		CCMList[hello.Client.Name] = &ccm
 
-				clientConn.Write(hrc)
-				return
-			}
+		// create new listener to client map port for listen user request
+		log.Println("listen on client map port")
+		var listen_fail = make(chan bool)
+		var wg = sync.WaitGroup{}
 
-			// create new client conn manager
-			ccm := clientConnManager{
-				ClientConn:          clientConn,
-				ClientSubConnWithId: make(map[int]net.Conn),
-				clientSubConnIdSet:  make(map[int]struct{}),
-				clientSubConnIdLock: sync.Mutex{},
-				Quit:                make(chan bool),
-			}
+		for _, m := range hello.Map {
+			wg.Add(1)
+			go newListenerOnClientMapPort(&ccm, m.ServerPort, m.LocalPort, listen_fail, &wg)
+		}
 
-			ccm.ClientName = hello.Client.Name
+		wg.Wait()
 
-			CCMList[hello.Client.Name] = &ccm
-
-			// create new listener to client map port for listen user request
-			log.Println("listen on client map port")
-			var listen_fail = make(chan bool)
-			var wg = sync.WaitGroup{}
-
-			for _, m := range hello.Map {
-				wg.Add(1)
-				go newListenerOnClientMapPort(&ccm, m.ServerPort, m.LocalPort, listen_fail, &wg)
-			}
-
-			wg.Wait()
-
-			select {
-			case <-listen_fail:
-				clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
-				return
-			default:
-				// finally success
-				log.Printf("success listen on client %s map port %v", hello.Client.Name, hello.Map)
-				clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
-			}
-			close(listen_fail)
-		case "sub":
-			// new sub conn from client
-			ccm := CCMList[hello.Client.Name]
-			ccm.ClientSubConnWithId[hello.ConnId] = clientConn
+		select {
+		case <-listen_fail:
+			clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
 			return
-		case "ping":
-			;
 		default:
-			log.Println("unknown hello type", hello.Type)
+			// finally success
+			log.Printf("success listen on client %s map port %v", hello.Client.Name, hello.Map)
+			clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
 		}
-	// }
+		close(listen_fail)
+	case "sub":
+		// new sub conn from client
+		ccm := CCMList[hello.Client.Name]
+		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
+		return
+	case "ping":
+		;
+	default:
+		log.Println("unknown hello type", hello.Type)
+	}
 }
 
 func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalPort int, failSign chan bool, wg *sync.WaitGroup) {
