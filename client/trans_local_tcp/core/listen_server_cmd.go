@@ -9,43 +9,15 @@ import (
 	"os"
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
+	"github.com/Brandon-lz/tcp-transfor/common"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-
-type HelloMessage struct {
-	Type   string `json:"type"`                // main or sub
-	Client struct {
-		Name string `json:"name"`
-	} `json:"client"`
-	Map []struct {
-		LocalPort  int `json:"local-port"`
-		ServerPort int `json:"server-port"`
-	} `json:"map"`
-
-	ConnId int `json:"conn-id"` // 服务端-本客户端之间有多个连接，每个连接都有唯一的conn-id，拿着conn-id返回给服务端去注册新连接
-}
-
-type HelloRecv struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-}
-
-type ServerCmd struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data"`
-}
-
 type ResponseToServer struct {
+	Id   int         `json:"id"`
 	Code int         `json:"code"`
 	Msg  string      `json:"msg"`
 	Data interface{} `json:"data"`
-}
-
-type NewConnCreateRequestMessage struct {
-	ConnId     int `json:"conn-id"` // 服务端-本客户端之间有多个连接，每个连接都有唯一的conn-id，拿着conn-id返回给服务端去注册新连接
-	LocalPort  int `json:"local-port"`
-	ServerPort int `json:"server-port"`
 }
 
 func ListenServerCmd(serverConn net.Conn) {
@@ -56,29 +28,30 @@ func ListenServerCmd(serverConn net.Conn) {
 			os.Exit(1)
 		}
 
-		cmd := utils.DeSerializeData(msgData, &ServerCmd{})
+		cmd := utils.DeSerializeData(msgData, &common.ServerCmd{})
 		switch cmd.Type {
 		case "ping":
 			log.Printf("Received ping message from server: %s\n", msgData)
-			resData, _ := json.Marshal(ResponseToServer{Code: 200, Msg: "pong"})
+			resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			serverConn.Write(resData)
 		case "new-conn-request":
-			newcmd := utils.DeSerializeData(cmd.Data, &NewConnCreateRequestMessage{})
-			serverSubConn, err := CreateNewConnToServer()
+
+			newcmd := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})
+			newServerSubConn, err := CreateNewConnToServer()
 			if err != nil {
 				continue
 			}
 			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
 			if err != nil {
-				serverSubConn.Write(utils.SerilizeData(ResponseToServer{Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id,Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				continue
 			}
-			hm := HelloMessage{Type:"sub",ConnId: newcmd.ConnId}
-			hm.Client.Name = config.Config.Client.Name
-			serverSubConn.Write(utils.SerilizeData(hm))
-			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId}))
+			hello := common.HelloMessage{Type: "sub", ConnId: newcmd.ConnId}
+			hello.Client.Name = config.Config.Client.Name
+			newServerSubConn.Write(utils.SerilizeData(hello))   // hello to server
+			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId}))       // 是否还需要通知？，可能会降低性能
 			serverConnSet[newcmd.ConnId] = localConn
-			TransForConnData(localConn, serverSubConn)
+			TransForConnData(localConn, newServerSubConn)
 		}
 	}
 

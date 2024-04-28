@@ -8,6 +8,7 @@ import (
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	"github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core"
+	"github.com/Brandon-lz/tcp-transfor/common"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
@@ -17,9 +18,9 @@ func CommunicateToServer() {
 		log.Printf("Failed to create main connection to server: %v\n", utils.WrapErrorLocation(err))
 		os.Exit(1)
 	}
-	sayHelloToServer(serverConn)
+	sayHelloToServer(serverConn)         // establish connection with server
+	
 	core.ListenServerCmd(serverConn)
-
 }
 
 // type HelloMessage struct {
@@ -39,10 +40,9 @@ func CommunicateToServer() {
 // }
 
 func sayHelloToServer(serverConn net.Conn) {
-	var hello core.HelloMessage
+	var hello common.HelloMessage
 
 	utils.DeSerializeData(config.Config, &hello)
-	hello.Type = "main"
 	// 发送数据
 	_, err := serverConn.Write(utils.SerilizeData(hello))
 	if err != nil {
@@ -57,7 +57,7 @@ func sayHelloToServer(serverConn net.Conn) {
 		os.Exit(1)
 	}
 
-	var helloRecv core.HelloRecv
+	var helloRecv common.HelloRecv
 	utils.DeSerializeData(msgdata, &helloRecv)
 
 	log.Printf("Received message from server: %s\n", msgdata)

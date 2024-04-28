@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/Brandon-lz/tcp-transfor/server/config"
+	toclient "github.com/Brandon-lz/tcp-transfor/server/to_client"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
@@ -15,6 +16,7 @@ func main(){
     defer initLog().Close()
 	defer utils.RecoverAndLog()
     config.LoadConfig()
+    toclient.ListenClientConn()
 
 }
 
