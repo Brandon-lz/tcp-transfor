@@ -2,16 +2,21 @@ package toclient
 
 import (
 	"fmt"
+	"log"
 	"net"
+	"time"
+
+	"github.com/Brandon-lz/tcp-transfor/common"
+	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
 var ClientSet = make(map[string]*Client)
 
 type Client struct {
-	Name string `json:"name"`
-	Conn net.Conn
+	Name    string `json:"name"`
+	Conn    net.Conn
 	SubConn map[int]net.Conn
-	Map  []struct {
+	Map     []struct {
 		LocalPort  int `json:"local-port"`
 		ServerPort int `json:"server-port"`
 	} `json:"map"`
@@ -42,6 +47,13 @@ func AddNewClient(client *Client) error {
 	return nil
 }
 
+func RemoveClient(name string) error {
+	if _, ok := ClientSet[name]; ok {
+		delete(ClientSet, name)
+		return nil
+	}
+	return fmt.Errorf("Client name not found")
+}
 
 func getClientByName(name string) (*Client, error) {
 	if _, ok := ClientSet[name]; ok {
@@ -59,4 +71,33 @@ func getClientByClientPort(clientPort int) (*Client, error) {
 		}
 	}
 	return nil, fmt.Errorf("Client Conn not found")
+}
+
+func CheckClientAlive() {
+	defer utils.RecoverAndLog()
+	for {
+		time.Sleep(1 * time.Second)
+		for _, c := range ClientSet {
+			isDisconnect := false
+			if err := c.Conn.SetWriteDeadline(time.Now().Add(2 * time.Second)); err != nil {
+				isDisconnect = true
+			}
+			if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+				isDisconnect = true
+			}
+			if isDisconnect {
+				fmt.Println("Client ", c.Name, " disconnected")
+				for _, ccm := range CCMList {
+					if ccm.ClientName == c.Name {
+						ccm.Quit <- true
+						delete(CCMList, ccm.ClientName)
+					}
+				}
+				defer c.Conn.Close()
+				delete(ClientSet, c.Name)
+			}
+		}
+
+		log.Println("keep alive")
+	}
 }

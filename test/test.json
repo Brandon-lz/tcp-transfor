@@ -1,0 +1,25 @@
+{
+    "type": "",
+    "client": {
+        "name": "ubuntu1"
+    },
+    "map": [
+        {
+            "local-port": 9090,
+            "server-port": 9090
+        }
+    ],
+    "conn-id": 0
+}{
+    "type": "",
+    "client": {
+        "name": "ubuntu1"
+    },
+    "map": [
+        {
+            "local-port": 9090,
+            "server-port": 9090
+        }
+    ],
+    "conn-id": 0
+}

@@ -11,3 +11,185 @@
 2024/04/24 15:08:16 Forwarding from 0.0.0.0:9090 to localhost:8080
 2024/04/24 15:08:22 Starting data forwarding
 2024/04/24 15:08:22 Starting data forwarding
+2024/04/28 03:05:05 Forwarding from 0.0.0.0:9090 to localhost:8080
+2024/04/28 03:14:24 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:14:24 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:15:25 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:15:25 Connected to server
+2024/04/28 03:15:25 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:15:51 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:15:51 Connected to server
+2024/04/28 03:15:51 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:16:24 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:16:24 Connected to server
+2024/04/28 03:16:24 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:16:56 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:16:56 Connected to server
+2024/04/28 03:16:56 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:17:02 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:17:02 Connected to server
+2024/04/28 03:17:02 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:18:06 111111111 
+2024/04/28 03:18:06 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:18:53 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:18:53 Connected to server
+2024/04/28 03:18:53 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:19:48 111111111 
+2024/04/28 03:19:48 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:19:51 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:19:51 Connected to server
+2024/04/28 03:19:51 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:20:42 111111111 
+2024/04/28 03:20:42 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:20:45 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:20:45 Connected to server
+2024/04/28 03:20:45 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:21:41 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:21:41 Connected to server
+2024/04/28 03:21:41 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:23:32 111111111 
+2024/04/28 03:23:32 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:24:38 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:24:38 Connected to server
+2024/04/28 03:24:38 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:29:22 111111111 
+2024/04/28 03:29:22 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:29:26 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:29:26 Connected to server
+2024/04/28 03:29:26 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:29:50 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:29:50 Connected to server
+2024/04/28 03:29:50 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:30:32 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:30:32 Connected to server
+2024/04/28 03:30:32 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:34:30 111111111 
+2024/04/28 03:34:30 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:34:33 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:34:33 Connected to server
+2024/04/28 03:34:33 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:35:35 111111111 
+2024/04/28 03:35:35 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:35:38 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:35:38 Connected to server
+2024/04/28 03:35:38 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:37:29 111111111 
+2024/04/28 03:37:29 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:37:34 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:37:34 Connected to server
+2024/04/28 03:37:34 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:41:20 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:41:20 Connected to server
+2024/04/28 03:41:20 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:41:20 111111111 
+2024/04/28 03:41:20 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:42:09 111111111 {"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}],"server":{"host":"127.0.0.1:8080"}}
+2024/04/28 03:42:09 Connected to server
+2024/04/28 03:42:09 111111111 {"server":{"host":"127.0.0.1:8080"},"client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9090}]}
+2024/04/28 03:42:09 111111111 
+2024/04/28 03:42:09 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:26 
+	unexpected end of JSON input
+2024/04/28 03:43:20 Connected to server
+2024/04/28 03:43:20 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 03:45:03 Connected to server
+2024/04/28 04:32:45 Connected to server
+2024/04/28 04:32:45 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:38:15 Connected to server
+2024/04/28 04:38:15 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 04:38:15 Failed to init with server
+2024/04/28 04:39:59 Connected to server
+2024/04/28 04:40:11 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:40:16 Connected to server
+2024/04/28 04:40:16 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:41:42 Connected to server
+2024/04/28 04:41:42 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 04:41:42 Failed to init with server
+2024/04/28 04:48:17 Connected to server
+2024/04/28 04:48:17 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:48:50 Connected to server
+2024/04/28 04:48:50 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:50:20 Connected to server
+2024/04/28 04:50:20 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:51:03 Connected to server
+2024/04/28 04:51:03 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:51:20 Connected to server
+2024/04/28 04:51:20 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:53:42 Connected to server
+2024/04/28 04:53:42 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:54:16 Connected to server
+2024/04/28 04:54:16 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:54:33 Connected to server
+2024/04/28 04:54:33 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:55:03 Connected to server
+2024/04/28 04:55:03 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:55:21 Connected to server
+2024/04/28 04:55:21 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:56:29 Connected to server
+2024/04/28 04:57:26 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:57:31 Connected to server
+2024/04/28 04:57:48 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	unexpected end of JSON input
+2024/04/28 04:57:52 Connected to server
+2024/04/28 05:01:00 Connected to server
+2024/04/28 05:01:00 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 05:01:00 Failed to init with server
+2024/04/28 05:07:50 Connected to server
+2024/04/28 05:07:50 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 05:07:50 Failed to init with server
+2024/04/28 05:08:17 Connected to server
+2024/04/28 05:08:17 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 05:08:17 Failed to init with server
+2024/04/28 05:08:47 Connected to server
+2024/04/28 05:13:30 Connected to server
+2024/04/28 05:13:38 Connected to server
+2024/04/28 05:13:38 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 05:13:38 Failed to init with server
+2024/04/28 05:15:14 Connected to server
+2024/04/28 05:17:34 Received message from server: {"id":0,"type":"ping","data":null}
+2024/04/28 05:17:34 Failed to init with server
+2024/04/28 05:17:49 Connected to server
+2024/04/28 05:17:57 Connected to server
+2024/04/28 05:26:37 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	invalid character '{' after top-level value
+2024/04/28 05:26:41 Connected to server
+2024/04/28 05:26:47 Connected to server
+2024/04/28 05:27:33 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	invalid character '{' after top-level value
+2024/04/28 05:27:36 Connected to server
+2024/04/28 05:27:43 JSON反序列化失败: error occurred at /workspace/tcp-transfor/utils/deserilize.go:25 
+	invalid character '{' after top-level value
+2024/04/28 05:27:53 Connected to server
+2024/04/28 05:28:57 Connected to server
+2024/04/28 05:29:20 Connected to server
+2024/04/28 05:30:39 Connected to server
+2024/04/28 05:33:10 Connected to server
+2024/04/28 05:33:19 Connected to server
+2024/04/28 05:33:26 Connected to server
+2024/04/28 05:33:26 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/04/28 05:33:26 Failed to init with server
+2024/04/28 05:34:01 Connected to server
+2024/04/28 05:34:36 Connected to server

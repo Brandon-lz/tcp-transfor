@@ -22,6 +22,7 @@ func CreateNewConnToServer() (net.Conn, error) {
 		log.Printf("Failed to connect to server: %v\n", utils.WrapErrorLocation(err))
 		return nil, utils.WrapErrorLocation(err)
 	}
+	log.Println("Connected to server")
 	return serverConn, nil
 }
 
@@ -66,3 +67,5 @@ trans:
 	}
 
 }
+
+

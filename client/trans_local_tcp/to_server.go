@@ -1,6 +1,7 @@
 package translocaltcp
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -19,7 +20,11 @@ func CommunicateToServer() {
 		os.Exit(1)
 	}
 	sayHelloToServer(serverConn)         // establish connection with server
-	
+
+	log.Printf("success establish connection with server")
+
+	// go core.KeepAlive(serverConn)
+
 	core.ListenServerCmd(serverConn)
 }
 
@@ -43,6 +48,7 @@ func sayHelloToServer(serverConn net.Conn) {
 	var hello common.HelloMessage
 
 	utils.DeSerializeData(config.Config, &hello)
+	hello.Type = "main"
 	// 发送数据
 	_, err := serverConn.Write(utils.SerilizeData(hello))
 	if err != nil {
@@ -50,12 +56,15 @@ func sayHelloToServer(serverConn net.Conn) {
 		os.Exit(1)
 	}
 
+
 	// 接收数据
 	msgdata, err := io.ReadAll(serverConn)
 	if err != nil {
 		log.Printf("Failed to communicate with server: %v\n", err)
 		os.Exit(1)
 	}
+
+	fmt.Println(3333333333333,msgdata)
 
 	var helloRecv common.HelloRecv
 	utils.DeSerializeData(msgdata, &helloRecv)

@@ -1,0 +1,493 @@
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab4d8, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:65 +0x33b
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab4d8, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:65 +0x33b
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000120378?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000120360?}, 0xc000120348?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab4d8, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:65 +0x33b
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab4d8, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:65 +0x33b
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab4d8, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:65 +0x33b
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab518, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:73 +0x493
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab518, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:73 +0x493
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc00019a378?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc00019a360?}, 0xc00019a348?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab518, 0xc000194168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:73 +0x493
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab518, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:73 +0x493
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5491e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x5404c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:27 +0x29f
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5ab518, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:73 +0x493
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:73 +0x493
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000012390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012378?}, 0xc000012360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa438, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:68 +0x365
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa418, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：unexpected end of JSON input
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa498, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:66 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：invalid character '{' after top-level value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa4b8, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:70 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：invalid character '{' after top-level value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc000120390?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000120378?}, 0xc000120360?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa4b8, 0xc00011a168})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:70 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+
+未知异常：invalid character '{' after top-level value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/home/gitpod/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspace/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5481e0?, 0xc0000123a8?})
+	/home/gitpod/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53f4c0, 0xc000012390?}, 0xc000012378?)
+	/workspace/tcp-transfor/utils/deserilize.go:26 +0x1c7
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer({0x5aa4b8, 0xc000070170})
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:70 +0x34c
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 +0xd5
+main.main()
+	/workspace/tcp-transfor/client/main.go:22 +0x5a
+

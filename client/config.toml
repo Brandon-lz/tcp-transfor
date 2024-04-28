@@ -8,6 +8,6 @@ name = "ubuntu1"            # 全局唯一的客户端名称
 local-port = 9090
 server-port = 9090
 
-[[map]]
-local-port = 9091
-server-port = 9091
+# [[map]]
+# local-port = 9091
+# server-port = 9091

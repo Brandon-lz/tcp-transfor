@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"strings"
 	"sync"
 	"time"
 
@@ -26,18 +27,21 @@ func ListenClientConn() {
 		conn, err := listener.Accept() // new client main conn or sub conn
 		if err != nil {
 			log.Printf("Failed to accept connection: %v", err)
+			if strings.Contains(err.Error(), "use of closed network connection") {
+				return
+			}
 			continue
 		}
-
+		log.Printf("New client conn from %s", conn.RemoteAddr())
 		go startCmdToClient(conn)
 	}
 }
 
-var CCMList map[string]*clientConnManager
+var CCMList = make(map[string]*clientConnManager)
 
 type ConnCouple struct {
-	UserConn      *net.Conn
-	ClientSubConn *net.Conn
+	UserConn      net.Conn
+	ClientSubConn net.Conn
 	Id            int
 }
 
@@ -47,6 +51,7 @@ type clientConnManager struct {
 	ClientSubConnWithId map[int]net.Conn
 	clientSubConnIdSet  map[int]struct{}
 	clientSubConnIdLock sync.Mutex
+	Quit                chan bool
 }
 
 func (cm *clientConnManager) getNewConnId() int {
@@ -69,36 +74,49 @@ func (cm *clientConnManager) delConnId(id int) {
 }
 
 func startCmdToClient(clientConn net.Conn) {
+	log.Printf("New client conn from %s", clientConn.RemoteAddr())
+
 	defer utils.RecoverAndLog()
 	defer clientConn.Close()
 	// clientName := clientConn.RemoteAddr().String()
-
 	for {
-		hellodata, err := io.ReadAll(clientConn)
+		log.Println("wait for hello message from client")
+
+		hellodata, err := common.ReadConn(clientConn)
+		// hellodata, err := io.ReadAll(clientConn)
 		if err != nil {
 			log.Printf("Failed to read hello message from client: %v", err)
 			return
 		}
 
+		log.Println("receive hello message from client: ", string(hellodata))
+
 		hello := utils.DeSerializeData(hellodata, &common.HelloMessage{})
 		switch hello.Type {
 		case "main":
+
 			if err := AddNewClient(&Client{Name: hello.Client.Name, Conn: clientConn, Map: hello.Map}); err != nil {
-				clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: fmt.Sprintf("client hello faild:%v", err)}))
+				hrc := utils.SerilizeData(&common.HelloRecv{Code: 500, Msg: fmt.Sprintf("client hello faild:%v", err)})
+
+				clientConn.Write(hrc)
 				return
 			}
+
 			// create new client conn manager
 			ccm := clientConnManager{
 				ClientConn:          clientConn,
 				ClientSubConnWithId: make(map[int]net.Conn),
 				clientSubConnIdSet:  make(map[int]struct{}),
 				clientSubConnIdLock: sync.Mutex{},
+				Quit:                make(chan bool),
 			}
+
 			ccm.ClientName = hello.Client.Name
 
 			CCMList[hello.Client.Name] = &ccm
 
 			// create new listener to client map port for listen user request
+			log.Println("listen on client map port")
 			var listen_fail = make(chan bool)
 			var wg = sync.WaitGroup{}
 
@@ -115,6 +133,7 @@ func startCmdToClient(clientConn net.Conn) {
 				return
 			default:
 				// finally success
+				log.Printf("success listen on client %s map port ", hello.Client.Name)
 				clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
 			}
 			close(listen_fail)
@@ -123,7 +142,8 @@ func startCmdToClient(clientConn net.Conn) {
 
 			ccm := CCMList[hello.Client.Name]
 			ccm.ClientSubConnWithId[hello.ConnId] = clientConn
-			
+		case "ping":
+
 		}
 	}
 }
@@ -138,52 +158,58 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 	}
 	defer listener.Close()
 
-	for {
-		userConn, err := listener.Accept()
-		if err != nil {
-			log.Printf("Failed to accept connection: %v", err)
-			continue
-		}
-		// new conn to server
-		connId := ccm.getNewConnId()
-		if err := cmdToClientGetNewConn(ccm.ClientConn, connId, clientLocalPort, listenPort); err != nil {
-			log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
-			return
-		}
-
-		// wait new conn from client .....
+	log.Printf("New listener on %s:%d", ccm.ClientName, listenPort)
+	go func() {
+		defer utils.RecoverAndLog()
 		for {
-			if newSubConn,ok:= ccm.ClientSubConnWithId[connId];ok{
-				go TransForConnData(userConn, newSubConn,connId,ccm)
-				break
-			}else{
-				time.Sleep(20*time.Microsecond)
+			userConn, err := listener.Accept()
+			if err != nil {
+				log.Printf("Failed to accept connection: %v", err)
+				if strings.Contains(err.Error(), "use of closed network connection") {
+					return
+				}
+				continue
 			}
+			// new conn to server
+			connId := ccm.getNewConnId()
+			if err := cmdToClientGetNewConn(ccm.ClientConn, connId, clientLocalPort, listenPort); err != nil {
+				log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
+				return
+			}
+
+			// wait new conn from client .....
+			for {
+				if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
+					go TransForConnData(userConn, newSubConn, connId, ccm)
+					break
+				} else {
+					time.Sleep(20 * time.Microsecond)
+				}
+			}
+
+			// cmd to client to get a new conn with client
+			// client, err := getClientByName(hello.Client.Name)
+			// if err != nil {
+			// 	log.Printf("Failed to get client conn: %v", utils.WrapErrorLocation(err, "getClientByName"))
+			// 	return err
+			// }
+
+			// wait new conn from client
+
 		}
-		
+	}()
 
-		// cmd to client to get a new conn with client
-		// client, err := getClientByName(hello.Client.Name)
-		// if err != nil {
-		// 	log.Printf("Failed to get client conn: %v", utils.WrapErrorLocation(err, "getClientByName"))
-		// 	return err
-		// }
+	// } // wait for quit
+	<-ccm.Quit
+	log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
 
-		// wait new conn from client
-
-	}
 }
 
-
-
-
-
-func TransForConnData(src net.Conn, dst net.Conn, connid int,ccm *clientConnManager) {
+func TransForConnData(src net.Conn, dst net.Conn, connid int, ccm *clientConnManager) {
 	defer utils.RecoverAndLog()
 	defer ccm.delConnId(connid)
 	defer src.Close()
 	defer dst.Close()
-
 
 	quit := make(chan bool)
 	go func() {

@@ -35,7 +35,7 @@ func ListenServerCmd(serverConn net.Conn) {
 			resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			serverConn.Write(resData)
 		case "new-conn-request":
-
+			log.Println("Received new connection request from server")
 			newcmd := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})
 			newServerSubConn, err := CreateNewConnToServer()
 			if err != nil {
@@ -43,13 +43,13 @@ func ListenServerCmd(serverConn net.Conn) {
 			}
 			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
 			if err != nil {
-				newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id,Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				continue
 			}
 			hello := common.HelloMessage{Type: "sub", ConnId: newcmd.ConnId}
 			hello.Client.Name = config.Config.Client.Name
-			newServerSubConn.Write(utils.SerilizeData(hello))   // hello to server
-			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId}))       // 是否还需要通知？，可能会降低性能
+			newServerSubConn.Write(utils.SerilizeData(hello))                                                                     // hello to server
+			serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
 			serverConnSet[newcmd.ConnId] = localConn
 			TransForConnData(localConn, newServerSubConn)
 		}

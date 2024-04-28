@@ -18,7 +18,9 @@ func main(){
 
     config.LoadConfig()
 
-    translocaltcp.Start()
+    // translocaltcp.Start()
+    translocaltcp.CommunicateToServer()
+
 
 }
 

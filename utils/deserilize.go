@@ -20,7 +20,6 @@ func DeSerializeData[T interface{}](source any, target *T) T { // target必须�
             panic(err)
         }
     }
-
     err = json.Unmarshal(jsonData, target)
     if err != nil {
         log.Printf("JSON反序列化失败: %s", WrapErrorLocation(err))

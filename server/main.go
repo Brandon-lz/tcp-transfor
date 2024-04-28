@@ -16,6 +16,7 @@ func main(){
     defer initLog().Close()
 	defer utils.RecoverAndLog()
     config.LoadConfig()
+    go toclient.CheckClientAlive()
     toclient.ListenClientConn()
 
 }

@@ -1,6 +1,8 @@
 package config
 
 import (
+	"log"
+
 	"github.com/Brandon-lz/tcp-transfor/utils"
 	"github.com/BurntSushi/toml"
 )
@@ -18,4 +20,5 @@ func LoadConfig() {
 		panic(err)
 	}
 	utils.DeSerializeData(configData, &Config)
+	log.Printf("success load config from %s",utils.PrintDataAsJson(Config))
 }

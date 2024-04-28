@@ -16,7 +16,7 @@ func cmdToClientGetNewConn(clientConn net.Conn, connId, LocalPort, ServerPort in
 			ServerPort: ServerPort,
 		},
 	}))
-	if err!= nil {
+	if err != nil {
 		return err
 	}
 	return nil
