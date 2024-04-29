@@ -187,7 +187,8 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			timeoutCount := 0
 			for {
 				if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
-					go TransForConnData(userConn, newSubConn, connId, ccm)
+					// go TransForConnData(userConn, newSubConn, connId, ccm)
+					go common.TransForConnData(userConn, newSubConn)
 					break
 				} else {
 					timeoutCount++
@@ -198,15 +199,6 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 					break
 				}
 			}
-
-			// cmd to client to get a new conn with client
-			// client, err := getClientByName(hello.Client.Name)
-			// if err != nil {
-			// 	log.Printf("Failed to get client conn: %v", utils.WrapErrorLocation(err, "getClientByName"))
-			// 	return err
-			// }
-
-			// wait new conn from client
 
 		}
 	}()
@@ -223,49 +215,59 @@ func TransForConnData(src net.Conn, dst net.Conn, connid int, ccm *clientConnMan
 	defer src.Close()
 	defer dst.Close()
 
+	defer log.Println("tcp channel exit")
 
-	quit := make(chan bool)
+	// quit := make(chan bool)
 	go func() {
 		defer utils.RecoverAndLog(func(err error) {
-			quit <- true
+			// quit <- true
 		})
 		for {
-			// _, err := io.Copy(dst, src)
-			src.SetDeadline(time.Now().Add(8 * time.Hour))
-			dst.SetDeadline(time.Now().Add(8 * time.Hour))
-			data, err := common.ReadConn(src)
-			if err != nil {
-				panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", src.RemoteAddr(), dst.RemoteAddr(), utils.WrapErrorLocation(err)))
-			}
-			if len(data) == 0 {
-				log.Println("receive empty data from client, close conn")
-				break
-			}
-			_, err = dst.Write(data)
+			// src.SetDeadline(time.Now().Add(8 * time.Hour))
+			// if count < 9600 {
+			// 	userConn.SetReadDeadline(time.Now().Add(time.Duration(count) * 3 * time.Second))
+			// } else {
+			// 	userConn.SetDeadline(time.Now().Add(8 * time.Hour))
+			// }
 
+			_, err := io.Copy(dst, src)
+
+			// data, err := common.ReadConn(userConn)
+			// if err != nil {
+			// 	panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", userConn.RemoteAddr(), dst.RemoteAddr(), utils.WrapErrorLocation(err)))
+			// }
+			// if len(data) == 0 {
+			// 	log.Println("receive empty data from client, close conn")
+			// 	break
+			// }
+			// _, err = dst.Write(data)
 
 			if err != nil {
 				panic(fmt.Errorf("Failed to write data to %s: %v\n", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
 			}
-
 		}
 	}()
+	count := 1
 
-trans:
+	// trans:
 	for {
-		select {
-		case <-quit:
-			break trans
-		default:
+		// select {
+		// case <-quit:
+		// break trans
+		// default:
+		// src.SetDeadline(time.Now().Add(8 * time.Hour))
+		// dst.SetDeadline(time.Now().Add(8 * time.Hour))
+		if count < 9600 {
+			src.SetReadDeadline(time.Now().Add(time.Duration(count*config.Config.Timeout) * time.Second))
+		} else {
 			src.SetDeadline(time.Now().Add(8 * time.Hour))
-			dst.SetDeadline(time.Now().Add(8 * time.Hour))
-			_, err := io.Copy(src, dst)
-			if err != nil {
-				panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
-			}
 		}
+
+		count++
+		_, err := io.Copy(src, dst)
+		if err != nil {
+			panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
+		}
+		// }
 	}
-
-	log.Println("111111111111111111111 exit")
-
 }

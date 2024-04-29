@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	translocaltcp "github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp"
@@ -19,9 +20,10 @@ func main(){
     config.LoadConfig()
 
     // translocaltcp.Start()
-    translocaltcp.CommunicateToServer()
-
-
+    for {
+        translocaltcp.CommunicateToServer()
+        time.Sleep(time.Second * 2)
+    }
 }
 
 func initLog() *os.File {

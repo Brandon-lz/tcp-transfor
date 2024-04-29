@@ -1,9 +1,11 @@
 package translocaltcp
 
 import (
+	// "fmt"
 	"log"
 	"net"
-	"os"
+
+	// "os"
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	"github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core"
@@ -12,19 +14,25 @@ import (
 )
 
 func CommunicateToServer() {
+	defer utils.RecoverAndLog(func(err error) {
+		log.Printf("Error occurred in CommunicateToServer: %v\n", utils.WrapErrorLocation(err))
+	})
 	serverConn, err := core.CreateNewConnToServer()
 	if err != nil {
 		log.Printf("Failed to create main connection to server: %v\n", utils.WrapErrorLocation(err))
-		os.Exit(1)
+		return
 	}
 
-	sayHelloToServer(serverConn) // establish connection with server
-
+	err = sayHelloToServer(serverConn) // establish connection with server
+	if err != nil {
+		log.Printf("Failed to say hello to server: %v\n", utils.WrapErrorLocation(err))
+		return
+	}
 	log.Printf("success establish connection with server")
 
 	// go core.KeepAlive(serverConn)
-
 	core.ListenServerCmd(serverConn)
+
 }
 
 // type HelloMessage struct {
@@ -43,15 +51,14 @@ func CommunicateToServer() {
 // 	Msg  string `json:"msg"`
 // }
 
-func sayHelloToServer(serverConn net.Conn) {
+func sayHelloToServer(serverConn net.Conn) error {
 	var hello = common.HelloMessage{Type: "main"}
 
 	utils.DeSerializeData(config.Config, &hello)
 	// 发送数据
 	_, err := serverConn.Write(utils.SerilizeData(hello))
 	if err != nil {
-		log.Printf("Failed to communicate with server: %v\n", err)
-		os.Exit(1)
+		return utils.WrapErrorLocation(err)
 	}
 
 	log.Println("Sent hello message to server")
@@ -59,8 +66,7 @@ func sayHelloToServer(serverConn net.Conn) {
 
 	msgdata, err := common.ReadConn(serverConn)
 	if err != nil {
-		log.Printf("Failed to communicate with server: %v\n", err)
-		os.Exit(1)
+		return utils.WrapErrorLocation(err)
 	}
 
 	var helloRecv common.HelloRecv
@@ -68,7 +74,9 @@ func sayHelloToServer(serverConn net.Conn) {
 
 	log.Printf("Received message from server: %s\n", msgdata)
 	if helloRecv.Code != 200 {
-		log.Printf("Failed to init with server\n")
-		os.Exit(1)
+		// log.Printf("Failed to init with server\n")
+		// os.Exit(1)
+		return utils.WrapErrorLocation(err)
 	}
+	return nil
 }

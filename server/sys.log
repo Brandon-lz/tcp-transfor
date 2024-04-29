@@ -207,3 +207,1009 @@
 2024/04/28 10:05:00 wait for hello message from client
 2024/04/28 10:05:00 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
 2024/04/28 10:05:00 444444444444444
+2024/04/29 01:27:27 success load config from {"Port":8080}
+2024/04/29 01:27:27 Server is listening on port:  8080
+2024/04/29 01:27:33 New client conn from 127.0.0.1:45084
+2024/04/29 01:27:33 New client conn from 127.0.0.1:45084
+2024/04/29 01:27:33 wait for hello message from client
+2024/04/29 01:27:33 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:27:33 listen on client map port
+2024/04/29 01:27:33 New listener on ubuntu1:9091
+2024/04/29 01:27:33 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:27:47 new user conn 
+2024/04/29 01:27:47 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:27:47 success get new conn to client id: 0
+2024/04/29 01:27:47 New client conn from 127.0.0.1:55226
+2024/04/29 01:27:47 New client conn from 127.0.0.1:55226
+2024/04/29 01:27:47 wait for hello message from client
+2024/04/29 01:27:47 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:27:56 new user conn 
+2024/04/29 01:27:56 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:27:56 success get new conn to client id: 1
+2024/04/29 01:27:56 New client conn from 127.0.0.1:57590
+2024/04/29 01:27:56 New client conn from 127.0.0.1:57590
+2024/04/29 01:27:56 wait for hello message from client
+2024/04/29 01:27:56 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:27:56 new user conn 
+2024/04/29 01:27:56 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:27:56 success get new conn to client id: 2
+2024/04/29 01:27:56 New client conn from 127.0.0.1:57606
+2024/04/29 01:27:56 New client conn from 127.0.0.1:57606
+2024/04/29 01:27:56 wait for hello message from client
+2024/04/29 01:27:56 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:27:57 new user conn 
+2024/04/29 01:27:57 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":3,"local-port":9090,"server-port":9091}}
+2024/04/29 01:27:57 success get new conn to client id: 3
+2024/04/29 01:27:57 New client conn from 127.0.0.1:57618
+2024/04/29 01:27:57 New client conn from 127.0.0.1:57618
+2024/04/29 01:27:57 wait for hello message from client
+2024/04/29 01:27:57 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":3}
+2024/04/29 01:27:58 new user conn 
+2024/04/29 01:27:58 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":4,"local-port":9090,"server-port":9091}}
+2024/04/29 01:27:58 success get new conn to client id: 4
+2024/04/29 01:27:58 New client conn from 127.0.0.1:57630
+2024/04/29 01:27:58 New client conn from 127.0.0.1:57630
+2024/04/29 01:27:58 wait for hello message from client
+2024/04/29 01:27:58 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":4}
+2024/04/29 01:27:59 new user conn 
+2024/04/29 01:27:59 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":5,"local-port":9090,"server-port":9091}}
+2024/04/29 01:27:59 success get new conn to client id: 5
+2024/04/29 01:27:59 New client conn from 127.0.0.1:59696
+2024/04/29 01:27:59 New client conn from 127.0.0.1:59696
+2024/04/29 01:27:59 wait for hello message from client
+2024/04/29 01:27:59 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":5}
+2024/04/29 01:28:00 new user conn 
+2024/04/29 01:28:00 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":6,"local-port":9090,"server-port":9091}}
+2024/04/29 01:28:00 success get new conn to client id: 6
+2024/04/29 01:28:00 New client conn from 127.0.0.1:59698
+2024/04/29 01:28:00 New client conn from 127.0.0.1:59698
+2024/04/29 01:28:00 wait for hello message from client
+2024/04/29 01:28:00 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":6}
+2024/04/29 01:29:52 success load config from {"Port":8080}
+2024/04/29 01:29:52 Server is listening on port:  8080
+2024/04/29 01:29:54 New client conn from 127.0.0.1:46312
+2024/04/29 01:29:54 New client conn from 127.0.0.1:46312
+2024/04/29 01:29:54 wait for hello message from client
+2024/04/29 01:29:54 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:29:54 listen on client map port
+2024/04/29 01:29:54 New listener on ubuntu1:9091
+2024/04/29 01:29:54 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:33:12 new user conn 
+2024/04/29 01:33:12 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:33:12 success get new conn to client id: 0
+2024/04/29 01:33:12 New client conn from 127.0.0.1:43558
+2024/04/29 01:33:12 New client conn from 127.0.0.1:43558
+2024/04/29 01:33:12 wait for hello message from client
+2024/04/29 01:33:12 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:33:14 new user conn 
+2024/04/29 01:33:14 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:33:14 success get new conn to client id: 1
+2024/04/29 01:33:14 New client conn from 127.0.0.1:43572
+2024/04/29 01:33:14 New client conn from 127.0.0.1:43572
+2024/04/29 01:33:14 wait for hello message from client
+2024/04/29 01:33:14 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:33:14 new user conn 
+2024/04/29 01:33:14 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:33:14 success get new conn to client id: 2
+2024/04/29 01:33:14 New client conn from 127.0.0.1:43580
+2024/04/29 01:33:14 New client conn from 127.0.0.1:43580
+2024/04/29 01:33:14 wait for hello message from client
+2024/04/29 01:33:14 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:41:43 success load config from {"Port":8080}
+2024/04/29 01:41:43 Server is listening on port:  8080
+2024/04/29 01:41:45 New client conn from 127.0.0.1:46196
+2024/04/29 01:41:45 New client conn from 127.0.0.1:46196
+2024/04/29 01:41:45 wait for hello message from client
+2024/04/29 01:41:45 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:41:45 listen on client map port
+2024/04/29 01:41:45 New listener on ubuntu1:9091
+2024/04/29 01:41:45 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:41:52 success load config from {"Port":8080}
+2024/04/29 01:41:52 Server is listening on port:  8080
+2024/04/29 01:41:52 New client conn from 127.0.0.1:47522
+2024/04/29 01:41:52 New client conn from 127.0.0.1:47522
+2024/04/29 01:41:52 wait for hello message from client
+2024/04/29 01:41:52 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:41:52 listen on client map port
+2024/04/29 01:41:52 New listener on ubuntu1:9091
+2024/04/29 01:41:52 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:43:37 listener on ubuntu1:9091 quit
+2024/04/29 01:43:37 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:43:51 New client conn from 127.0.0.1:58872
+2024/04/29 01:43:51 New client conn from 127.0.0.1:58872
+2024/04/29 01:43:51 wait for hello message from client
+2024/04/29 01:43:51 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:43:51 listen on client map port
+2024/04/29 01:43:51 New listener on ubuntu1:9091
+2024/04/29 01:43:51 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:43:59 new user conn 
+2024/04/29 01:43:59 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:43:59 success get new conn to client id: 0
+2024/04/29 01:43:59 New client conn from 127.0.0.1:58878
+2024/04/29 01:43:59 New client conn from 127.0.0.1:58878
+2024/04/29 01:43:59 wait for hello message from client
+2024/04/29 01:43:59 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:44:01 读取响应失败: read tcp 10.0.5.2:9091->192.168.129.15:39330: i/o timeout
+2024/04/29 01:44:07 new user conn 
+2024/04/29 01:44:07 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:44:07 success get new conn to client id: 1
+2024/04/29 01:44:07 New client conn from 127.0.0.1:54474
+2024/04/29 01:44:07 New client conn from 127.0.0.1:54474
+2024/04/29 01:44:07 wait for hello message from client
+2024/04/29 01:44:07 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:44:08 new user conn 
+2024/04/29 01:44:08 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:44:08 success get new conn to client id: 2
+2024/04/29 01:44:08 New client conn from 127.0.0.1:54486
+2024/04/29 01:44:08 New client conn from 127.0.0.1:54486
+2024/04/29 01:44:08 wait for hello message from client
+2024/04/29 01:44:08 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:44:09 读取响应失败: read tcp 10.0.5.2:9091->192.168.129.15:49380: i/o timeout
+2024/04/29 01:44:10 读取响应失败: read tcp 10.0.5.2:9091->192.168.129.15:49386: i/o timeout
+2024/04/29 01:44:57 111111111111111111111 exit
+2024/04/29 01:44:57 111111111111111111111 exit
+2024/04/29 01:44:57 111111111111111111111 exit
+2024/04/29 01:44:58 listener on ubuntu1:9091 quit
+2024/04/29 01:44:58 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:44:58 New client conn from 127.0.0.1:53826
+2024/04/29 01:44:58 New client conn from 127.0.0.1:53826
+2024/04/29 01:44:58 wait for hello message from client
+2024/04/29 01:44:58 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:44:58 listen on client map port
+2024/04/29 01:44:58 New listener on ubuntu1:9091
+2024/04/29 01:44:58 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:45:09 new user conn 
+2024/04/29 01:45:09 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:45:09 success get new conn to client id: 0
+2024/04/29 01:45:09 New client conn from 127.0.0.1:40666
+2024/04/29 01:45:09 New client conn from 127.0.0.1:40666
+2024/04/29 01:45:09 wait for hello message from client
+2024/04/29 01:45:09 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:45:11 读取响应失败: read tcp 10.0.5.2:9091->192.168.129.15:43638: i/o timeout
+2024/04/29 01:45:15 new user conn 
+2024/04/29 01:45:15 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:45:15 success get new conn to client id: 1
+2024/04/29 01:45:15 New client conn from 127.0.0.1:40678
+2024/04/29 01:45:15 New client conn from 127.0.0.1:40678
+2024/04/29 01:45:15 wait for hello message from client
+2024/04/29 01:45:15 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:45:17 读取响应失败: read tcp 10.0.5.2:9091->192.168.129.15:44166: i/o timeout
+2024/04/29 01:45:28 111111111111111111111 exit
+2024/04/29 01:45:28 111111111111111111111 exit
+2024/04/29 01:45:30 listener on ubuntu1:9091 quit
+2024/04/29 01:45:30 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:47:13 success load config from {"Port":8080}
+2024/04/29 01:47:13 Server is listening on port:  8080
+2024/04/29 01:47:15 New client conn from 127.0.0.1:41164
+2024/04/29 01:47:15 New client conn from 127.0.0.1:41164
+2024/04/29 01:47:15 wait for hello message from client
+2024/04/29 01:47:15 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:47:15 listen on client map port
+2024/04/29 01:47:15 New listener on ubuntu1:9091
+2024/04/29 01:47:15 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:47:18 new user conn 
+2024/04/29 01:47:18 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:47:18 success get new conn to client id: 0
+2024/04/29 01:47:18 New client conn from 127.0.0.1:41170
+2024/04/29 01:47:18 New client conn from 127.0.0.1:41170
+2024/04/29 01:47:18 wait for hello message from client
+2024/04/29 01:47:18 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:47:19 new user conn 
+2024/04/29 01:47:19 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:47:19 success get new conn to client id: 1
+2024/04/29 01:47:19 New client conn from 127.0.0.1:55472
+2024/04/29 01:47:19 New client conn from 127.0.0.1:55472
+2024/04/29 01:47:19 wait for hello message from client
+2024/04/29 01:47:19 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:47:27 111111111111111111111 exit
+2024/04/29 01:47:27 111111111111111111111 exit
+2024/04/29 01:47:29 listener on ubuntu1:9091 quit
+2024/04/29 01:47:29 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:47:48 success load config from {"Port":8080}
+2024/04/29 01:47:48 Server is listening on port:  8080
+2024/04/29 01:47:50 New client conn from 127.0.0.1:37840
+2024/04/29 01:47:50 New client conn from 127.0.0.1:37840
+2024/04/29 01:47:50 wait for hello message from client
+2024/04/29 01:47:50 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:47:50 listen on client map port
+2024/04/29 01:47:50 New listener on ubuntu1:9091
+2024/04/29 01:47:50 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:47:52 new user conn 
+2024/04/29 01:47:52 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:47:52 success get new conn to client id: 0
+2024/04/29 01:47:52 New client conn from 127.0.0.1:37844
+2024/04/29 01:47:52 New client conn from 127.0.0.1:37844
+2024/04/29 01:47:52 wait for hello message from client
+2024/04/29 01:47:52 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:47:53 new user conn 
+2024/04/29 01:47:53 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:47:53 success get new conn to client id: 1
+2024/04/29 01:47:53 New client conn from 127.0.0.1:37858
+2024/04/29 01:47:53 New client conn from 127.0.0.1:37858
+2024/04/29 01:47:53 wait for hello message from client
+2024/04/29 01:47:53 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:47:53 new user conn 
+2024/04/29 01:47:53 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:47:53 success get new conn to client id: 2
+2024/04/29 01:47:53 New client conn from 127.0.0.1:37866
+2024/04/29 01:47:53 New client conn from 127.0.0.1:37866
+2024/04/29 01:47:53 wait for hello message from client
+2024/04/29 01:47:53 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:47:58 listener on ubuntu1:9091 quit
+2024/04/29 01:47:58 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:48:18 success load config from {"Port":8080}
+2024/04/29 01:48:18 Server is listening on port:  8080
+2024/04/29 01:48:20 New client conn from 127.0.0.1:45850
+2024/04/29 01:48:20 New client conn from 127.0.0.1:45850
+2024/04/29 01:48:20 wait for hello message from client
+2024/04/29 01:48:20 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:48:20 listen on client map port
+2024/04/29 01:48:20 New listener on ubuntu1:9091
+2024/04/29 01:48:20 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:48:22 new user conn 
+2024/04/29 01:48:22 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:48:22 success get new conn to client id: 0
+2024/04/29 01:48:22 New client conn from 127.0.0.1:45858
+2024/04/29 01:48:22 New client conn from 127.0.0.1:45858
+2024/04/29 01:48:22 wait for hello message from client
+2024/04/29 01:48:22 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:48:23 new user conn 
+2024/04/29 01:48:23 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:48:23 success get new conn to client id: 1
+2024/04/29 01:48:23 New client conn from 127.0.0.1:45868
+2024/04/29 01:48:23 New client conn from 127.0.0.1:45868
+2024/04/29 01:48:23 wait for hello message from client
+2024/04/29 01:48:23 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:48:26 listener on ubuntu1:9091 quit
+2024/04/29 01:48:26 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:48:41 New client conn from 127.0.0.1:60272
+2024/04/29 01:48:41 New client conn from 127.0.0.1:60272
+2024/04/29 01:48:41 wait for hello message from client
+2024/04/29 01:48:41 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:48:41 listen on client map port
+2024/04/29 01:48:41 New listener on ubuntu1:9091
+2024/04/29 01:48:41 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:48:43 new user conn 
+2024/04/29 01:48:43 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:48:43 success get new conn to client id: 0
+2024/04/29 01:48:43 New client conn from 127.0.0.1:60280
+2024/04/29 01:48:43 New client conn from 127.0.0.1:60280
+2024/04/29 01:48:43 wait for hello message from client
+2024/04/29 01:48:43 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:48:44 new user conn 
+2024/04/29 01:48:44 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:48:44 success get new conn to client id: 1
+2024/04/29 01:48:44 New client conn from 127.0.0.1:60296
+2024/04/29 01:48:44 New client conn from 127.0.0.1:60296
+2024/04/29 01:48:44 wait for hello message from client
+2024/04/29 01:48:44 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:48:53 listener on ubuntu1:9091 quit
+2024/04/29 01:48:53 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:49:31 success load config from {"Port":8080}
+2024/04/29 01:49:31 Server is listening on port:  8080
+2024/04/29 01:49:33 New client conn from 127.0.0.1:46072
+2024/04/29 01:49:33 New client conn from 127.0.0.1:46072
+2024/04/29 01:49:33 wait for hello message from client
+2024/04/29 01:49:33 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:49:33 listen on client map port
+2024/04/29 01:49:33 New listener on ubuntu1:9091
+2024/04/29 01:49:33 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:49:35 new user conn 
+2024/04/29 01:49:35 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:49:35 success get new conn to client id: 0
+2024/04/29 01:49:35 New client conn from 127.0.0.1:46086
+2024/04/29 01:49:35 New client conn from 127.0.0.1:46086
+2024/04/29 01:49:35 wait for hello message from client
+2024/04/29 01:49:35 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:49:36 new user conn 
+2024/04/29 01:49:36 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:49:36 success get new conn to client id: 1
+2024/04/29 01:49:36 New client conn from 127.0.0.1:46096
+2024/04/29 01:49:36 New client conn from 127.0.0.1:46096
+2024/04/29 01:49:36 wait for hello message from client
+2024/04/29 01:49:36 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:49:37 new user conn 
+2024/04/29 01:49:37 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:49:37 success get new conn to client id: 2
+2024/04/29 01:49:37 New client conn from 127.0.0.1:46112
+2024/04/29 01:49:37 New client conn from 127.0.0.1:46112
+2024/04/29 01:49:37 wait for hello message from client
+2024/04/29 01:49:37 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:49:41 listener on ubuntu1:9091 quit
+2024/04/29 01:49:41 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:50:02 success load config from {"Port":8080}
+2024/04/29 01:50:02 Server is listening on port:  8080
+2024/04/29 01:50:03 New client conn from 127.0.0.1:50418
+2024/04/29 01:50:03 New client conn from 127.0.0.1:50418
+2024/04/29 01:50:03 wait for hello message from client
+2024/04/29 01:50:03 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:50:03 listen on client map port
+2024/04/29 01:50:03 New listener on ubuntu1:9091
+2024/04/29 01:50:03 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:50:06 new user conn 
+2024/04/29 01:50:06 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:50:06 success get new conn to client id: 0
+2024/04/29 01:50:06 New client conn from 127.0.0.1:50432
+2024/04/29 01:50:06 New client conn from 127.0.0.1:50432
+2024/04/29 01:50:06 wait for hello message from client
+2024/04/29 01:50:06 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:50:07 new user conn 
+2024/04/29 01:50:07 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:50:07 success get new conn to client id: 1
+2024/04/29 01:50:07 New client conn from 127.0.0.1:50448
+2024/04/29 01:50:07 New client conn from 127.0.0.1:50448
+2024/04/29 01:50:07 wait for hello message from client
+2024/04/29 01:50:07 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:50:08 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:33716: i/o timeout
+2024/04/29 01:50:09 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:33718: i/o timeout
+2024/04/29 01:50:11 listener on ubuntu1:9091 quit
+2024/04/29 01:50:11 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:50:41 success load config from {"Port":8080}
+2024/04/29 01:50:41 Server is listening on port:  8080
+2024/04/29 01:50:43 New client conn from 127.0.0.1:52288
+2024/04/29 01:50:43 New client conn from 127.0.0.1:52288
+2024/04/29 01:50:43 wait for hello message from client
+2024/04/29 01:50:43 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:50:43 listen on client map port
+2024/04/29 01:50:43 New listener on ubuntu1:9091
+2024/04/29 01:50:43 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:50:46 new user conn 
+2024/04/29 01:50:46 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:50:46 success get new conn to client id: 0
+2024/04/29 01:50:46 New client conn from 127.0.0.1:52298
+2024/04/29 01:50:46 New client conn from 127.0.0.1:52298
+2024/04/29 01:50:46 wait for hello message from client
+2024/04/29 01:50:46 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:50:47 new user conn 
+2024/04/29 01:50:47 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:50:47 success get new conn to client id: 1
+2024/04/29 01:50:47 New client conn from 127.0.0.1:52312
+2024/04/29 01:50:47 New client conn from 127.0.0.1:52312
+2024/04/29 01:50:47 wait for hello message from client
+2024/04/29 01:50:47 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:50:47 new user conn 
+2024/04/29 01:50:47 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:50:47 success get new conn to client id: 2
+2024/04/29 01:50:47 New client conn from 127.0.0.1:52314
+2024/04/29 01:50:47 New client conn from 127.0.0.1:52314
+2024/04/29 01:50:47 wait for hello message from client
+2024/04/29 01:50:47 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:50:48 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:36342: i/o timeout
+2024/04/29 01:50:48 111111111111111111111 exit
+2024/04/29 01:50:49 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:36354: i/o timeout
+2024/04/29 01:50:49 111111111111111111111 exit
+2024/04/29 01:50:49 111111111111111111111 exit
+2024/04/29 01:50:49 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:36356: i/o timeout
+2024/04/29 01:51:14 new user conn 
+2024/04/29 01:51:14 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:51:14 success get new conn to client id: 0
+2024/04/29 01:51:14 New client conn from 127.0.0.1:40250
+2024/04/29 01:51:14 New client conn from 127.0.0.1:40250
+2024/04/29 01:51:14 wait for hello message from client
+2024/04/29 01:51:14 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:51:15 new user conn 
+2024/04/29 01:51:15 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:51:15 success get new conn to client id: 1
+2024/04/29 01:51:15 New client conn from 127.0.0.1:40260
+2024/04/29 01:51:15 New client conn from 127.0.0.1:40260
+2024/04/29 01:51:15 wait for hello message from client
+2024/04/29 01:51:15 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:51:15 new user conn 
+2024/04/29 01:51:15 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:51:15 success get new conn to client id: 2
+2024/04/29 01:51:15 New client conn from 127.0.0.1:40266
+2024/04/29 01:51:15 New client conn from 127.0.0.1:40266
+2024/04/29 01:51:15 wait for hello message from client
+2024/04/29 01:51:15 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:51:16 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:46852: i/o timeout
+2024/04/29 01:51:16 111111111111111111111 exit
+2024/04/29 01:51:17 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:46868: i/o timeout
+2024/04/29 01:51:17 111111111111111111111 exit
+2024/04/29 01:51:17 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:46876: i/o timeout
+2024/04/29 01:51:17 111111111111111111111 exit
+2024/04/29 01:51:23 listener on ubuntu1:9091 quit
+2024/04/29 01:51:23 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:52:07 success load config from {"Port":8080}
+2024/04/29 01:52:07 Server is listening on port:  8080
+2024/04/29 01:52:09 New client conn from 127.0.0.1:37012
+2024/04/29 01:52:09 New client conn from 127.0.0.1:37012
+2024/04/29 01:52:09 wait for hello message from client
+2024/04/29 01:52:09 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:52:09 listen on client map port
+2024/04/29 01:52:09 New listener on ubuntu1:9091
+2024/04/29 01:52:09 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:52:11 new user conn 
+2024/04/29 01:52:11 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:52:11 success get new conn to client id: 0
+2024/04/29 01:52:11 New client conn from 127.0.0.1:37024
+2024/04/29 01:52:11 New client conn from 127.0.0.1:37024
+2024/04/29 01:52:11 wait for hello message from client
+2024/04/29 01:52:11 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:52:12 new user conn 
+2024/04/29 01:52:12 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:52:12 success get new conn to client id: 1
+2024/04/29 01:52:12 New client conn from 127.0.0.1:37030
+2024/04/29 01:52:12 New client conn from 127.0.0.1:37030
+2024/04/29 01:52:12 wait for hello message from client
+2024/04/29 01:52:12 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:52:18 listener on ubuntu1:9091 quit
+2024/04/29 01:52:18 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:52:31 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:45160: i/o timeout
+2024/04/29 01:52:31 111111111111111111111 exit
+2024/04/29 01:52:32 读取响应失败: read tcp 10.0.5.2:9091->192.168.50.138:45168: i/o timeout
+2024/04/29 01:52:32 111111111111111111111 exit
+2024/04/29 01:54:05 success load config from {"Port":8080}
+2024/04/29 01:54:05 Server is listening on port:  8080
+2024/04/29 01:54:07 New client conn from 127.0.0.1:46050
+2024/04/29 01:54:07 New client conn from 127.0.0.1:46050
+2024/04/29 01:54:07 wait for hello message from client
+2024/04/29 01:54:07 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:54:07 listen on client map port
+2024/04/29 01:54:07 New listener on ubuntu1:9091
+2024/04/29 01:54:07 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:54:09 new user conn 
+2024/04/29 01:54:09 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:54:09 success get new conn to client id: 0
+2024/04/29 01:54:09 New client conn from 127.0.0.1:46056
+2024/04/29 01:54:09 New client conn from 127.0.0.1:46056
+2024/04/29 01:54:09 wait for hello message from client
+2024/04/29 01:54:09 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:54:09 new user conn 
+2024/04/29 01:54:09 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:54:09 success get new conn to client id: 1
+2024/04/29 01:54:09 New client conn from 127.0.0.1:42436
+2024/04/29 01:54:09 New client conn from 127.0.0.1:42436
+2024/04/29 01:54:09 wait for hello message from client
+2024/04/29 01:54:09 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:54:17 listener on ubuntu1:9091 quit
+2024/04/29 01:54:17 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 01:54:29 tcp channel exit
+2024/04/29 01:54:29 tcp channel exit
+2024/04/29 01:54:42 success load config from {"Port":8080}
+2024/04/29 01:54:42 Server is listening on port:  8080
+2024/04/29 01:54:44 New client conn from 127.0.0.1:40786
+2024/04/29 01:54:44 New client conn from 127.0.0.1:40786
+2024/04/29 01:54:44 wait for hello message from client
+2024/04/29 01:54:44 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:54:44 listen on client map port
+2024/04/29 01:54:44 New listener on ubuntu1:9091
+2024/04/29 01:54:44 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:54:46 new user conn 
+2024/04/29 01:54:46 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:54:46 success get new conn to client id: 0
+2024/04/29 01:54:46 New client conn from 127.0.0.1:40798
+2024/04/29 01:54:46 New client conn from 127.0.0.1:40798
+2024/04/29 01:54:46 wait for hello message from client
+2024/04/29 01:54:46 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:54:46 new user conn 
+2024/04/29 01:54:46 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:54:46 success get new conn to client id: 1
+2024/04/29 01:54:46 New client conn from 127.0.0.1:40806
+2024/04/29 01:54:46 New client conn from 127.0.0.1:40806
+2024/04/29 01:54:46 wait for hello message from client
+2024/04/29 01:54:46 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:54:46 new user conn 
+2024/04/29 01:54:46 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:54:46 success get new conn to client id: 2
+2024/04/29 01:54:46 New client conn from 127.0.0.1:40812
+2024/04/29 01:54:46 New client conn from 127.0.0.1:40812
+2024/04/29 01:54:46 wait for hello message from client
+2024/04/29 01:54:46 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:54:48 tcp channel exit
+2024/04/29 01:54:48 tcp channel exit
+2024/04/29 01:54:48 tcp channel exit
+2024/04/29 01:56:08 success load config from {"Port":8080}
+2024/04/29 01:56:08 Server is listening on port:  8080
+2024/04/29 01:56:10 New client conn from 127.0.0.1:33856
+2024/04/29 01:56:10 New client conn from 127.0.0.1:33856
+2024/04/29 01:56:10 wait for hello message from client
+2024/04/29 01:56:10 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 01:56:10 listen on client map port
+2024/04/29 01:56:10 New listener on ubuntu1:9091
+2024/04/29 01:56:10 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 01:56:14 new user conn 
+2024/04/29 01:56:14 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 01:56:14 success get new conn to client id: 0
+2024/04/29 01:56:14 New client conn from 127.0.0.1:33868
+2024/04/29 01:56:14 New client conn from 127.0.0.1:33868
+2024/04/29 01:56:14 wait for hello message from client
+2024/04/29 01:56:14 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 01:56:14 new user conn 
+2024/04/29 01:56:14 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 01:56:14 success get new conn to client id: 1
+2024/04/29 01:56:14 New client conn from 127.0.0.1:33878
+2024/04/29 01:56:14 New client conn from 127.0.0.1:33878
+2024/04/29 01:56:14 wait for hello message from client
+2024/04/29 01:56:14 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 01:56:14 new user conn 
+2024/04/29 01:56:14 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 01:56:14 success get new conn to client id: 2
+2024/04/29 01:56:14 New client conn from 127.0.0.1:33890
+2024/04/29 01:56:14 New client conn from 127.0.0.1:33890
+2024/04/29 01:56:14 wait for hello message from client
+2024/04/29 01:56:14 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 01:56:16 1111111111111 1
+2024/04/29 01:56:16 tcp channel exit
+2024/04/29 01:56:16 1111111111111 1
+2024/04/29 01:56:16 tcp channel exit
+2024/04/29 01:56:16 1111111111111 1
+2024/04/29 01:56:16 tcp channel exit
+2024/04/29 02:04:39 success load config from {"Port":8080}
+2024/04/29 02:04:39 Server is listening on port:  8080
+2024/04/29 02:04:41 New client conn from 127.0.0.1:53220
+2024/04/29 02:04:41 New client conn from 127.0.0.1:53220
+2024/04/29 02:04:41 wait for hello message from client
+2024/04/29 02:04:41 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:04:41 listen on client map port
+2024/04/29 02:04:41 New listener on ubuntu1:9091
+2024/04/29 02:04:41 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:04:44 new user conn 
+2024/04/29 02:04:44 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:04:44 success get new conn to client id: 0
+2024/04/29 02:04:44 New client conn from 127.0.0.1:53234
+2024/04/29 02:04:44 New client conn from 127.0.0.1:53234
+2024/04/29 02:04:44 wait for hello message from client
+2024/04/29 02:04:44 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:04:44 78974
+2024/04/29 02:04:46 1234125
+2024/04/29 02:04:46 tcp channel exit
+2024/04/29 02:04:53 new user conn 
+2024/04/29 02:04:53 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:04:53 success get new conn to client id: 0
+2024/04/29 02:04:53 New client conn from 127.0.0.1:57274
+2024/04/29 02:04:53 New client conn from 127.0.0.1:57274
+2024/04/29 02:04:53 wait for hello message from client
+2024/04/29 02:04:53 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:04:53 78974
+2024/04/29 02:04:55 1234125
+2024/04/29 02:04:55 tcp channel exit
+2024/04/29 02:05:02 new user conn 
+2024/04/29 02:05:02 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:05:02 success get new conn to client id: 0
+2024/04/29 02:05:02 New client conn from 127.0.0.1:41924
+2024/04/29 02:05:02 New client conn from 127.0.0.1:41924
+2024/04/29 02:05:02 wait for hello message from client
+2024/04/29 02:05:02 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:05:02 78974
+2024/04/29 02:05:04 1234125
+2024/04/29 02:05:04 tcp channel exit
+2024/04/29 02:05:11 new user conn 
+2024/04/29 02:05:11 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:05:11 success get new conn to client id: 0
+2024/04/29 02:05:11 New client conn from 127.0.0.1:58402
+2024/04/29 02:05:11 New client conn from 127.0.0.1:58402
+2024/04/29 02:05:11 wait for hello message from client
+2024/04/29 02:05:11 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:05:11 78974
+2024/04/29 02:05:13 1234125
+2024/04/29 02:05:13 tcp channel exit
+2024/04/29 02:05:17 success load config from {"Port":8080}
+2024/04/29 02:05:17 Server is listening on port:  8080
+2024/04/29 02:05:17 New client conn from 127.0.0.1:58416
+2024/04/29 02:05:17 New client conn from 127.0.0.1:58416
+2024/04/29 02:05:17 wait for hello message from client
+2024/04/29 02:05:17 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:05:17 listen on client map port
+2024/04/29 02:05:17 New listener on ubuntu1:9091
+2024/04/29 02:05:17 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:05:22 success load config from {"Port":8080}
+2024/04/29 02:05:22 Server is listening on port:  8080
+2024/04/29 02:05:23 New client conn from 127.0.0.1:43242
+2024/04/29 02:05:23 New client conn from 127.0.0.1:43242
+2024/04/29 02:05:23 wait for hello message from client
+2024/04/29 02:05:23 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:05:23 listen on client map port
+2024/04/29 02:05:23 New listener on ubuntu1:9091
+2024/04/29 02:05:23 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:05:24 new user conn 
+2024/04/29 02:05:24 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:05:24 success get new conn to client id: 0
+2024/04/29 02:05:24 New client conn from 127.0.0.1:43256
+2024/04/29 02:05:24 New client conn from 127.0.0.1:43256
+2024/04/29 02:05:24 wait for hello message from client
+2024/04/29 02:05:24 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:05:25 new user conn 
+2024/04/29 02:05:25 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 02:05:25 success get new conn to client id: 1
+2024/04/29 02:05:25 New client conn from 127.0.0.1:43272
+2024/04/29 02:05:25 New client conn from 127.0.0.1:43272
+2024/04/29 02:05:25 wait for hello message from client
+2024/04/29 02:05:25 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 02:05:25 new user conn 
+2024/04/29 02:05:25 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 02:05:25 success get new conn to client id: 2
+2024/04/29 02:05:25 New client conn from 127.0.0.1:43286
+2024/04/29 02:05:25 New client conn from 127.0.0.1:43286
+2024/04/29 02:05:25 wait for hello message from client
+2024/04/29 02:05:25 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 02:05:26 1234125
+2024/04/29 02:05:26 tcp channel exit
+2024/04/29 02:05:26 78974
+2024/04/29 02:05:27 1234125
+2024/04/29 02:05:27 tcp channel exit
+2024/04/29 02:05:27 78974
+2024/04/29 02:05:27 1234125
+2024/04/29 02:05:27 tcp channel exit
+2024/04/29 02:05:27 78974
+2024/04/29 02:07:06 success load config from {"Port":8080}
+2024/04/29 02:07:06 Server is listening on port:  8080
+2024/04/29 02:07:06 New client conn from 127.0.0.1:41094
+2024/04/29 02:07:06 New client conn from 127.0.0.1:41094
+2024/04/29 02:07:06 wait for hello message from client
+2024/04/29 02:07:06 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:07:06 listen on client map port
+2024/04/29 02:07:06 New listener on ubuntu1:9091
+2024/04/29 02:07:06 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:07:16 new user conn 
+2024/04/29 02:07:16 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:07:16 success get new conn to client id: 0
+2024/04/29 02:07:16 New client conn from 127.0.0.1:55200
+2024/04/29 02:07:16 New client conn from 127.0.0.1:55200
+2024/04/29 02:07:16 wait for hello message from client
+2024/04/29 02:07:16 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:07:18 1234125
+2024/04/29 02:07:18 tcp channel exit
+2024/04/29 02:07:18 78974
+2024/04/29 02:10:42 success load config from {"Port":8080}
+2024/04/29 02:10:42 Server is listening on port:  8080
+2024/04/29 02:10:44 New client conn from 127.0.0.1:53662
+2024/04/29 02:10:44 New client conn from 127.0.0.1:53662
+2024/04/29 02:10:44 wait for hello message from client
+2024/04/29 02:10:44 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:10:44 listen on client map port
+2024/04/29 02:10:44 New listener on ubuntu1:9091
+2024/04/29 02:10:44 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:20:28 listener on ubuntu1:9091 quit
+2024/04/29 02:20:28 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 02:20:28 New client conn from 127.0.0.1:44438
+2024/04/29 02:20:28 New client conn from 127.0.0.1:44438
+2024/04/29 02:20:28 wait for hello message from client
+2024/04/29 02:20:28 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:20:28 listen on client map port
+2024/04/29 02:20:28 New listener on ubuntu1:9091
+2024/04/29 02:20:28 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:20:41 new user conn 
+2024/04/29 02:20:41 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:20:41 success get new conn to client id: 0
+2024/04/29 02:20:41 New client conn from 127.0.0.1:46420
+2024/04/29 02:20:41 New client conn from 127.0.0.1:46420
+2024/04/29 02:20:41 wait for hello message from client
+2024/04/29 02:20:41 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:20:42 new user conn 
+2024/04/29 02:20:42 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 02:20:42 success get new conn to client id: 1
+2024/04/29 02:20:42 New client conn from 127.0.0.1:46430
+2024/04/29 02:20:42 New client conn from 127.0.0.1:46430
+2024/04/29 02:20:42 wait for hello message from client
+2024/04/29 02:20:42 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 02:20:43 1234125
+2024/04/29 02:20:43 tcp channel exit
+2024/04/29 02:20:43 78974
+2024/04/29 02:20:44 1234125
+2024/04/29 02:20:44 tcp channel exit
+2024/04/29 02:20:44 78974
+2024/04/29 02:20:47 new user conn 
+2024/04/29 02:20:47 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:20:47 success get new conn to client id: 0
+2024/04/29 02:20:47 New client conn from 127.0.0.1:46446
+2024/04/29 02:20:47 New client conn from 127.0.0.1:46446
+2024/04/29 02:20:47 wait for hello message from client
+2024/04/29 02:20:47 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:20:49 1234125
+2024/04/29 02:20:49 tcp channel exit
+2024/04/29 02:20:49 78974
+2024/04/29 02:20:52 new user conn 
+2024/04/29 02:20:52 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:20:52 success get new conn to client id: 0
+2024/04/29 02:20:52 New client conn from 127.0.0.1:43098
+2024/04/29 02:20:52 New client conn from 127.0.0.1:43098
+2024/04/29 02:20:52 wait for hello message from client
+2024/04/29 02:20:52 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:20:54 1234125
+2024/04/29 02:20:54 tcp channel exit
+2024/04/29 02:20:54 78974
+2024/04/29 02:20:55 new user conn 
+2024/04/29 02:20:55 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:20:55 success get new conn to client id: 0
+2024/04/29 02:20:55 New client conn from 127.0.0.1:43104
+2024/04/29 02:20:55 New client conn from 127.0.0.1:43104
+2024/04/29 02:20:55 wait for hello message from client
+2024/04/29 02:20:55 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:20:57 1234125
+2024/04/29 02:20:57 tcp channel exit
+2024/04/29 02:20:57 78974
+2024/04/29 02:21:03 new user conn 
+2024/04/29 02:21:03 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:03 success get new conn to client id: 0
+2024/04/29 02:21:03 New client conn from 127.0.0.1:52892
+2024/04/29 02:21:03 New client conn from 127.0.0.1:52892
+2024/04/29 02:21:03 wait for hello message from client
+2024/04/29 02:21:03 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:05 1234125
+2024/04/29 02:21:05 tcp channel exit
+2024/04/29 02:21:05 78974
+2024/04/29 02:21:11 new user conn 
+2024/04/29 02:21:11 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:11 success get new conn to client id: 0
+2024/04/29 02:21:11 New client conn from 127.0.0.1:43732
+2024/04/29 02:21:11 New client conn from 127.0.0.1:43732
+2024/04/29 02:21:11 wait for hello message from client
+2024/04/29 02:21:11 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:13 1234125
+2024/04/29 02:21:13 tcp channel exit
+2024/04/29 02:21:13 78974
+2024/04/29 02:21:13 new user conn 
+2024/04/29 02:21:13 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:13 success get new conn to client id: 0
+2024/04/29 02:21:13 New client conn from 127.0.0.1:43738
+2024/04/29 02:21:13 New client conn from 127.0.0.1:43738
+2024/04/29 02:21:13 wait for hello message from client
+2024/04/29 02:21:13 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:15 1234125
+2024/04/29 02:21:15 tcp channel exit
+2024/04/29 02:21:15 78974
+2024/04/29 02:21:21 new user conn 
+2024/04/29 02:21:21 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:21 success get new conn to client id: 0
+2024/04/29 02:21:21 New client conn from 127.0.0.1:52034
+2024/04/29 02:21:21 New client conn from 127.0.0.1:52034
+2024/04/29 02:21:21 wait for hello message from client
+2024/04/29 02:21:21 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:23 1234125
+2024/04/29 02:21:23 tcp channel exit
+2024/04/29 02:21:23 78974
+2024/04/29 02:21:28 new user conn 
+2024/04/29 02:21:28 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:29 success get new conn to client id: 0
+2024/04/29 02:21:29 New client conn from 127.0.0.1:52046
+2024/04/29 02:21:29 New client conn from 127.0.0.1:52046
+2024/04/29 02:21:29 wait for hello message from client
+2024/04/29 02:21:29 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:31 1234125
+2024/04/29 02:21:31 tcp channel exit
+2024/04/29 02:21:31 78974
+2024/04/29 02:21:36 new user conn 
+2024/04/29 02:21:36 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:36 success get new conn to client id: 0
+2024/04/29 02:21:37 New client conn from 127.0.0.1:58994
+2024/04/29 02:21:37 New client conn from 127.0.0.1:58994
+2024/04/29 02:21:37 wait for hello message from client
+2024/04/29 02:21:37 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:39 1234125
+2024/04/29 02:21:39 tcp channel exit
+2024/04/29 02:21:39 78974
+2024/04/29 02:21:45 new user conn 
+2024/04/29 02:21:45 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:45 success get new conn to client id: 0
+2024/04/29 02:21:45 New client conn from 127.0.0.1:40294
+2024/04/29 02:21:45 New client conn from 127.0.0.1:40294
+2024/04/29 02:21:45 wait for hello message from client
+2024/04/29 02:21:45 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:47 1234125
+2024/04/29 02:21:47 tcp channel exit
+2024/04/29 02:21:47 78974
+2024/04/29 02:21:52 new user conn 
+2024/04/29 02:21:52 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:21:52 success get new conn to client id: 0
+2024/04/29 02:21:52 New client conn from 127.0.0.1:54088
+2024/04/29 02:21:52 New client conn from 127.0.0.1:54088
+2024/04/29 02:21:52 wait for hello message from client
+2024/04/29 02:21:52 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:21:54 1234125
+2024/04/29 02:21:54 tcp channel exit
+2024/04/29 02:21:54 78974
+2024/04/29 02:22:00 new user conn 
+2024/04/29 02:22:00 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:00 success get new conn to client id: 0
+2024/04/29 02:22:00 New client conn from 127.0.0.1:34384
+2024/04/29 02:22:00 New client conn from 127.0.0.1:34384
+2024/04/29 02:22:00 wait for hello message from client
+2024/04/29 02:22:00 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:02 1234125
+2024/04/29 02:22:02 tcp channel exit
+2024/04/29 02:22:02 78974
+2024/04/29 02:22:08 new user conn 
+2024/04/29 02:22:08 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:08 success get new conn to client id: 0
+2024/04/29 02:22:08 New client conn from 127.0.0.1:34398
+2024/04/29 02:22:08 New client conn from 127.0.0.1:34398
+2024/04/29 02:22:08 wait for hello message from client
+2024/04/29 02:22:08 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:10 1234125
+2024/04/29 02:22:10 tcp channel exit
+2024/04/29 02:22:10 78974
+2024/04/29 02:22:16 new user conn 
+2024/04/29 02:22:16 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:16 success get new conn to client id: 0
+2024/04/29 02:22:16 New client conn from 127.0.0.1:52518
+2024/04/29 02:22:16 New client conn from 127.0.0.1:52518
+2024/04/29 02:22:16 wait for hello message from client
+2024/04/29 02:22:16 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:18 1234125
+2024/04/29 02:22:18 tcp channel exit
+2024/04/29 02:22:18 78974
+2024/04/29 02:22:24 new user conn 
+2024/04/29 02:22:24 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:24 success get new conn to client id: 0
+2024/04/29 02:22:24 New client conn from 127.0.0.1:37180
+2024/04/29 02:22:24 New client conn from 127.0.0.1:37180
+2024/04/29 02:22:24 wait for hello message from client
+2024/04/29 02:22:24 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:26 1234125
+2024/04/29 02:22:26 tcp channel exit
+2024/04/29 02:22:26 78974
+2024/04/29 02:22:32 new user conn 
+2024/04/29 02:22:32 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:32 success get new conn to client id: 0
+2024/04/29 02:22:32 New client conn from 127.0.0.1:52266
+2024/04/29 02:22:32 New client conn from 127.0.0.1:52266
+2024/04/29 02:22:32 wait for hello message from client
+2024/04/29 02:22:32 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:34 1234125
+2024/04/29 02:22:34 tcp channel exit
+2024/04/29 02:22:34 78974
+2024/04/29 02:22:40 new user conn 
+2024/04/29 02:22:40 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:40 success get new conn to client id: 0
+2024/04/29 02:22:40 New client conn from 127.0.0.1:37072
+2024/04/29 02:22:40 New client conn from 127.0.0.1:37072
+2024/04/29 02:22:40 wait for hello message from client
+2024/04/29 02:22:40 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:42 1234125
+2024/04/29 02:22:42 tcp channel exit
+2024/04/29 02:22:42 78974
+2024/04/29 02:22:48 new user conn 
+2024/04/29 02:22:48 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:48 success get new conn to client id: 0
+2024/04/29 02:22:49 ERROR: Timeout to get new conn from client id:0
+2024/04/29 02:22:50 listener on ubuntu1:9091 quit
+2024/04/29 02:22:50 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 02:22:50 New client conn from 127.0.0.1:53130
+2024/04/29 02:22:50 New client conn from 127.0.0.1:53130
+2024/04/29 02:22:50 wait for hello message from client
+2024/04/29 02:22:50 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:22:50 listen on client map port
+2024/04/29 02:22:50 New listener on ubuntu1:9091
+2024/04/29 02:22:50 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:22:53 new user conn 
+2024/04/29 02:22:53 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:22:53 success get new conn to client id: 0
+2024/04/29 02:22:53 New client conn from 127.0.0.1:53140
+2024/04/29 02:22:53 New client conn from 127.0.0.1:53140
+2024/04/29 02:22:53 wait for hello message from client
+2024/04/29 02:22:53 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:22:55 1234125
+2024/04/29 02:22:55 tcp channel exit
+2024/04/29 02:22:55 78974
+2024/04/29 02:23:01 new user conn 
+2024/04/29 02:23:01 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:23:01 success get new conn to client id: 0
+2024/04/29 02:23:01 New client conn from 127.0.0.1:35210
+2024/04/29 02:23:01 New client conn from 127.0.0.1:35210
+2024/04/29 02:23:01 wait for hello message from client
+2024/04/29 02:23:01 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:23:03 1234125
+2024/04/29 02:23:03 tcp channel exit
+2024/04/29 02:23:03 78974
+2024/04/29 02:23:09 new user conn 
+2024/04/29 02:23:09 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:23:09 success get new conn to client id: 0
+2024/04/29 02:23:09 New client conn from 127.0.0.1:35214
+2024/04/29 02:23:09 New client conn from 127.0.0.1:35214
+2024/04/29 02:23:09 wait for hello message from client
+2024/04/29 02:23:09 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:23:11 1234125
+2024/04/29 02:23:11 tcp channel exit
+2024/04/29 02:23:11 78974
+2024/04/29 02:23:17 new user conn 
+2024/04/29 02:23:17 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:23:17 success get new conn to client id: 0
+2024/04/29 02:23:17 New client conn from 127.0.0.1:60030
+2024/04/29 02:23:17 New client conn from 127.0.0.1:60030
+2024/04/29 02:23:17 wait for hello message from client
+2024/04/29 02:23:17 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:23:19 1234125
+2024/04/29 02:23:19 tcp channel exit
+2024/04/29 02:23:19 78974
+2024/04/29 02:23:25 new user conn 
+2024/04/29 02:23:25 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:23:25 success get new conn to client id: 0
+2024/04/29 02:23:25 New client conn from 127.0.0.1:34468
+2024/04/29 02:23:25 New client conn from 127.0.0.1:34468
+2024/04/29 02:23:25 wait for hello message from client
+2024/04/29 02:23:25 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:23:27 1234125
+2024/04/29 02:23:27 tcp channel exit
+2024/04/29 02:23:27 78974
+2024/04/29 02:23:33 new user conn 
+2024/04/29 02:23:33 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:23:33 success get new conn to client id: 0
+2024/04/29 02:23:33 ERROR: Timeout to get new conn from client id:0
+2024/04/29 02:23:35 listener on ubuntu1:9091 quit
+2024/04/29 02:23:35 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 02:23:40 New client conn from 127.0.0.1:32946
+2024/04/29 02:23:40 New client conn from 127.0.0.1:32946
+2024/04/29 02:23:40 wait for hello message from client
+2024/04/29 02:23:40 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:23:40 listen on client map port
+2024/04/29 02:23:40 New listener on ubuntu1:9091
+2024/04/29 02:23:40 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:23:43 new user conn 
+2024/04/29 02:23:43 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:23:43 success get new conn to client id: 0
+2024/04/29 02:23:43 New client conn from 127.0.0.1:32948
+2024/04/29 02:23:43 New client conn from 127.0.0.1:32948
+2024/04/29 02:23:43 wait for hello message from client
+2024/04/29 02:23:43 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:23:45 1234125
+2024/04/29 02:23:45 tcp channel exit
+2024/04/29 02:23:45 78974
+2024/04/29 02:25:30 success load config from {"Port":8080,"Timeout":60}
+2024/04/29 02:25:30 Server is listening on port:  8080
+2024/04/29 02:25:30 New client conn from 127.0.0.1:48580
+2024/04/29 02:25:30 New client conn from 127.0.0.1:48580
+2024/04/29 02:25:30 wait for hello message from client
+2024/04/29 02:25:30 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:25:30 listen on client map port
+2024/04/29 02:25:30 New listener on ubuntu1:9091
+2024/04/29 02:25:30 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:25:35 listener on ubuntu1:9091 quit
+2024/04/29 02:25:35 Failed to accept connection: accept tcp [::]:9091: use of closed network connection
+2024/04/29 02:25:49 New client conn from 127.0.0.1:48070
+2024/04/29 02:25:49 New client conn from 127.0.0.1:48070
+2024/04/29 02:25:49 wait for hello message from client
+2024/04/29 02:25:49 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:25:49 listen on client map port
+2024/04/29 02:25:49 New listener on ubuntu1:9091
+2024/04/29 02:25:49 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:25:53 new user conn 
+2024/04/29 02:25:53 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:25:53 success get new conn to client id: 0
+2024/04/29 02:25:53 New client conn from 127.0.0.1:48086
+2024/04/29 02:25:53 New client conn from 127.0.0.1:48086
+2024/04/29 02:25:53 wait for hello message from client
+2024/04/29 02:25:53 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:25:55 new user conn 
+2024/04/29 02:25:55 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 02:25:55 success get new conn to client id: 1
+2024/04/29 02:25:55 New client conn from 127.0.0.1:48098
+2024/04/29 02:25:55 New client conn from 127.0.0.1:48098
+2024/04/29 02:25:55 wait for hello message from client
+2024/04/29 02:25:55 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/04/29 02:25:56 new user conn 
+2024/04/29 02:25:56 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":2,"local-port":9090,"server-port":9091}}
+2024/04/29 02:25:56 success get new conn to client id: 2
+2024/04/29 02:25:56 New client conn from 127.0.0.1:48112
+2024/04/29 02:25:56 New client conn from 127.0.0.1:48112
+2024/04/29 02:25:56 wait for hello message from client
+2024/04/29 02:25:56 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":2}
+2024/04/29 02:25:56 new user conn 
+2024/04/29 02:25:56 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":3,"local-port":9090,"server-port":9091}}
+2024/04/29 02:25:56 success get new conn to client id: 3
+2024/04/29 02:25:56 New client conn from 127.0.0.1:48126
+2024/04/29 02:25:56 New client conn from 127.0.0.1:48126
+2024/04/29 02:25:56 wait for hello message from client
+2024/04/29 02:25:56 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":3}
+2024/04/29 02:26:50 success load config from {"Port":8080,"Timeout":60}
+2024/04/29 02:26:50 Server is listening on port:  8080
+2024/04/29 02:26:51 New client conn from 127.0.0.1:35108
+2024/04/29 02:26:51 New client conn from 127.0.0.1:35108
+2024/04/29 02:26:51 wait for hello message from client
+2024/04/29 02:26:51 receive hello message from client  {"type":"main","client":{"name":"ubuntu1"},"map":[{"local-port":9090,"server-port":9091}],"conn-id":0}
+2024/04/29 02:26:51 listen on client map port
+2024/04/29 02:26:51 New listener on ubuntu1:9091
+2024/04/29 02:26:51 success listen on client ubuntu1 map port [{9090 9091}]
+2024/04/29 02:26:54 new user conn 
+2024/04/29 02:26:54 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":0,"local-port":9090,"server-port":9091}}
+2024/04/29 02:26:54 success get new conn to client id: 0
+2024/04/29 02:26:54 New client conn from 127.0.0.1:35120
+2024/04/29 02:26:54 New client conn from 127.0.0.1:35120
+2024/04/29 02:26:54 wait for hello message from client
+2024/04/29 02:26:54 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":0}
+2024/04/29 02:26:55 new user conn 
+2024/04/29 02:26:55 send new conn request to client {"id":0,"type":"new-conn-request","data":{"conn-id":1,"local-port":9090,"server-port":9091}}
+2024/04/29 02:26:55 success get new conn to client id: 1
+2024/04/29 02:26:55 New client conn from 127.0.0.1:35132
+2024/04/29 02:26:55 New client conn from 127.0.0.1:35132
+2024/04/29 02:26:55 wait for hello message from client
+2024/04/29 02:26:55 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}

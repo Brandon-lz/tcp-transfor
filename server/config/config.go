@@ -11,6 +11,7 @@ var Config ConfigDF
 
 type ConfigDF struct {
 	Port int `toml:"port"`
+	Timeout int `toml:"timeout"`
 }
 
 func LoadConfig() {
