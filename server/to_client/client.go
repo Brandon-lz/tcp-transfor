@@ -92,8 +92,8 @@ func CheckClientAlive() {
 						delete(CCMList, ccm.ClientName)
 					}
 				}
-				defer c.Conn.Close()
 				delete(ClientSet, c.Name)
+				c.Conn.Close()
 			}
 		}
 
