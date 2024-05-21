@@ -91,8 +91,11 @@ func dealCmdFromClient(clientConn net.Conn) {
 	}
 
 	log.Println("receive hello message from client ", string(hellodata))
-
-	hello := utils.DeSerializeData(hellodata, &common.HelloMessage{})
+	hello := common.HelloMessage{}
+	func(){
+		defer utils.RecoverAndLog(func(err error){})
+		utils.DeSerializeData(hellodata, &hello)
+	}()
 	switch hello.Type {
 	case "main":
 
@@ -152,13 +155,14 @@ func dealCmdFromClient(clientConn net.Conn) {
 
 func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalPort int, failSign chan bool, wg *sync.WaitGroup) {
 	defer utils.RecoverAndLog()
+	defer wg.Done()
+
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", listenPort))
 	if err != nil {
-		log.Printf("Failed to listen on%s: %d: %v", ccm.ClientName, listenPort, err)
+		log.Printf("Failed to listen on %s: %d: %v", ccm.ClientName, listenPort, err)
 		failSign <- true
 		return
 	}
-	wg.Done()
 	defer listener.Close()
 
 	log.Printf("New listener on %s:%d", ccm.ClientName, listenPort)
@@ -173,33 +177,8 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 				}
 				continue
 			}
-			// new conn to server
-			log.Println("new user conn ")
-			connId := ccm.getNewConnId()
-			if err := cmdToClientGetNewConn(ccm.ClientConn, connId, clientLocalPort, listenPort); err != nil {
-				log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
-				return
-			}
 
-			log.Println("success get new conn to client id:", connId)
-
-			// wait new conn from client .....
-			timeoutCount := 0
-			for {
-				if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
-					// go TransForConnData(userConn, newSubConn, connId, ccm)
-					go common.TransForConnData(userConn, newSubConn)
-					break
-				} else {
-					timeoutCount++
-					time.Sleep(20 * time.Microsecond)
-				}
-				if timeoutCount > 200 {
-					log.Printf("ERROR: Timeout to get new conn from client id:%d", connId)
-					break
-				}
-			}
-
+			go whenNewUserConnComeIn(ccm, userConn, clientLocalPort, listenPort)
 		}
 	}()
 
@@ -207,6 +186,36 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 	<-ccm.Quit
 	log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
 
+}
+
+func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLocalPort, listenPort int) {
+	defer utils.RecoverAndLog()
+	// new conn to server
+	log.Println("new user conn ")
+	connId := ccm.getNewConnId()
+	if err := cmdToClientGetNewConn(ccm.ClientConn, connId, clientLocalPort, listenPort); err != nil {
+		log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
+		return
+	}
+
+	log.Println("success get new conn to client id:", connId)
+
+	// wait new conn from client .....
+	timeoutCount := 0
+	for {
+		if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
+			// go TransForConnData(userConn, newSubConn, connId, ccm)
+			go common.TransForConnData(userConn, newSubConn)
+			return
+		} else {
+			timeoutCount++
+			time.Sleep(20 * time.Microsecond)
+		}
+		if timeoutCount > 200 {
+			log.Printf("ERROR: Timeout to get new conn from client id:%d", connId)
+			return
+		}
+	}
 }
 
 func TransForConnData(src net.Conn, dst net.Conn, connid int, ccm *clientConnManager) {

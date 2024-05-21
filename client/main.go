@@ -21,7 +21,7 @@ func main(){
 
     // translocaltcp.Start()
     for {
-        translocaltcp.CommunicateToServer()
+        translocaltcp.CommunicateToServer()         // block, until fail
         time.Sleep(time.Second * 2)
     }
 }

@@ -1213,3 +1213,5 @@
 2024/04/29 02:26:55 New client conn from 127.0.0.1:35132
 2024/04/29 02:26:55 wait for hello message from client
 2024/04/29 02:26:55 receive hello message from client  {"type":"sub","client":{"name":"ubuntu1"},"map":null,"conn-id":1}
+2024/05/21 14:24:47 success load config from {"Port":8080,"Timeout":60}
+2024/05/21 14:24:47 Server is listening on port:  8080

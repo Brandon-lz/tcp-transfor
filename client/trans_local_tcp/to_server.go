@@ -31,7 +31,7 @@ func CommunicateToServer() {
 	log.Printf("success establish connection with server")
 
 	// go core.KeepAlive(serverConn)
-	core.ListenServerCmd(serverConn)
+	core.ListenServerCmd(serverConn)           //block
 
 }
 

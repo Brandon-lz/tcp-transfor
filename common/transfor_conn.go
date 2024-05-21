@@ -61,7 +61,7 @@ func TransForConnData(src net.Conn, dst net.Conn) {
 			// 	userConn.SetDeadline(time.Now().Add(8 * time.Hour))
 			// }
 
-			_, err := io.Copy(dst, src)
+			_, err := io.Copy(dst, src)         // when dst.close, it will panic 
 
 			// data, err := common.ReadConn(userConn)
 			// if err != nil {
