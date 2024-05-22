@@ -2,6 +2,7 @@ package translocaltcp
 
 import (
 	// "fmt"
+	"errors"
 	"log"
 	"net"
 
@@ -76,7 +77,7 @@ func sayHelloToServer(serverConn net.Conn) error {
 	if helloRecv.Code != 200 {
 		// log.Printf("Failed to init with server\n")
 		// os.Exit(1)
-		return utils.WrapErrorLocation(err)
+		return utils.WrapErrorLocation(errors.New(helloRecv.Msg))
 	}
 	return nil
 }
