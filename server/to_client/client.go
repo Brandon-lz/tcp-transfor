@@ -88,7 +88,7 @@ func CheckClientAlive() {
 				fmt.Println("Client ", c.Name, " disconnected")
 				for _, ccm := range CCMList {
 					if ccm.ClientName == c.Name {
-						ccm.Quit <- true
+						quitAgent.Publish(ccm.ClientName,"quit")
 						delete(CCMList, ccm.ClientName)
 					}
 				}

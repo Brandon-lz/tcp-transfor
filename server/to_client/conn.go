@@ -12,6 +12,8 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/common"
 	"github.com/Brandon-lz/tcp-transfor/server/config"
 	"github.com/Brandon-lz/tcp-transfor/utils"
+
+	"github.com/Brandon-lz/go-pubsub"
 )
 
 // listen to accecpt client main conn and sub conn
@@ -37,6 +39,8 @@ func ListenClientConn() {
 	}
 }
 
+var quitAgent = gopubsub.NewAgent()
+
 var CCMList = make(map[string]*clientConnManager)
 
 type ConnCouple struct {
@@ -51,12 +55,24 @@ type clientConnManager struct {
 	ClientSubConnWithId map[int]net.Conn
 	clientSubConnIdSet  map[int]struct{}
 	clientSubConnIdLock sync.Mutex
-	Quit                chan bool
+	// Quit              string 
+}
+
+func NewclientConnManager(clientConn net.Conn,clientName string) clientConnManager  {
+	return clientConnManager{
+		ClientName: clientName,
+		ClientConn:          clientConn,
+		ClientSubConnWithId: make(map[int]net.Conn),
+		clientSubConnIdSet:  make(map[int]struct{}),
+		clientSubConnIdLock: sync.Mutex{},
+		// Quit:     string,      
+	}
 }
 
 func (cm *clientConnManager) getNewConnId() int {
 	cm.clientSubConnIdLock.Lock()
 	defer cm.clientSubConnIdLock.Unlock()
+
 
 	for i := range 1000000 {
 		if _, ok := cm.clientSubConnIdSet[i]; !ok {
@@ -93,7 +109,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 	log.Println("receive hello message from client ", string(hellodata))
 	hello := common.HelloMessage{}
 	func(){
-		defer utils.RecoverAndLog(func(err error){})
+		defer utils.RecoverAndLog()
 		utils.DeSerializeData(hellodata, &hello)
 	}()
 	switch hello.Type {
@@ -107,13 +123,14 @@ func dealCmdFromClient(clientConn net.Conn) {
 		}
 
 		// create new client conn manager
-		ccm := clientConnManager{
-			ClientConn:          clientConn,
-			ClientSubConnWithId: make(map[int]net.Conn),
-			clientSubConnIdSet:  make(map[int]struct{}),
-			clientSubConnIdLock: sync.Mutex{},
-			Quit:                make(chan bool),
-		}
+		// ccm := clientConnManager{
+		// 	ClientConn:          clientConn,
+		// 	ClientSubConnWithId: make(map[int]net.Conn),
+		// 	clientSubConnIdSet:  make(map[int]struct{}),
+		// 	clientSubConnIdLock: sync.Mutex{},
+		// 	Quit:                make(chan bool),
+		// }
+		ccm := NewclientConnManager(clientConn,hello.Client.Name)
 
 		ccm.ClientName = hello.Client.Name
 
@@ -163,11 +180,21 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 		failSign <- true
 		return
 	}
-	defer listener.Close()
 
 	log.Printf("New listener on %s:%d", ccm.ClientName, listenPort)
 	go func() {
 		defer utils.RecoverAndLog()
+		// } // wait for quit
+		go func(){
+			defer utils.RecoverAndLog()
+			defer listener.Close()
+			suber,cancel := quitAgent.Subscribe(ccm.ClientName)
+			defer cancel(quitAgent,suber)
+			<-suber.Msg
+			log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
+		}()
+	
+
 		for {
 			userConn, err := listener.Accept()
 			if err != nil {
@@ -182,9 +209,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 		}
 	}()
 
-	// } // wait for quit
-	<-ccm.Quit
-	log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
+	
 
 }
 
