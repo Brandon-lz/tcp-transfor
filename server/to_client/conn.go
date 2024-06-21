@@ -13,7 +13,7 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/server/config"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 
-	"github.com/Brandon-lz/go-pubsub"
+	gopubsub "github.com/Brandon-lz/go-pubsub"
 )
 
 // listen to accecpt client main conn and sub conn
@@ -55,24 +55,23 @@ type clientConnManager struct {
 	ClientSubConnWithId map[int]net.Conn
 	clientSubConnIdSet  map[int]struct{}
 	clientSubConnIdLock sync.Mutex
-	// Quit              string 
+	// Quit              string
 }
 
-func NewclientConnManager(clientConn net.Conn,clientName string) clientConnManager  {
+func NewclientConnManager(clientConn net.Conn, clientName string) clientConnManager {
 	return clientConnManager{
-		ClientName: clientName,
+		ClientName:          clientName,
 		ClientConn:          clientConn,
 		ClientSubConnWithId: make(map[int]net.Conn),
 		clientSubConnIdSet:  make(map[int]struct{}),
 		clientSubConnIdLock: sync.Mutex{},
-		// Quit:     string,      
+		// Quit:     string,
 	}
 }
 
 func (cm *clientConnManager) getNewConnId() int {
 	cm.clientSubConnIdLock.Lock()
 	defer cm.clientSubConnIdLock.Unlock()
-
 
 	for i := range 1000000 {
 		if _, ok := cm.clientSubConnIdSet[i]; !ok {
@@ -108,7 +107,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 
 	log.Println("receive hello message from client ", string(hellodata))
 	hello := common.HelloMessage{}
-	func(){
+	func() {
 		defer utils.RecoverAndLog()
 		utils.DeSerializeData(hellodata, &hello)
 	}()
@@ -130,7 +129,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 		// 	clientSubConnIdLock: sync.Mutex{},
 		// 	Quit:                make(chan bool),
 		// }
-		ccm := NewclientConnManager(clientConn,hello.Client.Name)
+		ccm := NewclientConnManager(clientConn, hello.Client.Name)
 
 		ccm.ClientName = hello.Client.Name
 
@@ -185,15 +184,14 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 	go func() {
 		defer utils.RecoverAndLog()
 		// } // wait for quit
-		go func(){
+		go func() {
 			defer utils.RecoverAndLog()
 			defer listener.Close()
-			suber,cancel := quitAgent.Subscribe(ccm.ClientName)
-			defer cancel(quitAgent,suber)
+			suber, cancel := quitAgent.Subscribe(ccm.ClientName)
+			defer cancel(quitAgent, suber)
 			<-suber.Msg
 			log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
 		}()
-	
 
 		for {
 			userConn, err := listener.Accept()
@@ -208,8 +206,6 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			go whenNewUserConnComeIn(ccm, userConn, clientLocalPort, listenPort)
 		}
 	}()
-
-	
 
 }
 

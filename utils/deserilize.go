@@ -2,8 +2,11 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 )
+
+
 
 func DeSerializeData[T interface{}](source any, target *T) T { // target必须为指针类型
 	var jsonData []byte
@@ -16,14 +19,27 @@ func DeSerializeData[T interface{}](source any, target *T) T { // target必须�
 	} else {
 		jsonData, err = json.Marshal(source)
 		if err != nil {
-			log.Printf("JSON序列化失败: %s", WrapErrorLocation(err))
+			log.Printf("JSON序列化失败: %s", wrapErrorLocation(err))
 			panic(err)
 		}
 	}
 	err = json.Unmarshal(jsonData, target)
 	if err != nil {
-		log.Printf("JSON反序列化失败: %s\n%s", WrapErrorLocation(err), jsonData)
+		log.Printf("JSON反序列化失败: %s\n%s", wrapErrorLocation(err), jsonData)
 		panic(err)
 	}
 	return *target
+}
+
+
+// WrapErrorLocation 包装错误信息，将发生错误的行数信息添加到错误信息中
+func wrapErrorLocation(err error, msg ...string) error {
+    if err != nil {
+        addtionMsg := ""
+        for _, m := range msg {
+            addtionMsg += (" | " + m)
+        }
+        return fmt.Errorf("error occurred at %s %s\n\t%w", GetCodeLine(3), addtionMsg, err)
+    }
+    return nil
 }
