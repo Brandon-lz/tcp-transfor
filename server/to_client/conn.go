@@ -103,8 +103,6 @@ func (cm *clientConnManager) delConnId(id int) {
 }
 
 func dealCmdFromClient(clientConn *net.TCPConn) {
-	log.Printf("New client conn from %s", clientConn.RemoteAddr())
-
 	defer utils.RecoverAndLog()
 	// defer clientConn.Close()
 	// clientName := clientConn.RemoteAddr().String()

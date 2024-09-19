@@ -1,7 +1,6 @@
 package common
 
 import (
-	"io"
 	"log"
 	"net"
 	"time"
@@ -17,15 +16,17 @@ func ReadConn(clientConn *net.TCPConn) ([]byte, error) {
 	return buffer[:n], nil
 }
 
-func CheckConnIsClosed(c *net.TCPConn) {
-	c.SetReadDeadline(time.Now())
-	var one []byte
-	if _, err := c.Read(one); err == io.EOF {
-		log.Printf("Client disconnect: %s", c.RemoteAddr())
-		c.Close()
-		c = nil
-	} else {
-		var zero time.Time
-		c.SetReadDeadline(zero)
-	}
+func CheckConnIsClosed(c *net.TCPConn, zero time.Time) bool {
+	// c.SetReadDeadline(time.Now())
+	// var one = make([]byte, 1)
+	// if _, err := c.Read(one); err == io.EOF {
+	// 	log.Printf("Client disconnect: %s", c.RemoteAddr())
+	// 	c.Close()
+	// 	c = nil
+	// 	return true
+	// } else {
+	// 	c.SetReadDeadline(zero)
+	// 	return false
+	// }
+	return false
 }
