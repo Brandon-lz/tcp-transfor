@@ -15184,3 +15184,67 @@
 2024/09/19 03:18:16 success establish connection with server
 2024/09/19 03:18:22 Received new connection request from server
 2024/09/19 03:18:22 success new sub connection to server 0
+2024/09/19 03:19:24 Sent hello message to server
+2024/09/19 03:19:24 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:19:24 success establish connection with server
+2024/09/19 03:19:26 Received new connection request from server
+2024/09/19 03:19:26 success new sub connection to server 0
+2024/09/19 03:20:47 读取响应失败: EOF
+2024/09/19 03:20:47 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 03:20:49 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 03:20:51 Sent hello message to server
+2024/09/19 03:20:51 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:20:51 success establish connection with server
+2024/09/19 03:20:58 Received new connection request from server
+2024/09/19 03:20:58 success new sub connection to server 0
+2024/09/19 03:21:24 读取响应失败: EOF
+2024/09/19 03:21:24 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 03:21:26 Sent hello message to server
+2024/09/19 03:21:26 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:21:26 success establish connection with server
+2024/09/19 03:21:29 Sent hello message to server
+2024/09/19 03:21:29 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/09/19 03:21:29 Failed to say hello to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:29 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:80 
+	client hello faild:Client name already exists
+2024/09/19 03:21:31 Sent hello message to server
+2024/09/19 03:21:31 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:21:31 success establish connection with server
+2024/09/19 03:21:40 Received new connection request from server
+2024/09/19 03:21:40 success new sub connection to server 0
+2024/09/19 03:21:47 Received new connection request from server
+2024/09/19 03:21:47 success new sub connection to server 1
+2024/09/19 03:21:48 Received new connection request from server
+2024/09/19 03:21:48 success new sub connection to server 2
+2024/09/19 03:21:48 Received new connection request from server
+2024/09/19 03:21:48 success new sub connection to server 3
+2024/09/19 03:22:15 Received new connection request from server
+2024/09/19 03:22:15 success new sub connection to server 4
+2024/09/19 03:22:50 Sent hello message to server
+2024/09/19 03:22:50 Received message from server: {"code":500,"msg":"client hello faild:Client name already exists"}
+2024/09/19 03:22:50 Failed to say hello to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:29 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:80 
+	client hello faild:Client name already exists
+2024/09/19 03:22:52 Sent hello message to server
+2024/09/19 03:22:52 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:22:52 success establish connection with server
+2024/09/19 03:22:59 Sent hello message to server
+2024/09/19 03:22:59 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:22:59 success establish connection with server
+2024/09/19 03:23:05 Received new connection request from server
+2024/09/19 03:23:05 success new sub connection to server 0
+2024/09/19 03:23:55 Sent hello message to server
+2024/09/19 03:23:55 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:23:55 success establish connection with server
+2024/09/19 03:23:57 Received new connection request from server
+2024/09/19 03:23:57 success new sub connection to server 0
+2024/09/19 03:28:07 Sent hello message to server
+2024/09/19 03:28:07 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:28:07 success establish connection with server
+2024/09/19 03:28:22 Received new connection request from server
+2024/09/19 03:28:22 success new sub connection to server 0

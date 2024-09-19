@@ -1,7 +1,6 @@
 package common
 
 import (
-	"context"
 	"fmt"
 	"io"
 	"net"
@@ -46,23 +45,6 @@ func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
 	defer src.Close()
 	defer dst.Close()
 
-	// 测试transData是否正常退出
-	ctx, cancel := context.WithCancel(context.TODO())
-	defer cancel()
-	go func(ctx context.Context) {
-		funcName := "transData"
-		for {
-			select {
-			case <-ctx.Done():
-				fmt.Println(funcName + " quit 1111111111111111")
-				return
-			default:
-				fmt.Println(funcName + " run")
-				time.Sleep(1 * time.Second)
-			}
-		}
-	}(ctx)
-
 	// quit := make(chan bool)
 	go func() {
 		defer utils.RecoverAndLog(func(err error) {
@@ -89,7 +71,7 @@ func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
 			// _, err = dst.Write(data)
 
 			if err != nil {
-				panic(fmt.Errorf("Failed to write data to %s: %v\n", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
+				panic(fmt.Errorf("failed to write data to %s: %v", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
 			}
 		}
 	}()
@@ -101,8 +83,14 @@ func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
 		// case <-quit:
 		// break trans
 		// default:
-		src.SetDeadline(time.Now().Add(8 * time.Second))
-		// dst.SetDeadline(time.Now().Add(8 * time.Hour))
+		err := src.SetDeadline(time.Now().Add(8 * time.Second))
+		if err != nil {
+			panic(fmt.Errorf("failed to set deadline for %s: %v", src.RemoteAddr(), utils.WrapErrorLocation(err)))
+		}
+		err = dst.SetDeadline(time.Now().Add(8 * time.Second))
+		if err != nil {
+			panic(fmt.Errorf("failed to set deadline for %s: %v", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
+		}
 
 		// if count < 9600 {
 		// 	src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
@@ -111,9 +99,9 @@ func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
 		// }
 
 		count++
-		_, err := io.Copy(src, dst)
+		_, err = io.Copy(src, dst)
 		if err != nil {
-			panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
+			panic(fmt.Errorf("failed to copy data from %s to %s: %v", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
 		}
 		// }
 	}

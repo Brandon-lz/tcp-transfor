@@ -1978,3 +1978,151 @@ github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func2()
 created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 20
 	/workspaces/tcp-transfor/common/transfor_conn.go:67 +0x193
 
+未知异常：Failed to write data to 127.0.0.1:44068: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:92 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:58572: readfrom tcp 127.0.0.1:8080->127.0.0.1:44068: i/o timeout
+
+goroutine 11 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e70, 0x1, 0xc000146380?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc0000160f0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func2()
+	/workspaces/tcp-transfor/common/transfor_conn.go:92 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 9
+	/workspaces/tcp-transfor/common/transfor_conn.go:67 +0x193
+
+未知异常：Failed to write data to 127.0.0.1:43366: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:92 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:41308: readfrom tcp 127.0.0.1:8080->127.0.0.1:43366: i/o timeout
+
+goroutine 38 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000186e70, 0x1, 0xc0001a2380?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc0000980f0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func2()
+	/workspaces/tcp-transfor/common/transfor_conn.go:92 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 36
+	/workspaces/tcp-transfor/common/transfor_conn.go:67 +0x19f
+
+未知异常：Failed to write data to 127.0.0.1:41642: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:92 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:41022: readfrom tcp 127.0.0.1:8080->127.0.0.1:41642: i/o timeout
+
+goroutine 28 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc0003d4e70, 0x1, 0xc000083180?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc0000980a0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func2()
+	/workspaces/tcp-transfor/common/transfor_conn.go:92 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 26
+	/workspaces/tcp-transfor/common/transfor_conn.go:67 +0x1a5
+
+未知异常：Failed to copy data from 127.0.0.1:41642 to 127.0.0.1:41022: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:119 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:41642: readfrom tcp 127.0.0.1:9091->127.0.0.1:41022: i/o timeout
+
+goroutine 26 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00009a0d8?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc000194040?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc00009a0d8, 0xc00009a0f8)
+	/workspaces/tcp-transfor/common/transfor_conn.go:119 +0x365
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.whenNewUserConnComeIn in goroutine 24
+	/workspaces/tcp-transfor/server/to_client/conn.go:242 +0x41f
+
+未知异常：Failed to write data to 127.0.0.1:37682: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:92 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:50918: readfrom tcp 127.0.0.1:8080->127.0.0.1:37682: i/o timeout
+
+goroutine 43 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc0001a3e70, 0x1, 0xc0001961c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc000016040?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func2()
+	/workspaces/tcp-transfor/common/transfor_conn.go:92 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 41
+	/workspaces/tcp-transfor/common/transfor_conn.go:67 +0x1a5
+
+未知异常：Failed to copy data from 127.0.0.1:37682 to 127.0.0.1:50918: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:119 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:37682: readfrom tcp 127.0.0.1:9091->127.0.0.1:50918: i/o timeout
+
+goroutine 41 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00050e000?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc000194050?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc00050e000, 0xc00050e008)
+	/workspaces/tcp-transfor/common/transfor_conn.go:119 +0x365
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.whenNewUserConnComeIn in goroutine 39
+	/workspaces/tcp-transfor/server/to_client/conn.go:242 +0x41f
+
+未知异常：Failed to write data to 127.0.0.1:37684: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:92 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:50934: readfrom tcp 127.0.0.1:8080->127.0.0.1:37684: i/o timeout
+
+goroutine 53 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000061e70, 0x1, 0xc000083dc0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc000016040?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func2()
+	/workspaces/tcp-transfor/common/transfor_conn.go:92 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 51
+	/workspaces/tcp-transfor/common/transfor_conn.go:67 +0x1a5
+
+未知异常：Failed to copy data from 127.0.0.1:37684 to 127.0.0.1:50934: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:119 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:37684: readfrom tcp 127.0.0.1:9091->127.0.0.1:50934: i/o timeout
+
+goroutine 51 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0002e2ad8?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54cb20?, 0xc000194050?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc0002e2ad8, 0xc0001d1858)
+	/workspaces/tcp-transfor/common/transfor_conn.go:119 +0x365
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.whenNewUserConnComeIn in goroutine 50
+	/workspaces/tcp-transfor/server/to_client/conn.go:242 +0x41f
+
+未知异常：failed to write data to 127.0.0.1:48434: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:39094: readfrom tcp 127.0.0.1:8080->127.0.0.1:48434: i/o timeout
+goroutine 12 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000062e70, 0x1, 0xc000082540?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54caa0?, 0xc0000b2090?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 11
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:48434 to 127.0.0.1:39094: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:48434: readfrom tcp 127.0.0.1:9091->127.0.0.1:39094: i/o timeout
+goroutine 11 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00008e010?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54caa0?, 0xc000016040?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc00008e010, 0xc000050180)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.whenNewUserConnComeIn in goroutine 19
+	/workspaces/tcp-transfor/server/to_client/conn.go:242 +0x41f
+

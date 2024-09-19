@@ -21,7 +21,7 @@ func CheckConnIsClosed(c *net.TCPConn) {
 	c.SetReadDeadline(time.Now())
 	var one []byte
 	if _, err := c.Read(one); err == io.EOF {
-		log.Println("Client disconnect: %s", c.RemoteAddr())
+		log.Printf("Client disconnect: %s", c.RemoteAddr())
 		c.Close()
 		c = nil
 	} else {
