@@ -690,3 +690,624 @@ github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc0000501c8, 0xc0000
 created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
 	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
 
+未知异常：failed to write data to 127.0.0.1:8080: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:44012->127.0.0.1:9090: readfrom tcp 127.0.0.1:59842->127.0.0.1:8080: use of closed network connection
+goroutine 34 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00005de70, 0x1, 0xc000202000?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000016cb0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 18
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:8080 to 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:59842->127.0.0.1:8080: readfrom tcp 127.0.0.1:44012->127.0.0.1:9090: i/o timeout
+goroutine 18 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000b4010?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000210070?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc0000b4010, 0xc0000b4008)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to write data to 127.0.0.1:8080: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:44022->127.0.0.1:9090: readfrom tcp 127.0.0.1:59856->127.0.0.1:8080: use of closed network connection
+goroutine 9 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e70, 0x1, 0xc0001401c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc0002100e0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 8
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:8080 to 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:59856->127.0.0.1:8080: readfrom tcp 127.0.0.1:44022->127.0.0.1:9090: i/o timeout
+goroutine 8 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000501f8?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc0002100b0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc0000501f8, 0xc0000501f0)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to write data to 127.0.0.1:8080: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:44034->127.0.0.1:9090: readfrom tcp 127.0.0.1:59864->127.0.0.1:8080: i/o timeout
+goroutine 10 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000151e70, 0x1, 0xc000140380?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000016d10?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 19
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:8080 to 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:59864->127.0.0.1:8080: readfrom tcp 127.0.0.1:44034->127.0.0.1:9090: i/o timeout
+goroutine 19 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000b4020?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000016d50?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc0000b4020, 0xc0000b4018)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to write data to 127.0.0.1:8080: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:44046->127.0.0.1:9090: readfrom tcp 127.0.0.1:59874->127.0.0.1:8080: use of closed network connection
+goroutine 35 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00005fe70, 0x1, 0xc0002021c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000210160?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 20
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:8080 to 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:59874->127.0.0.1:8080: readfrom tcp 127.0.0.1:44046->127.0.0.1:9090: i/o timeout
+goroutine 20 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000b4030?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000210130?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc0000b4030, 0xc0000b4028)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to write data to 127.0.0.1:8080: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:44062->127.0.0.1:9090: readfrom tcp 127.0.0.1:59890->127.0.0.1:8080: i/o timeout
+goroutine 21 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00014ce70, 0x1, 0xc000082700?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc0002101b0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 11
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:8080 to 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:59890->127.0.0.1:8080: readfrom tcp 127.0.0.1:44062->127.0.0.1:9090: i/o timeout
+goroutine 11 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000050228?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000016da0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc000050228, 0xc000050220)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to write data to 127.0.0.1:8080: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:44076->127.0.0.1:9090: readfrom tcp 127.0.0.1:59892->127.0.0.1:8080: use of closed network connection
+goroutine 13 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000153e70, 0x1, 0xc0001408c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000016e20?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 12
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:8080 to 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:59892->127.0.0.1:8080: readfrom tcp 127.0.0.1:44076->127.0.0.1:9090: i/o timeout
+goroutine 12 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000050238?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x5483e0?, 0xc000016df0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc000050238, 0xc000050230)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc0000a2230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:20 +0x55
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc000136230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:20 +0x55
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc000122230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:20 +0x55
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc0000bc230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:21 +0x5c
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc0000bc230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:19 +0x5c
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56b020?, 0xc0000a2230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:20 +0x9c
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc000136230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:21 +0x7b
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc000122230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:42 +0xd1
+main.main()
+	/workspaces/tcp-transfor/client/main.go:22 +0xb9
+
+未知异常：toml: line 12 (last key "map.server-port"): unexpected EOF; expected value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x56a020?, 0xc000122230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/client/config.LoadConfig()
+	/workspaces/tcp-transfor/client/config/config.go:45 +0x139
+main.main()
+	/workspaces/tcp-transfor/client/main.go:21 +0x7b
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:51872->127.0.0.1:9090: read tcp 127.0.0.1:51872->127.0.0.1:9090: use of closed network connection
+goroutine 20 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00005de30, 0x1, 0xc000082a80?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc0000160b0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 19
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 19 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00009a1c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016080?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc00009a1c0, 0xc00009a1b8)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:54646->127.0.0.1:9090: read tcp 127.0.0.1:54646->127.0.0.1:9090: use of closed network connection
+goroutine 22 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e30, 0x1, 0xc000007dc0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000098230?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 6
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 6 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000002020?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000098200?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc000002020, 0xc000002018)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:37548->127.0.0.1:9090: read tcp 127.0.0.1:37548->127.0.0.1:9090: use of closed network connection
+goroutine 24 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00005fe30, 0x1, 0xc0001d6540?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000074060?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 23
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 23 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000186028?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000074030?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc000186028, 0xc000186020)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:40850->127.0.0.1:9090: read tcp 127.0.0.1:40850->127.0.0.1:9090: use of closed network connection
+goroutine 8 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e30, 0x1, 0xc0001d6700?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc0000981a0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 7
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 7 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000002008?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016220?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc000002008, 0xc000002000)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:37224->127.0.0.1:9090: read tcp 127.0.0.1:37224->127.0.0.1:9090: use of closed network connection
+goroutine 25 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e30, 0x1, 0xc0001d6380?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000098970?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 36
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 36 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000002028?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000098910?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc000002028, 0xc000002010)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:50198->127.0.0.1:9090: read tcp 127.0.0.1:50198->127.0.0.1:9090: use of closed network connection
+goroutine 27 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000062e30, 0x1, 0xc0001d68c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016110?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 26
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 26 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000200018?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc0000160e0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc000200018, 0xc000200010)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:59586->127.0.0.1:9090: read tcp 127.0.0.1:59586->127.0.0.1:9090: use of closed network connection
+goroutine 50 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000062e30, 0x1, 0xc0001d6540?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc0000988f0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 28
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 28 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00009a050?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc0000988c0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc00009a050, 0xc00009a048)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:54060->127.0.0.1:9090: read tcp 127.0.0.1:54060->127.0.0.1:9090: use of closed network connection
+goroutine 10 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e30, 0x1, 0xc0001d6700?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000098a60?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 9
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 9 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00016e010?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000098a30?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc00016e010, 0xc00016e008)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:42176->127.0.0.1:9090: read tcp 127.0.0.1:42176->127.0.0.1:9090: use of closed network connection
+goroutine 30 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000063e30, 0x1, 0xc0001d6700?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016080?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 29
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 29 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc00009a0c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016050?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc00009a0c0, 0xc00009a0b0)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to read data from 127.0.0.1:9090: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:141 
+	writeto tcp 127.0.0.1:51622->127.0.0.1:9090: read tcp 127.0.0.1:51622->127.0.0.1:9090: use of closed network connection
+goroutine 52 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000062e30, 0x1, 0xc0001d6c40?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016170?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:141 +0x39c
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient in goroutine 51
+	/workspaces/tcp-transfor/common/transfor_conn.go:131 +0x125
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:185 
+	ciphertext too short
+goroutine 51 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000d0018?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54b7e0?, 0xc000016130?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc0000d0018, 0xc0000d0010)
+	/workspaces/tcp-transfor/common/transfor_conn.go:185 +0x47d
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:256 
+	ciphertext too short
+goroutine 20 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000b2020?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7e0?, 0xc000090bd0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc0000b2020, 0xc0000b2018)
+	/workspaces/tcp-transfor/common/transfor_conn.go:256 +0x7ae
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:256 
+	ciphertext too short
+goroutine 18 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000b2008?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7e0?, 0xc000090c20?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc0000b2008, 0xc0000b2000)
+	/workspaces/tcp-transfor/common/transfor_conn.go:256 +0x7ae
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:256 
+	ciphertext too short
+goroutine 8 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000501e0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7e0?, 0xc000016be0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc0000501e0, 0xc0000501d8)
+	/workspaces/tcp-transfor/common/transfor_conn.go:256 +0x7ae
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+
+未知异常：failed to decrypt data: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:256 
+	ciphertext too short
+goroutine 6 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc0000501c8?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54c7e0?, 0xc000188750?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc0000501c8, 0xc0000501c0)
+	/workspaces/tcp-transfor/common/transfor_conn.go:256 +0x7ae
+created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
+	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
+

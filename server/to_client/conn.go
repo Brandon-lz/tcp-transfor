@@ -239,7 +239,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, client
 	for {
 		if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
 			// go TransForConnData(userConn, newSubConn, connId, ccm)
-			go common.TransForConnData(userConn, newSubConn)
+			go common.TransForConnDataServer(userConn, newSubConn)
 			return
 		} else {
 			timeoutCount++

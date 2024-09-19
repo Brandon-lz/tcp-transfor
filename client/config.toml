@@ -9,5 +9,5 @@ local-port = 9090
 server-port = 9091
 
 # [[map]]
-# local-port = 9091
-# server-port = 9091
+# local-port = 22
+# server-port = 30022
