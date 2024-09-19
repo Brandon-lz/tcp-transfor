@@ -16109,3 +16109,252 @@
 2024/09/19 07:02:42 success establish connection with server
 2024/09/19 07:02:44 Received new connection request from server
 2024/09/19 07:02:44 success new sub connection to server 0
+2024/09/19 07:06:04 failed to read data from server: read tcp 127.0.0.1:39144->127.0.0.1:8080: i/o timeout
+2024/09/19 07:06:04 failed to read data from local: read tcp 127.0.0.1:47750->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:06:12 Received new connection request from server
+2024/09/19 07:06:12 success new sub connection to server 1
+2024/09/19 07:07:04 读取响应失败: EOF
+2024/09/19 07:07:04 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:07:04 failed to read data from local: read tcp 127.0.0.1:50362->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:07:06 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:07:08 Sent hello message to server
+2024/09/19 07:07:08 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:07:08 success establish connection with server
+2024/09/19 07:07:10 Received new connection request from server
+2024/09/19 07:07:10 success new sub connection to server 0
+2024/09/19 07:08:15 读取响应失败: EOF
+2024/09/19 07:08:15 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:08:15 failed to read data from local: read tcp 127.0.0.1:50384->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:08:17 Sent hello message to server
+2024/09/19 07:08:17 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:08:17 success establish connection with server
+2024/09/19 07:08:18 Received new connection request from server
+2024/09/19 07:08:18 success new sub connection to server 0
+2024/09/19 07:10:05 failed to read data from local: read tcp 127.0.0.1:51812->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:10:05 读取响应失败: EOF
+2024/09/19 07:10:05 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:10:07 Sent hello message to server
+2024/09/19 07:10:07 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:10:07 success establish connection with server
+2024/09/19 07:10:09 Received new connection request from server
+2024/09/19 07:10:09 success new sub connection to server 0
+2024/09/19 07:10:21 读取响应失败: EOF
+2024/09/19 07:10:21 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:10:21 failed to read data from local: read tcp 127.0.0.1:36476->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:10:23 Sent hello message to server
+2024/09/19 07:10:23 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:10:23 success establish connection with server
+2024/09/19 07:10:24 Received new connection request from server
+2024/09/19 07:10:24 success new sub connection to server 0
+2024/09/19 07:10:34 读取响应失败: EOF
+2024/09/19 07:10:34 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:10:34 failed to read data from local: read tcp 127.0.0.1:49024->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:10:36 Sent hello message to server
+2024/09/19 07:10:36 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:10:36 success establish connection with server
+2024/09/19 07:10:37 Received new connection request from server
+2024/09/19 07:10:37 success new sub connection to server 0
+2024/09/19 07:11:45 failed to read data from local: read tcp 127.0.0.1:43906->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:11:45 读取响应失败: EOF
+2024/09/19 07:11:45 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:11:47 Sent hello message to server
+2024/09/19 07:11:47 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:11:47 success establish connection with server
+2024/09/19 07:11:48 Received new connection request from server
+2024/09/19 07:11:48 success new sub connection to server 0
+2024/09/19 07:15:08 failed to read data from local: read tcp 127.0.0.1:60888->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:16:12 读取响应失败: EOF
+2024/09/19 07:16:12 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:16:14 Sent hello message to server
+2024/09/19 07:16:14 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:16:14 success establish connection with server
+2024/09/19 07:16:15 Received new connection request from server
+2024/09/19 07:16:15 success new sub connection to server 0
+2024/09/19 07:16:34 读取响应失败: EOF
+2024/09/19 07:16:34 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:16:34 failed to read data from local: read tcp 127.0.0.1:50978->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:16:36 Sent hello message to server
+2024/09/19 07:16:36 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:16:36 success establish connection with server
+2024/09/19 07:16:38 Received new connection request from server
+2024/09/19 07:16:38 success new sub connection to server 0
+2024/09/19 07:17:30 failed to read data from local: read tcp 127.0.0.1:36146->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:17:30 读取响应失败: EOF
+2024/09/19 07:17:30 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:17:32 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:34 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:36 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:38 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:40 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:42 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:44 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:46 Sent hello message to server
+2024/09/19 07:17:46 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:17:46 success establish connection with server
+2024/09/19 07:17:47 Received new connection request from server
+2024/09/19 07:17:47 success new sub connection to server 0
+2024/09/19 07:17:53 读取响应失败: EOF
+2024/09/19 07:17:53 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:17:55 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:57 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:17:59 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:01 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:03 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:05 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:07 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:09 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:11 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:13 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:15 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:17 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:19 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:21 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:23 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:25 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:27 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:29 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:31 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:33 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:35 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:37 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:39 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:41 Failed to create main connection to server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:23 
+	error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/conn.go:53  | Failed to create local connection 127.0.0.1:8080: dial tcp 127.0.0.1:8080: connect: connection refused
+
+	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 07:18:43 Sent hello message to server
+2024/09/19 07:18:43 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:18:43 success establish connection with server
+2024/09/19 07:18:44 Received new connection request from server
+2024/09/19 07:18:44 success new sub connection to server 0
+2024/09/19 07:18:53 Received new connection request from server
+2024/09/19 07:18:53 success new sub connection to server 1
+2024/09/19 07:22:04 failed to read data from local: read tcp 127.0.0.1:59956->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:22:13 failed to read data from server: read tcp 127.0.0.1:60052->127.0.0.1:8080: i/o timeout
+2024/09/19 07:22:13 failed to read data from local: read tcp 127.0.0.1:51856->127.0.0.1:9090: use of closed network connection
+2024/09/19 07:24:46 读取响应失败: EOF
+2024/09/19 07:24:46 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:24:48 Sent hello message to server
+2024/09/19 07:24:48 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:24:48 success establish connection with server
+2024/09/19 07:24:49 Received new connection request from server
+2024/09/19 07:24:49 success new sub connection to server 0
+2024/09/19 07:28:10 failed to read data from server: read tcp 127.0.0.1:58070->127.0.0.1:8080: i/o timeout
+2024/09/19 07:28:10 failed to read data from local: read tcp 127.0.0.1:50048->127.0.0.1:9090: i/o timeout
+2024/09/19 07:29:58 读取响应失败: EOF
+2024/09/19 07:29:58 Failed to communicate with server: error occurred at /workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:27 
+	EOF
+2024/09/19 07:30:00 Sent hello message to server
+2024/09/19 07:30:00 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:30:00 success establish connection with server
+2024/09/19 07:30:02 Sent hello message to server
+2024/09/19 07:30:02 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 07:30:02 success establish connection with server
+2024/09/19 07:30:04 Received new connection request from server
+2024/09/19 07:30:04 success new sub connection to server 0
+2024/09/19 07:30:10 Received new connection request from server
+2024/09/19 07:30:10 success new sub connection to server 1
