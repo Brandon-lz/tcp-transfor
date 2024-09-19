@@ -18,7 +18,7 @@ type ResponseToServer struct {
 	Data interface{} `json:"data"`
 }
 
-func ListenServerCmd(serverConn net.Conn) {
+func ListenServerCmd(serverConn *net.TCPConn) {
 	for {
 
 		// msgData, err := io.ReadAll(serverConn)
@@ -35,7 +35,7 @@ func ListenServerCmd(serverConn net.Conn) {
 			// log.Printf("Received ping message from server: %s\n", msgData)
 			// resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			// serverConn.Write(resData)
-			;
+
 		case "new-conn-request":
 			log.Println("Received new connection request from server")
 			newcmd := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})

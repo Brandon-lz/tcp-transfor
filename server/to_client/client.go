@@ -13,8 +13,8 @@ var ClientSet = make(map[string]*Client)
 
 type Client struct {
 	Name    string `json:"name"`
-	Conn    net.Conn
-	SubConn map[int]net.Conn
+	Conn    *net.TCPConn
+	SubConn map[int]*net.TCPConn
 	Map     []struct {
 		LocalPort  int `json:"local-port"`
 		ServerPort int `json:"server-port"`
@@ -88,7 +88,7 @@ func CheckClientAlive() {
 				fmt.Println("Client ", c.Name, " disconnected")
 				for _, ccm := range CCMList {
 					if ccm.ClientName == c.Name {
-						quitAgent.Publish(ccm.ClientName,"quit")
+						quitAgent.Publish(ccm.ClientName, "quit")
 						delete(CCMList, ccm.ClientName)
 					}
 				}

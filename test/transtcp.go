@@ -48,7 +48,7 @@ func transData(sourceConn, targetConn net.Conn) {
 	defer sourceConn.Close()
 	defer targetConn.Close()
 
-	quit := make(chan bool)
+	quit := make(chan bool, 2)
 
 	go func() {
 		// 将源连接的数据复制到目标连接

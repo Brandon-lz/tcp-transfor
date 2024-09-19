@@ -15154,3 +15154,33 @@
 2024/04/29 02:27:50 Failed to create main connection to server: error occurred at /workspace/tcp-transfor/client/trans_local_tcp/to_server.go:22 
 	error occurred at /workspace/tcp-transfor/client/trans_local_tcp/core/conn.go:23 
 	dial tcp 127.0.0.1:8080: connect: connection refused
+2024/09/19 02:31:43 Connected to server
+2024/09/19 02:31:43 Sent hello message to server
+2024/09/19 02:31:43 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 02:31:43 success establish connection with server
+2024/09/19 02:32:34 Received new connection request from server
+2024/09/19 02:32:34 Connected to server
+2024/09/19 02:32:34 success new sub connection to server 0
+2024/09/19 02:43:09 Connected to server
+2024/09/19 02:43:09 Sent hello message to server
+2024/09/19 02:43:09 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 02:43:09 success establish connection with server
+2024/09/19 02:45:49 Connected to server
+2024/09/19 02:45:49 Sent hello message to server
+2024/09/19 02:45:49 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 02:45:49 success establish connection with server
+2024/09/19 02:45:54 Received new connection request from server
+2024/09/19 02:45:54 Connected to server
+2024/09/19 02:45:54 success new sub connection to server 0
+2024/09/19 02:55:18 Connected to server
+2024/09/19 02:55:18 Sent hello message to server
+2024/09/19 02:55:18 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 02:55:18 success establish connection with server
+2024/09/19 02:55:21 Received new connection request from server
+2024/09/19 02:55:21 Connected to server
+2024/09/19 02:55:21 success new sub connection to server 0
+2024/09/19 03:18:16 Sent hello message to server
+2024/09/19 03:18:16 Received message from server: {"code":200,"msg":"hello success"}
+2024/09/19 03:18:16 success establish connection with server
+2024/09/19 03:18:22 Received new connection request from server
+2024/09/19 03:18:22 success new sub connection to server 0

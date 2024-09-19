@@ -8,16 +8,15 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-
-func KeepAlive(serverConn net.Conn) {
+func KeepAlive(serverConn *net.TCPConn) {
 	defer utils.RecoverAndLog()
 	for {
-		time.Sleep(time.Second*5)
+		time.Sleep(time.Second * 5)
 		ping := common.ServerCmd{
-			Type:"ping",
+			Type: "ping",
 		}
-		_,err := serverConn.Write(utils.SerilizeData(ping))
-		if err!= nil {
+		_, err := serverConn.Write(utils.SerilizeData(ping))
+		if err != nil {
 			panic(err)
 		}
 	}

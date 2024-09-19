@@ -1,6 +1,7 @@
 package common
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net"
@@ -9,7 +10,7 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-// func TransForConnData(src net.Conn, dst net.Conn) {
+// func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
 // 	defer utils.RecoverAndLog()
 // 	defer src.Close()
 // 	defer dst.Close()
@@ -40,13 +41,27 @@ import (
 
 // }
 
-
-
-func TransForConnData(src net.Conn, dst net.Conn) {
+func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
 	defer utils.RecoverAndLog()
 	defer src.Close()
 	defer dst.Close()
 
+	// 测试transData是否正常退出
+	ctx, cancel := context.WithCancel(context.TODO())
+	defer cancel()
+	go func(ctx context.Context) {
+		funcName := "transData"
+		for {
+			select {
+			case <-ctx.Done():
+				fmt.Println(funcName + " quit 1111111111111111")
+				return
+			default:
+				fmt.Println(funcName + " run")
+				time.Sleep(1 * time.Second)
+			}
+		}
+	}(ctx)
 
 	// quit := make(chan bool)
 	go func() {
@@ -61,7 +76,7 @@ func TransForConnData(src net.Conn, dst net.Conn) {
 			// 	userConn.SetDeadline(time.Now().Add(8 * time.Hour))
 			// }
 
-			_, err := io.Copy(dst, src)         // when dst.close, it will panic 
+			_, err := io.Copy(dst, src) // when dst.close, it will panic
 
 			// data, err := common.ReadConn(userConn)
 			// if err != nil {
@@ -86,13 +101,14 @@ func TransForConnData(src net.Conn, dst net.Conn) {
 		// case <-quit:
 		// break trans
 		// default:
-		// src.SetDeadline(time.Now().Add(8 * time.Hour))
+		src.SetDeadline(time.Now().Add(8 * time.Second))
 		// dst.SetDeadline(time.Now().Add(8 * time.Hour))
-		if count < 9600 {
-			src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
-		} else {
-			src.SetDeadline(time.Now().Add(8 * time.Hour))
-		}
+
+		// if count < 9600 {
+		// 	src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
+		// } else {
+		// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
+		// }
 
 		count++
 		_, err := io.Copy(src, dst)

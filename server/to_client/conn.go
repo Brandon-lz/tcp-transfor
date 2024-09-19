@@ -16,17 +16,30 @@ import (
 	gopubsub "github.com/Brandon-lz/go-pubsub"
 )
 
+func createListener(host string, port int) (*net.TCPListener, error) {
+	addr, err := net.ResolveTCPAddr("tcp", fmt.Sprintf("%s:%d", host, port))
+	if err != nil {
+		return nil, err
+	}
+	listener, err := net.ListenTCP("tcp", addr)
+	if err != nil {
+		return nil, err
+	}
+	return listener, nil
+}
+
 // listen to accecpt client main conn and sub conn
 func ListenClientConn() {
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Config.Port))
+	listener, err := createListener("0.0.0.0", config.Config.Port)
 	if err != nil {
-		log.Fatalf("Failed to listen on %d: %v", config.Config.Port, err)
+		log.Printf("Failed to listen on port %d: %v", config.Config.Port, err)
+		return
 	}
 	defer listener.Close()
 	log.Println("Server is listening on port: ", config.Config.Port)
 
 	for {
-		conn, err := listener.Accept() // new client main conn or sub conn
+		conn, err := listener.AcceptTCP() // new client main conn or sub conn
 		if err != nil {
 			log.Printf("Failed to accept connection: %v", err)
 			if strings.Contains(err.Error(), "use of closed network connection") {
@@ -44,25 +57,25 @@ var quitAgent = gopubsub.NewAgent()
 var CCMList = make(map[string]*clientConnManager)
 
 type ConnCouple struct {
-	UserConn      net.Conn
-	ClientSubConn net.Conn
+	UserConn      *net.TCPConn
+	ClientSubConn *net.TCPConn
 	Id            int
 }
 
 type clientConnManager struct {
 	ClientName          string
-	ClientConn          net.Conn
-	ClientSubConnWithId map[int]net.Conn
+	ClientConn          *net.TCPConn
+	ClientSubConnWithId map[int]*net.TCPConn
 	clientSubConnIdSet  map[int]struct{}
 	clientSubConnIdLock sync.Mutex
 	// Quit              string
 }
 
-func NewclientConnManager(clientConn net.Conn, clientName string) clientConnManager {
+func NewclientConnManager(clientConn *net.TCPConn, clientName string) clientConnManager {
 	return clientConnManager{
 		ClientName:          clientName,
 		ClientConn:          clientConn,
-		ClientSubConnWithId: make(map[int]net.Conn),
+		ClientSubConnWithId: make(map[int]*net.TCPConn),
 		clientSubConnIdSet:  make(map[int]struct{}),
 		clientSubConnIdLock: sync.Mutex{},
 		// Quit:     string,
@@ -89,7 +102,7 @@ func (cm *clientConnManager) delConnId(id int) {
 	delete(cm.ClientSubConnWithId, id)
 }
 
-func dealCmdFromClient(clientConn net.Conn) {
+func dealCmdFromClient(clientConn *net.TCPConn) {
 	log.Printf("New client conn from %s", clientConn.RemoteAddr())
 
 	defer utils.RecoverAndLog()
@@ -124,7 +137,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 		// create new client conn manager
 		// ccm := clientConnManager{
 		// 	ClientConn:          clientConn,
-		// 	ClientSubConnWithId: make(map[int]net.Conn),
+		// 	ClientSubConnWithId: make(map[int]*net.TCPConn),
 		// 	clientSubConnIdSet:  make(map[int]struct{}),
 		// 	clientSubConnIdLock: sync.Mutex{},
 		// 	Quit:                make(chan bool),
@@ -137,7 +150,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 
 		// create new listener to client map port for listen user request
 		log.Println("listen on client map port")
-		var listen_fail = make(chan bool)
+		var listen_fail = make(chan bool, 2)
 		var wg = sync.WaitGroup{}
 
 		for _, m := range hello.Map {
@@ -173,7 +186,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 	defer utils.RecoverAndLog()
 	defer wg.Done()
 
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", listenPort))
+	listener, err := createListener("0.0.0.0", listenPort)
 	if err != nil {
 		log.Printf("Failed to listen on %s: %d: %v", ccm.ClientName, listenPort, err)
 		failSign <- true
@@ -194,7 +207,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 		}()
 
 		for {
-			userConn, err := listener.Accept()
+			userConn, err := listener.AcceptTCP() // new user conn
 			if err != nil {
 				log.Printf("Failed to accept connection: %v", err)
 				if strings.Contains(err.Error(), "use of closed network connection") { // exit goroutine
@@ -209,7 +222,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 
 }
 
-func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLocalPort, listenPort int) {
+func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, clientLocalPort, listenPort int) {
 	defer utils.RecoverAndLog()
 	// new conn to server
 	log.Println("new user conn ")
@@ -239,7 +252,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLoca
 	}
 }
 
-func TransForConnData(src net.Conn, dst net.Conn, connid int, ccm *clientConnManager) {
+func TransForConnData(src *net.TCPConn, dst *net.TCPConn, connid int, ccm *clientConnManager) {
 	defer utils.RecoverAndLog()
 	defer ccm.delConnId(connid)
 	defer src.Close()

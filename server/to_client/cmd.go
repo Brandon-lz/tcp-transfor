@@ -8,7 +8,7 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-func cmdToClientGetNewConn(clientConn net.Conn, connId, LocalPort, ServerPort int) error {
+func cmdToClientGetNewConn(clientConn *net.TCPConn, connId, LocalPort, ServerPort int) error {
 	sercmd := common.ServerCmd{
 		Type: "new-conn-request",
 		Data: common.NewConnCreateRequestMessage{
@@ -18,7 +18,7 @@ func cmdToClientGetNewConn(clientConn net.Conn, connId, LocalPort, ServerPort in
 		},
 	}
 	_, err := clientConn.Write(utils.SerilizeData(sercmd))
-	log.Println("send new conn request to client",utils.PrintDataAsJson(sercmd))
+	log.Println("send new conn request to client", utils.PrintDataAsJson(sercmd))
 	if err != nil {
 		return err
 	}

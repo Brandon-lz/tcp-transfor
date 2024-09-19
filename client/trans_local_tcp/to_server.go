@@ -29,10 +29,10 @@ func CommunicateToServer() {
 		log.Printf("Failed to say hello to server: %v\n", utils.WrapErrorLocation(err))
 		return
 	}
-	log.Printf("success establish connection with server")
+	log.Println("success establish connection with server")
 
 	// go core.KeepAlive(serverConn)
-	core.ListenServerCmd(serverConn)           //block
+	core.ListenServerCmd(serverConn) //block
 
 }
 
@@ -52,7 +52,7 @@ func CommunicateToServer() {
 // 	Msg  string `json:"msg"`
 // }
 
-func sayHelloToServer(serverConn net.Conn) error {
+func sayHelloToServer(serverConn *net.TCPConn) error {
 	var hello = common.HelloMessage{Type: "main"}
 
 	utils.DeSerializeData(config.Config, &hello)
