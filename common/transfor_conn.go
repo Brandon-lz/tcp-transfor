@@ -33,7 +33,8 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				}
 				continue
 			}
-			log.Println("receive data from user:", string(readBuff[:n]))
+			
+			// log.Println("receive data from user:", string(readBuff[:n]))
 
 			// _data, err := utils.AESEncryptWithKey(readBuff)
 			// if err != nil {
@@ -78,7 +79,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				}
 				continue
 			}
-			log.Println("receive data from client:", string(readbuffer[:n]))
+
+			// log.Println("receive data from client:", string(readbuffer[:n]))
+
 			// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
 			// if err != nil {
 			// 	log.Println("failed to decrypt data from server:", err)
@@ -95,7 +98,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 	}
 }
 
-func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn) {
+func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn,ready chan bool) {
 	defer utils.RecoverAndLog()
 	defer local2clientConn.Close()
 	defer client2serverConn.Close()
@@ -139,6 +142,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 		}
 
 	}()
+	ready <- true
 
 	// server -> local
 	for {

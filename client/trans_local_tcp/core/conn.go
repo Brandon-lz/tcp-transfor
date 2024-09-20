@@ -47,10 +47,10 @@ func CreateNewConn(host string, localPort int) (*net.TCPConn, error) {
 	}
 	// localConn, err := net.Dial("tcp", localTarget)
 
-	localConn, err := net.DialTCP("tcp", nil, tcpAddr)
+	newConn, err := net.DialTCP("tcp", nil, tcpAddr)
 	if err != nil {
 		localTarget := host + ":" + strconv.Itoa(localPort)
 		return nil, utils.WrapErrorLocation(err, fmt.Sprintf("Failed to create local connection %s: %v\n", localTarget, err))
 	}
-	return localConn, nil
+	return newConn, nil
 }

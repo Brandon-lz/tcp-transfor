@@ -54,7 +54,11 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			// serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
 			serverConnSet[newcmd.ConnId] = localConn
 			// go TransForConnData(localConn, newServerSubConn)
-			go common.TransForConnDataClient(localConn, newServerSubConn)
+			var ready = make(chan bool, 2)
+			go common.TransForConnDataClient(localConn, newServerSubConn, ready)
+			<-ready
+			newServerSubConn.Write([]byte("ready"))
+			close(ready)
 			log.Println("success new sub connection to server", hello.ConnId)
 		default:
 			log.Println("Unknown command received from server", cmd.Type)

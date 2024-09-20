@@ -170,6 +170,16 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		close(listen_fail)
 	case "sub":
 		// new sub conn from client
+		buf := make([]byte, 1024)
+		n, err := clientConn.Read(buf)
+		if err != nil {
+			log.Printf("Failed to read hello message from client: %v", err)
+			return
+		}
+		if string(buf[:n])!="ready"{
+			log.Printf("client %s sub conn not ready", hello.Client.Name)
+			return
+		}
 		ccm := CCMList[hello.Client.Name]
 		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
 		return
@@ -200,14 +210,14 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			defer listener.Close()
 			suber, cancel := quitAgent.Subscribe(ccm.ClientName)
 			defer cancel(quitAgent, suber)
-			<-suber.Msg
+			<-suber.Msg         // wait for quit, fixit
 			log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
 		}()
 
 		for {
 			userConn, err := listener.AcceptTCP() // new user conn
 			if err != nil {
-				log.Printf("Failed to accept connection: %v", err)
+				log.Printf("failed to accept connection: %v\n", err)
 				if strings.Contains(err.Error(), "use of closed network connection") { // exit goroutine
 					return
 				}
