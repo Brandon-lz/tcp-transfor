@@ -122,6 +122,7 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		defer utils.RecoverAndLog()
 		utils.DeSerializeData(hellodata, &hello)
 	}()
+
 	switch hello.Type {
 	case "main":
 
@@ -169,6 +170,7 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		}
 		close(listen_fail)
 	case "sub":
+		clientConn.Write([]byte("ok"))
 		// new sub conn from client
 		buf := make([]byte, 1024)
 		n, err := clientConn.Read(buf)
@@ -176,7 +178,7 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 			log.Printf("Failed to read hello message from client: %v", err)
 			return
 		}
-		if string(buf[:n])!="ready"{
+		if string(buf[:n]) != "ready" {
 			log.Printf("client %s sub conn not ready", hello.Client.Name)
 			return
 		}
@@ -210,7 +212,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			defer listener.Close()
 			suber, cancel := quitAgent.Subscribe(ccm.ClientName)
 			defer cancel(quitAgent, suber)
-			<-suber.Msg         // wait for quit, fixit
+			<-suber.Msg // wait for quit, fixit
 			log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
 		}()
 

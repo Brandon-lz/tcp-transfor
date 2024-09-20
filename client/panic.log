@@ -1479,3 +1479,37 @@ github.com/Brandon-lz/tcp-transfor/common.TransForConnDataClient(0xc000050038, 0
 created by github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp/core.ListenServerCmd in goroutine 1
 	/workspaces/tcp-transfor/client/trans_local_tcp/core/listen_server_cmd.go:57 +0x435
 
+未知异常：invalid character 'o' looking for beginning of value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000033ba0, 0x1, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x543fa0?, 0xc00018a0a8?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53b500, 0xc00018a090?}, 0xc00018a078?)
+	/workspaces/tcp-transfor/utils/deserilize.go:29 +0x226
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayHelloToServer(0xc000184000)
+	/workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:74 +0x1db
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:27 +0x13e
+main.main()
+	/workspaces/tcp-transfor/client/main.go:25 +0xbe
+
+未知异常：invalid character 'o' looking for beginning of value
+goroutine 1 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc000033ba0, 0x1, 0xc0000061c0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x543fa0?, 0xc0000a2378?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/utils.DeSerializeData[...]({0x53b500, 0xc0000a2360?}, 0xc0000a2348?)
+	/workspaces/tcp-transfor/utils/deserilize.go:29 +0x226
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.sayMainHelloToServer(0xc00009a160)
+	/workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:74 +0x1db
+github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp.CommunicateToServer()
+	/workspaces/tcp-transfor/client/trans_local_tcp/to_server.go:27 +0x13e
+main.main()
+	/workspaces/tcp-transfor/client/main.go:25 +0xbe
+
