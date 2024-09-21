@@ -253,7 +253,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, client
 			return
 		} else {
 			timeoutCount++
-			time.Sleep(2 * time.Microsecond)
+			time.Sleep(2 * time.Millisecond)
 		}
 		if timeoutCount > 5000 {
 			log.Printf("ERROR: Timeout to get new conn from client id:%d", connId)
