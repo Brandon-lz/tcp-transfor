@@ -23,6 +23,7 @@ func CommunicateToServer() {
 		log.Printf("Failed to create main connection to server: %v\n", utils.WrapErrorLocation(err))
 		return
 	}
+	defer serverConn.Close()
 
 	err = sayMainHelloToServer(serverConn) // establish connection with server
 	if err != nil {
@@ -55,9 +56,12 @@ func CommunicateToServer() {
 func sayMainHelloToServer(serverConn *net.TCPConn) error {
 	var hello = common.HelloMessage{Type: "main"}
 
-	utils.DeSerializeData(config.Config, &hello)
+	_, err := utils.DeSerializeData(config.Config, &hello)
+	if err != nil {
+		return utils.WrapErrorLocation(err)
+	}
 	// 发送数据
-	_, err := serverConn.Write(utils.SerilizeData(hello))
+	_, err = serverConn.Write(utils.SerilizeData(hello))
 	if err != nil {
 		return utils.WrapErrorLocation(err)
 	}
@@ -71,7 +75,10 @@ func sayMainHelloToServer(serverConn *net.TCPConn) error {
 	}
 
 	var helloRecv common.HelloRecv
-	utils.DeSerializeData(msgdata, &helloRecv)
+	_, err = utils.DeSerializeData(msgdata, &helloRecv)
+	if err != nil {
+		return utils.WrapErrorLocation(err)
+	}
 
 	log.Printf("Received message from server: %s\n", msgdata)
 	if helloRecv.Code != 200 {

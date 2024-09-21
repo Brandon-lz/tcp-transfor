@@ -20,7 +20,10 @@ type ResponseToServer struct {
 
 func ListenServerCmd(serverConn *net.TCPConn) {
 	for {
-
+		if common.CheckConnIsClosed(serverConn) {
+			log.Println("with server conn is closed")
+			return
+		}
 		// msgData, err := io.ReadAll(serverConn)
 		msgData, err := common.ReadConn(serverConn)
 		if err != nil {
@@ -29,7 +32,11 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			return
 		}
 
-		cmd := utils.DeSerializeData(msgData, &common.ServerCmd{})
+		cmd, err := utils.DeSerializeData(msgData, &common.ServerCmd{})
+		if err != nil {
+			log.Println("Failed to deserialize server command: %v", err)
+			continue
+		}
 		switch cmd.Type {
 		case "ping":
 			// log.Printf("Received ping message from server: %s\n", msgData)
@@ -38,9 +45,19 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 
 		case "new-conn-request":
 			log.Println("Received new connection request from server")
-			newcmd := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})
+			newcmd, err := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})
+			if err != nil {
+				log.Println("failed to deserialize new connection request message: ", err)
+				continue
+			}
+			_, err = serverConn.Write([]byte("new-conn-request-ack"))         // ack to server
+			if err != nil {
+				log.Println("failed to send new-conn-request-ack to server", utils.WrapErrorLocation(err))
+				continue
+			}
 			newServerSubConn, err := CreateNewConnToServer()
 			if err != nil {
+				log.Println("failed to create new connection to server: ", err)
 				continue
 			}
 			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
@@ -50,8 +67,16 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			}
 			hello := common.HelloMessage{Type: "sub", ConnId: newcmd.ConnId}
 			hello.Client.Name = config.Config.Client.Name
-			newServerSubConn.Write(utils.SerilizeData(hello)) // hello to server
-			newServerSubConn.Read(make([]byte, 1024))   // wait for hello response from server
+			_, err = newServerSubConn.Write(utils.SerilizeData(hello)) // hello to server
+			if err != nil {
+				log.Println("fail to hello to server")
+				continue
+			}
+			_, err = newServerSubConn.Read(make([]byte, 1024)) // ack
+			if err != nil {
+				log.Println("fail to ack new conn from server")
+				continue
+			}
 			// serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
 			serverConnSet[newcmd.ConnId] = localConn
 			// go TransForConnData(localConn, newServerSubConn)

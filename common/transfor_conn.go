@@ -4,7 +4,6 @@ import (
 	"log"
 	"net"
 	"strings"
-	"time"
 
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
@@ -27,13 +26,13 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				break
 			}
 			if n == 0 {
-				if CheckConnIsClosed(user2serverConn, time.Now().Add(200*time.Second)) {
+				if CheckConnIsClosed(user2serverConn) {
 					log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
 					break
 				}
 				continue
 			}
-			
+
 			// log.Println("receive data from user:", string(readBuff[:n]))
 
 			// _data, err := utils.AESEncryptWithKey(readBuff)
@@ -73,7 +72,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				return
 			}
 			if n == 0 {
-				if CheckConnIsClosed(server2clientConn, time.Now().Add(200*time.Second)) {
+				if CheckConnIsClosed(server2clientConn) {
 					log.Println("receive empty data from client, close conn")
 					return
 				}
@@ -98,7 +97,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 	}
 }
 
-func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn,ready chan bool) {
+func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn, ready chan bool) {
 	defer utils.RecoverAndLog()
 	defer local2clientConn.Close()
 	defer client2serverConn.Close()
@@ -121,7 +120,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 				return
 			}
 			if n == 0 {
-				if CheckConnIsClosed(local2clientConn, time.Now().Add(200*time.Second)) {
+				if CheckConnIsClosed(local2clientConn) {
 					log.Println("receive empty data from local, close conn")
 					return
 				}
@@ -170,7 +169,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 				return
 			}
 			if n == 0 {
-				if CheckConnIsClosed(client2serverConn, time.Now().Add(200*time.Second)) {
+				if CheckConnIsClosed(client2serverConn) {
 					log.Println("receive empty data from server, close conn")
 					return
 				}
