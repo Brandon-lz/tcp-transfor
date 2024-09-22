@@ -53,7 +53,7 @@ func ListenClientConn() {
 
 var quitAgent = gopubsub.NewAgent()
 
-var CCMList = make(map[string]*clientConnManager)
+var CCMList = make(map[string]*clientConnManager) // map[clientName]
 
 type ConnCouple struct {
 	UserConn      *net.TCPConn
@@ -64,6 +64,7 @@ type ConnCouple struct {
 type clientConnManager struct {
 	ClientName          string
 	ClientConn          *net.TCPConn
+	Cmdrwlock           *sync.Mutex
 	ClientSubConnWithId map[int]*net.TCPConn
 	clientSubConnIdSet  map[int]struct{}
 	clientSubConnIdLock sync.Mutex
@@ -74,6 +75,7 @@ func NewclientConnManager(clientConn *net.TCPConn, clientName string) clientConn
 	return clientConnManager{
 		ClientName:          clientName,
 		ClientConn:          clientConn,
+		Cmdrwlock:           &sync.Mutex{},
 		ClientSubConnWithId: make(map[int]*net.TCPConn),
 		clientSubConnIdSet:  make(map[int]struct{}),
 		clientSubConnIdLock: sync.Mutex{},
@@ -236,7 +238,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, client
 	// new conn to server
 	log.Println("new user conn ")
 	connId := ccm.getNewConnId()
-	if err := cmdToClientGetNewConn(ccm.ClientConn, connId, clientLocalPort, listenPort); err != nil {
+	if err := cmdToClientGetNewConn(ccm, connId, clientLocalPort, listenPort); err != nil {
 		log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
 		return
 	}

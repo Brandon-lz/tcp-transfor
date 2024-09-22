@@ -42,6 +42,11 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			// log.Printf("Received ping message from server: %s\n", msgData)
 			// resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			// serverConn.Write(resData)
+			_, err = serverConn.Write([]byte("pong"))
+			if err != nil {
+				log.Println("Failed to send pong to server: ", err)
+				return
+			}
 
 		case "new-conn-request":
 			log.Println("Received new connection request from server")

@@ -53,3 +53,5 @@ func initLog() *os.File {
 	log.SetOutput(logOutput)
 	return logFile
 }
+
+// GOOS=windows GOARCH=amd64 go build .

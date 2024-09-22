@@ -75,15 +75,23 @@ func getClientByClientPort(clientPort int) (*Client, error) {
 func CheckClientAlive() {
 	defer utils.RecoverAndLog()
 	for {
-		time.Sleep(1 * time.Second)
+		time.Sleep(2 * time.Second)
 		for _, c := range ClientSet {
 			isDisconnect := false
-			if err := c.Conn.SetWriteDeadline(time.Now().Add(2 * time.Second)); err != nil {
-				isDisconnect = true
-			}
-			if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
-				isDisconnect = true
-			}
+			// if err := c.Conn.SetWriteDeadline(time.Now().Add(2 * time.Second)); err != nil {
+			// 	isDisconnect = true
+			// }
+			func(c *Client) {
+				CCMList[c.Name].Cmdrwlock.Lock()
+				defer CCMList[c.Name].Cmdrwlock.Unlock()
+				if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+					isDisconnect = true
+				}
+				if _, err := c.Conn.Read(make([]byte, 1024)); err != nil {
+					isDisconnect = true
+				}
+			}(c)
+
 			if isDisconnect {
 				fmt.Println("Client ", c.Name, " disconnected")
 				for _, ccm := range CCMList {
