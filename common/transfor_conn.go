@@ -1,108 +1,188 @@
 package common
 
 import (
-	"fmt"
-	"io"
+	"log"
 	"net"
-	"time"
 
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-// func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
-// 	defer utils.RecoverAndLog()
-// 	defer src.Close()
-// 	defer dst.Close()
-
-// 	quit := make(chan bool)
-// 	go func() {
-// 		defer utils.RecoverAndLog(func(err error) { quit <- true })
-// 		for {
-// 			_, err := io.Copy(dst, src)
-// 			if err != nil {
-// 				panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", src.RemoteAddr(), dst.RemoteAddr(), utils.WrapErrorLocation(err)))
-// 			}
-// 		}
-// 	}()
-
-// trans:
-// 	for {
-// 		select {
-// 		case <-quit:
-// 			break trans
-// 		default:
-// 			_, err := io.Copy(src, dst)
-// 			if err != nil {
-// 				panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
-// 			}
-// 		}
-// 	}
-
-// }
-
-func TransForConnData(src *net.TCPConn, dst *net.TCPConn) {
+func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net.TCPConn) {
 	defer utils.RecoverAndLog()
-	defer src.Close()
-	defer dst.Close()
+	defer user2serverConn.Close()
+	defer server2clientConn.Close()
+
+	go func() {
+		defer utils.RecoverAndLog()
+
+		// user -> server
+		// user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
+		readBuff := make([]byte, 1024)
+		for {
+			n, err := user2serverConn.Read(readBuff)
+			if err != nil {
+				log.Println("receive data from user error, close conn", err.Error(), utils.GetCodeLine(1))
+				break
+			}
+			if n == 0 {
+				if CheckConnIsClosed(user2serverConn) {
+					log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
+					break
+				}
+				continue
+			}
+
+			// log.Println("receive data from user:", string(readBuff[:n]))
+
+			// _data, err := utils.AESEncryptWithKey(readBuff)
+			// if err != nil {
+			// 	log.Println("failed to decrypt data from user:", err)
+			// 	return
+			// }
+			// _, err = server2clientConn.Write([]byte(_data))
+			_, err = server2clientConn.Write(readBuff[:n])
+			if err != nil {
+				log.Println("failed to write data to server:", err)
+				return
+			}
+		}
+
+	}()
+
+	// server -> user
+	for {
+
+		// err := user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
+		// if err != nil {
+		// 	panic(fmt.Errorf("failed to set deadline for %s: %v", user2serverConn.RemoteAddr(), utils.WrapErrorLocation(err)))
+		// }
+		// err = server2clientConn.SetDeadline(time.Now().Add(200 * time.Second))
+		// if err != nil {
+		// 	panic(fmt.Errorf("failed to set deadline for %s: %v", server2clientConn.RemoteAddr(), utils.WrapErrorLocation(err)))
+		// }
+
+		readbuffer := make([]byte, 1024)
+		for {
+			n, err := server2clientConn.Read(readbuffer)
+			if err != nil {
+				log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
+				return
+			}
+			if n == 0 {
+				if CheckConnIsClosed(server2clientConn) {
+					log.Println("receive empty data from client, close conn")
+					return
+				}
+				continue
+			}
+
+			// log.Println("receive data from client:", string(readbuffer[:n]))
+
+			// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
+			// if err != nil {
+			// 	log.Println("failed to decrypt data from server:", err)
+			// 	return
+			// }
+			// _, err = user2serverConn.Write(_data)
+			_, err = user2serverConn.Write(readbuffer[:n])
+			if err != nil {
+				log.Println("failed to write data to user:", err)
+				return
+			}
+		}
+
+	}
+}
+
+func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn, ready *chan bool) {
+	defer utils.RecoverAndLog()
+	defer local2clientConn.Close()
+	defer client2serverConn.Close()
 
 	// quit := make(chan bool)
 	go func() {
 		defer utils.RecoverAndLog(func(err error) {
 			// quit <- true
 		})
+
+		// local -> server
+		readBuff := make([]byte, 1024)
 		for {
-			// src.SetDeadline(time.Now().Add(8 * time.Hour))
-			// if count < 9600 {
-			// 	userConn.SetReadDeadline(time.Now().Add(time.Duration(count) * 3 * time.Second))
-			// } else {
-			// 	userConn.SetDeadline(time.Now().Add(8 * time.Hour))
-			// }
-
-			_, err := io.Copy(dst, src) // when dst.close, it will panic
-
-			// data, err := common.ReadConn(userConn)
-			// if err != nil {
-			// 	panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", userConn.RemoteAddr(), dst.RemoteAddr(), utils.WrapErrorLocation(err)))
-			// }
-			// if len(data) == 0 {
-			// 	log.Println("receive empty data from client, close conn")
-			// 	break
-			// }
-			// _, err = dst.Write(data)
-
+			n, err := local2clientConn.Read(readBuff)
 			if err != nil {
-				panic(fmt.Errorf("failed to write data to %s: %v", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
+				// if strings.Contains(err.Error(), "EOF") {
+				// 	continue
+				// }
+				log.Println("receive data from local error, close conn", err, utils.GetCodeLine(1))
+				return
+			}
+			if n == 0 {
+				if CheckConnIsClosed(local2clientConn) {
+					log.Println("receive empty data from local, close conn")
+					return
+				}
+				continue
+			}
+			log.Println("receive data from local:", string(readBuff[:n]))
+			// _data, err := utils.AESEncryptWithKey(readBuff[:n])
+			// if err != nil {
+			// 	log.Println("failed to encrypt data from local:", err)
+			// 	return
+			// }
+			// _, err = client2serverConn.Write([]byte(_data))
+			_, err = client2serverConn.Write(readBuff[:n])
+			if err != nil {
+				log.Println("failed to write data to server:", err)
+				return
 			}
 		}
+
 	}()
-	count := 1
+	*ready <- true
 
-	// trans:
+	// server -> local
+
+	// err := local2clientConn.SetDeadline(time.Now().Add(80 * time.Second))
+	// if err != nil {
+	// 	panic(fmt.Errorf("failed to set deadline for %s: %v", local2clientConn.RemoteAddr(), utils.WrapErrorLocation(err)))
+	// }
+	// err = client2serverConn.SetDeadline(time.Now().Add(80 * time.Second))
+	// if err != nil {
+	// 	panic(fmt.Errorf("failed to set deadline for %s: %v", client2serverConn.RemoteAddr(), utils.WrapErrorLocation(err)))
+	// }
+
+	// if count < 9600 {
+	// 	src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
+	// } else {
+	// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
+	// }
+
+	readbuffer := make([]byte, 1024)
 	for {
-		// select {
-		// case <-quit:
-		// break trans
-		// default:
-		err := src.SetDeadline(time.Now().Add(8 * time.Second))
+		n, err := client2serverConn.Read(readbuffer)
 		if err != nil {
-			panic(fmt.Errorf("failed to set deadline for %s: %v", src.RemoteAddr(), utils.WrapErrorLocation(err)))
+			log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
+			return
 		}
-		err = dst.SetDeadline(time.Now().Add(8 * time.Second))
-		if err != nil {
-			panic(fmt.Errorf("failed to set deadline for %s: %v", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
+		if n == 0 {
+			if CheckConnIsClosed(client2serverConn) {
+				log.Println("receive empty data from server, close conn")
+				return
+			}
+			continue
 		}
-
-		// if count < 9600 {
-		// 	src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
-		// } else {
-		// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
+		log.Println("receive data from server:", string(readbuffer[:n]))
+		// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
+		// if err != nil {
+		// 	log.Println("failed to decrypt data from server:", err)
+		// 	return
 		// }
-
-		count++
-		_, err = io.Copy(src, dst)
+		// _, err = local2clientConn.Write(_data)
+		_, err = local2clientConn.Write(readbuffer[:n])
 		if err != nil {
-			panic(fmt.Errorf("failed to copy data from %s to %s: %v", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
+			log.Println("failed to write data to local:", err)
+			return
 		}
-		// }
 	}
+
 }

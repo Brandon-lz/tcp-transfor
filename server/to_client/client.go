@@ -36,7 +36,7 @@ func AddNewClient(client *Client) error {
 		for _, m := range c.Map {
 			for _, p := range ports {
 				if m.ServerPort == p {
-					return fmt.Errorf("Server port: %d already exists", p)
+					return fmt.Errorf("server port: %d already exists", p)
 				}
 			}
 		}
@@ -54,7 +54,7 @@ func RemoveClient(name string) error {
 	return fmt.Errorf("Client name not found")
 }
 
-func getClientByName(name string) (*Client, error) {
+func GetClientByName(name string) (*Client, error) {
 	if _, ok := ClientSet[name]; ok {
 		return ClientSet[name], nil
 	}
@@ -75,15 +75,27 @@ func getClientByClientPort(clientPort int) (*Client, error) {
 func CheckClientAlive() {
 	defer utils.RecoverAndLog()
 	for {
-		time.Sleep(1 * time.Second)
+		time.Sleep(2 * time.Second)
 		for _, c := range ClientSet {
 			isDisconnect := false
-			if err := c.Conn.SetWriteDeadline(time.Now().Add(2 * time.Second)); err != nil {
-				isDisconnect = true
-			}
-			if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
-				isDisconnect = true
-			}
+			// if err := c.Conn.SetWriteDeadline(time.Now().Add(2 * time.Second)); err != nil {
+			// 	isDisconnect = true
+			// }
+			func(c *Client) {
+				ccm,ok := CCMList[c.Name]
+				if!ok {
+					return
+				}
+				ccm.Cmdrwlock.Lock()
+				defer ccm.Cmdrwlock.Unlock()
+				if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+					isDisconnect = true
+				}
+				if _, err := c.Conn.Read(make([]byte, 1024)); err != nil {
+					isDisconnect = true
+				}
+			}(c)
+
 			if isDisconnect {
 				fmt.Println("Client ", c.Name, " disconnected")
 				for _, ccm := range CCMList {

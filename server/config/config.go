@@ -20,6 +20,9 @@ func LoadConfig() {
 	if _, err := toml.DecodeFile(tomlFile, &configData); err != nil {
 		panic(err)
 	}
-	utils.DeSerializeData(configData, &Config)
+	_,err := utils.DeSerializeData(configData, &Config)
+	if err!= nil {
+		panic("序列化配置失败：" + err.Error())
+	}
 	log.Printf("success load config from %s",utils.PrintDataAsJson(Config))
 }

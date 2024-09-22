@@ -2126,3 +2126,45 @@ github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc00008e010, 0xc0000
 created by github.com/Brandon-lz/tcp-transfor/server/to_client.whenNewUserConnComeIn in goroutine 19
 	/workspaces/tcp-transfor/server/to_client/conn.go:242 +0x41f
 
+未知异常：failed to write data to 127.0.0.1:59842: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:43730: readfrom tcp 127.0.0.1:8080->127.0.0.1:59842: i/o timeout
+goroutine 24 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00018de70, 0x1, 0xc000082fc0?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54caa0?, 0xc0000b2040?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 23
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to write data to 127.0.0.1:59856: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:74 
+	writeto tcp 127.0.0.1:9091->127.0.0.1:43738: readfrom tcp 127.0.0.1:8080->127.0.0.1:59856: use of closed network connection
+goroutine 39 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0xc00018ae70, 0x1, 0xc000144000?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54caa0?, 0xc0000160d0?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData.func1()
+	/workspaces/tcp-transfor/common/transfor_conn.go:74 +0x13e
+created by github.com/Brandon-lz/tcp-transfor/common.TransForConnData in goroutine 38
+	/workspaces/tcp-transfor/common/transfor_conn.go:49 +0x125
+
+未知异常：failed to copy data from 127.0.0.1:59856 to 127.0.0.1:43738: error occurred at /workspaces/tcp-transfor/common/transfor_conn.go:104 
+	writeto tcp 127.0.0.1:8080->127.0.0.1:59856: readfrom tcp 127.0.0.1:9091->127.0.0.1:43738: i/o timeout
+goroutine 38 [running]:
+runtime/debug.Stack()
+	/usr/local/go/src/runtime/debug/stack.go:24 +0x5e
+github.com/Brandon-lz/tcp-transfor/utils.RecoverAndLog({0x0, 0x0, 0xc000280000?})
+	/workspaces/tcp-transfor/utils/recover.go:23 +0x2ec
+panic({0x54caa0?, 0xc0000b2050?})
+	/usr/local/go/src/runtime/panic.go:770 +0x132
+github.com/Brandon-lz/tcp-transfor/common.TransForConnData(0xc000280000, 0xc0002544b8)
+	/workspaces/tcp-transfor/common/transfor_conn.go:104 +0x2da
+created by github.com/Brandon-lz/tcp-transfor/server/to_client.whenNewUserConnComeIn in goroutine 50
+	/workspaces/tcp-transfor/server/to_client/conn.go:242 +0x41f
+

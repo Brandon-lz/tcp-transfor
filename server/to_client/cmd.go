@@ -2,13 +2,14 @@ package toclient
 
 import (
 	"log"
-	"net"
 
 	"github.com/Brandon-lz/tcp-transfor/common"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-func cmdToClientGetNewConn(clientConn *net.TCPConn, connId, LocalPort, ServerPort int) error {
+func cmdToClientGetNewConn(ccm *clientConnManager, connId, LocalPort, ServerPort int) error {
+	ccm.Cmdrwlock.Lock()
+	defer ccm.Cmdrwlock.Unlock()
 	sercmd := common.ServerCmd{
 		Type: "new-conn-request",
 		Data: common.NewConnCreateRequestMessage{
@@ -17,21 +18,20 @@ func cmdToClientGetNewConn(clientConn *net.TCPConn, connId, LocalPort, ServerPor
 			ServerPort: ServerPort,
 		},
 	}
+	clientConn := ccm.ClientConn
 	_, err := clientConn.Write(utils.SerilizeData(sercmd))
 	log.Println("send new conn request to client", utils.PrintDataAsJson(sercmd))
 	if err != nil {
+		return utils.WrapErrorLocation(err, "cmdToClientGetNewConn")
+	}
+
+	// ack
+	_, err = clientConn.Read(make([]byte, 1024))
+	if err != nil {
+		log.Println("read ack error", utils.WrapErrorLocation(err))
 		return err
 	}
+
 	return nil
 
-	// resdata, err := io.ReadAll(clientConn)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// res := utils.DeSerializeData(resdata, &common.HelloRecv{})
-	// if res.Code != 200 {
-
-	// 	return err
-	// }
 }

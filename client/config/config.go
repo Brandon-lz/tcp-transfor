@@ -35,11 +35,12 @@ type ConfigDF struct {
 	} `json:"map"`
 }
 
-func LoadConfig() {
+func LoadConfig() error {
 	var configData map[string]interface{}
 	tomlFile := "config.toml"
 	if _, err := toml.DecodeFile(tomlFile, &configData); err != nil {
-		panic(err)
+		return err
 	}
 	utils.DeSerializeData(configData, &Config)
+	return nil
 }

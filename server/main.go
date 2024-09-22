@@ -8,11 +8,17 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/server/config"
 	toclient "github.com/Brandon-lz/tcp-transfor/server/to_client"
 	"github.com/Brandon-lz/tcp-transfor/utils"
+
+    "net/http"
+	_ "net/http/pprof"
 )
 
 
 
 func main(){
+    go func() {
+        log.Println(http.ListenAndServe(":6060", nil))
+    }()
     defer initLog().Close()
 	defer utils.RecoverAndLog()
     config.LoadConfig()

@@ -2,7 +2,6 @@ package toclient
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"strings"
@@ -54,7 +53,7 @@ func ListenClientConn() {
 
 var quitAgent = gopubsub.NewAgent()
 
-var CCMList = make(map[string]*clientConnManager)
+var CCMList = make(map[string]*clientConnManager) // map[clientName]
 
 type ConnCouple struct {
 	UserConn      *net.TCPConn
@@ -65,6 +64,7 @@ type ConnCouple struct {
 type clientConnManager struct {
 	ClientName          string
 	ClientConn          *net.TCPConn
+	Cmdrwlock           *sync.Mutex
 	ClientSubConnWithId map[int]*net.TCPConn
 	clientSubConnIdSet  map[int]struct{}
 	clientSubConnIdLock sync.Mutex
@@ -75,6 +75,7 @@ func NewclientConnManager(clientConn *net.TCPConn, clientName string) clientConn
 	return clientConnManager{
 		ClientName:          clientName,
 		ClientConn:          clientConn,
+		Cmdrwlock:           &sync.Mutex{},
 		ClientSubConnWithId: make(map[int]*net.TCPConn),
 		clientSubConnIdSet:  make(map[int]struct{}),
 		clientSubConnIdLock: sync.Mutex{},
@@ -103,8 +104,6 @@ func (cm *clientConnManager) delConnId(id int) {
 }
 
 func dealCmdFromClient(clientConn *net.TCPConn) {
-	log.Printf("New client conn from %s", clientConn.RemoteAddr())
-
 	defer utils.RecoverAndLog()
 	// defer clientConn.Close()
 	// clientName := clientConn.RemoteAddr().String()
@@ -120,10 +119,11 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 
 	log.Println("receive hello message from client ", string(hellodata))
 	hello := common.HelloMessage{}
-	func() {
-		defer utils.RecoverAndLog()
-		utils.DeSerializeData(hellodata, &hello)
-	}()
+	_, err = utils.DeSerializeData(hellodata, &hello)
+	if err != nil {
+		log.Printf("Failed to deserialize hello message from client: %v", err)
+		return
+	}
 	switch hello.Type {
 	case "main":
 
@@ -171,7 +171,18 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		}
 		close(listen_fail)
 	case "sub":
+		clientConn.Write([]byte("ok"))
 		// new sub conn from client
+		buf := make([]byte, 1024)
+		n, err := clientConn.Read(buf)
+		if err != nil {
+			log.Printf("Failed to read hello message from client: %v", err)
+			return
+		}
+		if string(buf[:n]) != "ready" {
+			log.Printf("client %s sub conn not ready", hello.Client.Name)
+			return
+		}
 		ccm := CCMList[hello.Client.Name]
 		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
 		return
@@ -202,14 +213,14 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 			defer listener.Close()
 			suber, cancel := quitAgent.Subscribe(ccm.ClientName)
 			defer cancel(quitAgent, suber)
-			<-suber.Msg
+			<-suber.Msg // wait for quit, fixit
 			log.Printf("listener on %s:%d quit", ccm.ClientName, listenPort)
 		}()
 
 		for {
 			userConn, err := listener.AcceptTCP() // new user conn
 			if err != nil {
-				log.Printf("Failed to accept connection: %v", err)
+				log.Printf("failed to accept connection: %v\n", err)
 				if strings.Contains(err.Error(), "use of closed network connection") { // exit goroutine
 					return
 				}
@@ -227,7 +238,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, client
 	// new conn to server
 	log.Println("new user conn ")
 	connId := ccm.getNewConnId()
-	if err := cmdToClientGetNewConn(ccm.ClientConn, connId, clientLocalPort, listenPort); err != nil {
+	if err := cmdToClientGetNewConn(ccm, connId, clientLocalPort, listenPort); err != nil {
 		log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
 		return
 	}
@@ -238,79 +249,15 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, client
 	timeoutCount := 0
 	for {
 		if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
-			// go TransForConnData(userConn, newSubConn, connId, ccm)
-			go common.TransForConnData(userConn, newSubConn)
+			go common.TransForConnDataServer(userConn, newSubConn) // 这应该在server与clinet之间完成连接后，才开始调用，所以这一行前面应该有一个通知，fixit
 			return
 		} else {
 			timeoutCount++
-			time.Sleep(20 * time.Microsecond)
+			time.Sleep(2 * time.Millisecond)
 		}
-		if timeoutCount > 200 {
+		if timeoutCount > 5000 {
 			log.Printf("ERROR: Timeout to get new conn from client id:%d", connId)
 			return
 		}
-	}
-}
-
-func TransForConnData(src *net.TCPConn, dst *net.TCPConn, connid int, ccm *clientConnManager) {
-	defer utils.RecoverAndLog()
-	defer ccm.delConnId(connid)
-	defer src.Close()
-	defer dst.Close()
-
-	defer log.Println("tcp channel exit")
-
-	// quit := make(chan bool)
-	go func() {
-		defer utils.RecoverAndLog(func(err error) {
-			// quit <- true
-		})
-		for {
-			// src.SetDeadline(time.Now().Add(8 * time.Hour))
-			// if count < 9600 {
-			// 	userConn.SetReadDeadline(time.Now().Add(time.Duration(count) * 3 * time.Second))
-			// } else {
-			// 	userConn.SetDeadline(time.Now().Add(8 * time.Hour))
-			// }
-
-			_, err := io.Copy(dst, src)
-
-			// data, err := common.ReadConn(userConn)
-			// if err != nil {
-			// 	panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", userConn.RemoteAddr(), dst.RemoteAddr(), utils.WrapErrorLocation(err)))
-			// }
-			// if len(data) == 0 {
-			// 	log.Println("receive empty data from client, close conn")
-			// 	break
-			// }
-			// _, err = dst.Write(data)
-
-			if err != nil {
-				panic(fmt.Errorf("Failed to write data to %s: %v\n", dst.RemoteAddr(), utils.WrapErrorLocation(err)))
-			}
-		}
-	}()
-	count := 1
-
-	// trans:
-	for {
-		// select {
-		// case <-quit:
-		// break trans
-		// default:
-		// src.SetDeadline(time.Now().Add(8 * time.Hour))
-		// dst.SetDeadline(time.Now().Add(8 * time.Hour))
-		if count < 9600 {
-			src.SetReadDeadline(time.Now().Add(time.Duration(count*config.Config.Timeout) * time.Second))
-		} else {
-			src.SetDeadline(time.Now().Add(8 * time.Hour))
-		}
-
-		count++
-		_, err := io.Copy(src, dst)
-		if err != nil {
-			panic(fmt.Errorf("Failed to copy data from %s to %s: %v\n", dst.RemoteAddr(), src.RemoteAddr(), utils.WrapErrorLocation(err)))
-		}
-		// }
 	}
 }

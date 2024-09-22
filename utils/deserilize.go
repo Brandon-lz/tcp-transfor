@@ -8,7 +8,7 @@ import (
 
 
 
-func DeSerializeData[T interface{}](source any, target *T) T { // target必须为指针类型
+func DeSerializeData[T interface{}](source any, target *T) (T,error) { // target必须为指针类型
 	var jsonData []byte
 	var err error
 
@@ -20,15 +20,15 @@ func DeSerializeData[T interface{}](source any, target *T) T { // target必须�
 		jsonData, err = json.Marshal(source)
 		if err != nil {
 			log.Printf("JSON序列化失败: %s", wrapErrorLocation(err))
-			panic(err)
+			return *target,err
 		}
 	}
 	err = json.Unmarshal(jsonData, target)
 	if err != nil {
 		log.Printf("JSON反序列化失败: %s\n%s", wrapErrorLocation(err), jsonData)
-		panic(err)
+		return *target,err
 	}
-	return *target
+	return *target,nil
 }
 
 
