@@ -21,4 +21,6 @@
 go.work
 
 server
+server.exe
 client
+client.exe

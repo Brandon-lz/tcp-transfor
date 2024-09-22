@@ -14,6 +14,8 @@ func main() {
 	key, _ := hex.DecodeString("6368616e676520746869732070617373776f726420746f206120736563726574")
 	plaintext := []byte("exampleplaintext")
 
+	fmt.Println("plaintext: ", string(plaintext))
+
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		panic(err.Error())
@@ -32,4 +34,12 @@ func main() {
 
 	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
 	fmt.Printf("%x\n", ciphertext)
+
+
+	plaintext2, err := aesgcm.Open(nil, nonce, ciphertext, nil)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Println("plaintext2: ", string(plaintext2))
 }

@@ -7,50 +7,57 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"io"
 )
 
+var nonce = make([]byte, 12)
+var aesgcm cipher.AEAD
+
+func AESInit() {
+	// When decoded the key should be 16 bytes (AES-128) or 32 (AES-256).
+	key, _ := hex.DecodeString("6368616e676520746869732070617373776f726420746f206120736563726574")
+	plaintext := []byte("exampleplaintext")
+
+	fmt.Println("plaintext: ", string(plaintext))
+
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// Never use more than 2^32 random nonces with a given key because of the risk of a repeat.
+	nonce = make([]byte, 12)
+	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+		panic(err.Error())
+	}
+
+	aesgcm, err = cipher.NewGCM(block)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
+	fmt.Printf("%x\n", ciphertext)
+
+	// 	plaintext2, err := aesgcm.Open(nil, nonce, ciphertext, nil)
+	// 	if err != nil {
+	// 		panic(err.Error())
+	// 	}
+
+	// 	fmt.Println("plaintext2: ", string(plaintext2))
+}
+
+func AESEncryptWithKey(plaintext []byte) []byte {
+	return aesgcm.Seal(nil, nonce, plaintext, nil)
+}
+
+func AESDecryptWithKey(ciphertextbytes []byte) ([]byte, error) {
+	return aesgcm.Open(nil, nonce, ciphertextbytes, nil)
+}
+
 // var key = []byte("1234567890123456")
-var key, _ = hex.DecodeString("6368616e67652074686973207061773776f726420746f2adsf20736563726574")
-
-func AESEncryptWithKey(plaintext []byte) (string, error) {
-	// block, err := aes.NewCipher(key)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// // Never use more than 2^32 random nonces with a given key because of the risk of a repeat.
-	// nonce := make([]byte, 12)
-	// if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// aesgcm, err := cipher.NewGCM(block)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// return string(aesgcm.Seal(nil, nonce, plaintext, nil)), nil
-	return AESEncrypt(plaintext, key)
-}
-
-func AESDecryptWithKey(ciphertextbytes string) ([]byte, error) {
-	// nonce, _ := hex.DecodeString("64a9433eae7ccceee2fc0eda")
-
-	// block, err := aes.NewCipher(key)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// aesgcm, err := cipher.NewGCM(block)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// ciphertext, _ := hex.DecodeString(ciphertextbytes)
-	// return aesgcm.Open(nil, nonce, ciphertext, nil)
-	return AESDecrypt(ciphertextbytes, key)
-}
+// var key, _ = hex.DecodeString("6368616e67652074686973207061773776f726420746f2adsf20736563726574")
 
 // AES加密
 func AESEncrypt(plaintext []byte, key []byte) (string, error) {
