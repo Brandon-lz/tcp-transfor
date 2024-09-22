@@ -65,7 +65,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		for {
 			n, err := server2clientConn.Read(readbuffer)
 			if err != nil {
-				log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
+				log.Println("receive data from user error, close conn", err, utils.GetCodeLine(1))
 				return
 			}
 			if n == 0 {
