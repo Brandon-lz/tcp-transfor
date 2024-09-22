@@ -34,7 +34,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 
 		cmd, err := utils.DeSerializeData(msgData, &common.ServerCmd{})
 		if err != nil {
-			log.Println("Failed to deserialize server command: %v", err)
+			log.Println("Failed to deserialize server command: ", err)
 			continue
 		}
 		switch cmd.Type {
