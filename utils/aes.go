@@ -3,12 +3,7 @@ package utils
 import (
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/rand"
-	"encoding/base64"
 	"encoding/hex"
-	"errors"
-	"fmt"
-	"io"
 )
 
 var nonce = make([]byte, 12)
@@ -17,9 +12,9 @@ var aesgcm cipher.AEAD
 func AESInit() {
 	// When decoded the key should be 16 bytes (AES-128) or 32 (AES-256).
 	key, _ := hex.DecodeString("6368616e676520746869732070617373776f726420746f206120736563726574")
-	plaintext := []byte("exampleplaintext")
+	// plaintext := []byte("exampleplaintext")
 
-	fmt.Println("plaintext: ", string(plaintext))
+	// fmt.Println("plaintext: ", string(plaintext))
 
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -28,17 +23,18 @@ func AESInit() {
 
 	// Never use more than 2^32 random nonces with a given key because of the risk of a repeat.
 	nonce = make([]byte, 12)
-	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-		panic(err.Error())
-	}
+	// if _, err := io.ReadFull(rand.Reader, nonce); err != nil {         // 产生一个随机的nonce，生产中要固定
+	// 	panic(err.Error())
+	// }
+	nonce = []byte{62, 154, 52, 216, 38, 21, 77, 63, 226, 111, 251, 236}
 
 	aesgcm, err = cipher.NewGCM(block)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
-	fmt.Printf("%x\n", ciphertext)
+	// ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
+	// fmt.Printf("%x\n", ciphertext)
 
 	// 	plaintext2, err := aesgcm.Open(nil, nonce, ciphertext, nil)
 	// 	if err != nil {
@@ -48,53 +44,10 @@ func AESInit() {
 	// 	fmt.Println("plaintext2: ", string(plaintext2))
 }
 
-func AESEncryptWithKey(plaintext []byte) []byte {
+func AESEncrypt(plaintext []byte) []byte {
 	return aesgcm.Seal(nil, nonce, plaintext, nil)
 }
 
-func AESDecryptWithKey(ciphertextbytes []byte) ([]byte, error) {
+func AESDecrypt(ciphertextbytes []byte) ([]byte, error) {
 	return aesgcm.Open(nil, nonce, ciphertextbytes, nil)
-}
-
-// var key = []byte("1234567890123456")
-// var key, _ = hex.DecodeString("6368616e67652074686973207061773776f726420746f2adsf20736563726574")
-
-// AES加密
-func AESEncrypt(plaintext []byte, key []byte) (string, error) {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return "", err
-	}
-
-	ciphertext := make([]byte, aes.BlockSize+len(plaintext))
-	iv := ciphertext[:aes.BlockSize]
-	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
-		return "", err
-	}
-
-	stream := cipher.NewCFBEncrypter(block, iv)
-	stream.XORKeyStream(ciphertext[aes.BlockSize:], plaintext)
-
-	// 转为Base64
-	return base64.StdEncoding.EncodeToString(ciphertext), nil
-}
-
-// AES解密
-func AESDecrypt(ciphertext string, key []byte) ([]byte, error) {
-	ciphertextdata, _ := base64.StdEncoding.DecodeString(ciphertext)
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(ciphertextdata) < aes.BlockSize {
-		return nil, errors.New("ciphertext too short")
-	}
-	iv := ciphertextdata[:aes.BlockSize]
-	ciphertextdata = ciphertextdata[aes.BlockSize:]
-
-	stream := cipher.NewCFBDecrypter(block, iv)
-	stream.XORKeyStream(ciphertextdata, ciphertextdata)
-
-	return ciphertextdata, nil
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -15,19 +14,20 @@ import (
 	_ "net/http/pprof"
 )
 
-
 func main() {
 	go func() {
 		log.Println(http.ListenAndServe("localhost:6060", nil))
 	}()
 	log.Println("client start")
 	initLog()
-	// defer .Close()
 	defer utils.RecoverAndLog()
 
 	config.LoadConfig()
-	fmt.Println("config loaded")
-	// translocaltcp.Start()
+	log.Println("config loaded")
+
+	utils.AESInit()
+	log.Println("AES inited")
+
 	for {
 		translocaltcp.CommunicateToServer() // block, until fail
 		time.Sleep(time.Second * 2)
