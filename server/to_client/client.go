@@ -36,7 +36,7 @@ func AddNewClient(client *Client) error {
 		for _, m := range c.Map {
 			for _, p := range ports {
 				if m.ServerPort == p {
-					return fmt.Errorf("Server port: %d already exists", p)
+					return fmt.Errorf("server port: %d already exists", p)
 				}
 			}
 		}
@@ -54,7 +54,7 @@ func RemoveClient(name string) error {
 	return fmt.Errorf("Client name not found")
 }
 
-func getClientByName(name string) (*Client, error) {
+func GetClientByName(name string) (*Client, error) {
 	if _, ok := ClientSet[name]; ok {
 		return ClientSet[name], nil
 	}
@@ -82,8 +82,12 @@ func CheckClientAlive() {
 			// 	isDisconnect = true
 			// }
 			func(c *Client) {
-				CCMList[c.Name].Cmdrwlock.Lock()
-				defer CCMList[c.Name].Cmdrwlock.Unlock()
+				ccm,ok := CCMList[c.Name]
+				if!ok {
+					return
+				}
+				ccm.Cmdrwlock.Lock()
+				defer ccm.Cmdrwlock.Unlock()
 				if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
 					isDisconnect = true
 				}
