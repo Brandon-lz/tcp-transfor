@@ -37,14 +37,4 @@ func cmdToClientGetNewConn(clientConn *net.TCPConn, connId, LocalPort, ServerPor
 
 	return nil
 
-	// resdata, err := io.ReadAll(clientConn)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// res := utils.DeSerializeData(resdata, &common.HelloRecv{})
-	// if res.Code != 200 {
-
-	// 	return err
-	// }
 }

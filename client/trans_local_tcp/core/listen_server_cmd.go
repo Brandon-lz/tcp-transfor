@@ -81,7 +81,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			serverConnSet[newcmd.ConnId] = localConn
 			// go TransForConnData(localConn, newServerSubConn)
 			var ready = make(chan bool, 2)
-			go common.TransForConnDataClient(localConn, newServerSubConn, ready)
+			go common.TransForConnDataClient(localConn, newServerSubConn, &ready)
 			<-ready
 			newServerSubConn.Write([]byte("ready"))
 			close(ready)

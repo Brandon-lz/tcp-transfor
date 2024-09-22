@@ -3,7 +3,6 @@ package common
 import (
 	"log"
 	"net"
-	"strings"
 
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
@@ -18,8 +17,8 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 
 		// user -> server
 		// user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
+		readBuff := make([]byte, 1024)
 		for {
-			readBuff := make([]byte, 1024)
 			n, err := user2serverConn.Read(readBuff)
 			if err != nil {
 				log.Println("receive data from user error, close conn", err.Error(), utils.GetCodeLine(1))
@@ -51,7 +50,6 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 	}()
 
 	// server -> user
-	count := 1
 	for {
 
 		// err := user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
@@ -63,9 +61,8 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		// 	panic(fmt.Errorf("failed to set deadline for %s: %v", server2clientConn.RemoteAddr(), utils.WrapErrorLocation(err)))
 		// }
 
-		count++
+		readbuffer := make([]byte, 1024)
 		for {
-			readbuffer := make([]byte, 1024)
 			n, err := server2clientConn.Read(readbuffer)
 			if err != nil {
 				log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
@@ -97,7 +94,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 	}
 }
 
-func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn, ready chan bool) {
+func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn, ready *chan bool) {
 	defer utils.RecoverAndLog()
 	defer local2clientConn.Close()
 	defer client2serverConn.Close()
@@ -109,13 +106,13 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 		})
 
 		// local -> server
+		readBuff := make([]byte, 1024)
 		for {
-			readBuff := make([]byte, 1024)
 			n, err := local2clientConn.Read(readBuff)
 			if err != nil {
-				if strings.Contains(err.Error(), "EOF") {
-					continue
-				}
+				// if strings.Contains(err.Error(), "EOF") {
+				// 	continue
+				// }
 				log.Println("receive data from local error, close conn", err, utils.GetCodeLine(1))
 				return
 			}
@@ -141,53 +138,51 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 		}
 
 	}()
-	ready <- true
+	*ready <- true
 
 	// server -> local
+
+	// err := local2clientConn.SetDeadline(time.Now().Add(80 * time.Second))
+	// if err != nil {
+	// 	panic(fmt.Errorf("failed to set deadline for %s: %v", local2clientConn.RemoteAddr(), utils.WrapErrorLocation(err)))
+	// }
+	// err = client2serverConn.SetDeadline(time.Now().Add(80 * time.Second))
+	// if err != nil {
+	// 	panic(fmt.Errorf("failed to set deadline for %s: %v", client2serverConn.RemoteAddr(), utils.WrapErrorLocation(err)))
+	// }
+
+	// if count < 9600 {
+	// 	src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
+	// } else {
+	// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
+	// }
+
+	readbuffer := make([]byte, 1024)
 	for {
-
-		// err := local2clientConn.SetDeadline(time.Now().Add(80 * time.Second))
-		// if err != nil {
-		// 	panic(fmt.Errorf("failed to set deadline for %s: %v", local2clientConn.RemoteAddr(), utils.WrapErrorLocation(err)))
-		// }
-		// err = client2serverConn.SetDeadline(time.Now().Add(80 * time.Second))
-		// if err != nil {
-		// 	panic(fmt.Errorf("failed to set deadline for %s: %v", client2serverConn.RemoteAddr(), utils.WrapErrorLocation(err)))
-		// }
-
-		// if count < 9600 {
-		// 	src.SetReadDeadline(time.Now().Add(time.Duration(count*60) * time.Second))
-		// } else {
-		// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
-		// }
-
-		for {
-			readbuffer := make([]byte, 1024)
-			n, err := client2serverConn.Read(readbuffer)
-			if err != nil {
-				log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
-				return
-			}
-			if n == 0 {
-				if CheckConnIsClosed(client2serverConn) {
-					log.Println("receive empty data from server, close conn")
-					return
-				}
-				continue
-			}
-			log.Println("receive data from server:", string(readbuffer[:n]))
-			// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
-			// if err != nil {
-			// 	log.Println("failed to decrypt data from server:", err)
-			// 	return
-			// }
-			// _, err = local2clientConn.Write(_data)
-			_, err = local2clientConn.Write(readbuffer[:n])
-			if err != nil {
-				log.Println("failed to write data to local:", err)
-				return
-			}
+		n, err := client2serverConn.Read(readbuffer)
+		if err != nil {
+			log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
+			return
 		}
-
+		if n == 0 {
+			if CheckConnIsClosed(client2serverConn) {
+				log.Println("receive empty data from server, close conn")
+				return
+			}
+			continue
+		}
+		log.Println("receive data from server:", string(readbuffer[:n]))
+		// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
+		// if err != nil {
+		// 	log.Println("failed to decrypt data from server:", err)
+		// 	return
+		// }
+		// _, err = local2clientConn.Write(_data)
+		_, err = local2clientConn.Write(readbuffer[:n])
+		if err != nil {
+			log.Println("failed to write data to local:", err)
+			return
+		}
 	}
+
 }

@@ -10,11 +10,18 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	translocaltcp "github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp"
 	"github.com/Brandon-lz/tcp-transfor/utils"
+
+	"net/http"
+	_ "net/http/pprof"
 )
 
+
 func main() {
-    fmt.Println("client start")
-    initLog()
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
+	log.Println("client start")
+	initLog()
 	// defer .Close()
 	defer utils.RecoverAndLog()
 
