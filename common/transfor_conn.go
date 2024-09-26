@@ -14,7 +14,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 	defer server2clientConn.Close()
 
 	go func() {
-		defer utils.RecoverAndLog()
+		// defer utils.RecoverAndLog()
+		defer user2serverConn.Close()
+		defer server2clientConn.Close()
 
 		// user -> server
 		// user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
@@ -108,9 +110,12 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 
 	// quit := make(chan bool)
 	go func() {
-		defer utils.RecoverAndLog(func(err error) {
-			// quit <- true
-		})
+		// defer utils.RecoverAndLog(func(err error) {
+		// 	// quit <- true
+		// })
+		defer local2clientConn.Close()
+		defer client2serverConn.Close()
+
 
 		// local -> server
 		readBuff := make([]byte, 1024)
