@@ -1,6 +1,7 @@
 package common
 
 import (
+	"io"
 	"log"
 	"net"
 
@@ -21,6 +22,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		for {
 			n, err := user2serverConn.Read(readBuff)
 			if err != nil {
+				if err==io.EOF{
+					return
+				}
 				log.Println("receive data from user error, close conn", err.Error(), utils.GetCodeLine(1))
 				break
 			}
@@ -65,6 +69,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		for {
 			n, err := server2clientConn.Read(readbuffer)
 			if err != nil {
+				if err==io.EOF{
+					return
+				}
 				log.Println("receive data from user error, close conn", err, utils.GetCodeLine(1))
 				return
 			}
@@ -110,9 +117,9 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 		for {
 			n, err := local2clientConn.Read(readBuff)
 			if err != nil {
-				// if strings.Contains(err.Error(), "EOF") {
-				// 	continue
-				// }
+				if err==io.EOF{
+					return
+				}
 				log.Println("receive data from local error, close conn", err, utils.GetCodeLine(1))
 				return
 			}
@@ -123,7 +130,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 				}
 				continue
 			}
-			log.Println("receive data from local:", string(readBuff[:n]))
+			// log.Println("receive data from local:", string(readBuff[:n]))
 			// _data, err := utils.AESEncryptWithKey(readBuff[:n])
 			// if err != nil {
 			// 	log.Println("failed to encrypt data from local:", err)
@@ -161,6 +168,9 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 	for {
 		n, err := client2serverConn.Read(readbuffer)
 		if err != nil {
+			if err==io.EOF{
+				return
+			}
 			log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
 			return
 		}
@@ -171,7 +181,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 			}
 			continue
 		}
-		log.Println("receive data from server:", string(readbuffer[:n]))
+		// log.Println("receive data from server:", string(readbuffer[:n]))
 		// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
 		// if err != nil {
 		// 	log.Println("failed to decrypt data from server:", err)
