@@ -88,10 +88,16 @@ func CheckClientAlive() {
 				}
 				ccm.Cmdrwlock.Lock()
 				defer ccm.Cmdrwlock.Unlock()
-				if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+				// if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+				// 	isDisconnect = true
+				// }
+				if err := common.SendCmd(c.Conn, utils.SerilizeData(common.ServerCmd{Type: "ping"}));err != nil {
 					isDisconnect = true
 				}
-				if _, err := c.Conn.Read(make([]byte, 1024)); err != nil {
+				// if _, err := c.Conn.Read(make([]byte, 1024)); err != nil {
+				// 	isDisconnect = true
+				// }
+				if _,err := common.ReadCmd(c.Conn);err!=nil{
 					isDisconnect = true
 				}
 			}(c)

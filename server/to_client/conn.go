@@ -110,7 +110,8 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 	// for {
 	log.Println("wait for hello message from client")
 
-	hellodata, err := common.ReadConn(clientConn)
+	// hellodata, err := common.ReadConn(clientConn)
+	hellodata, err := common.ReadCmd(clientConn)
 	// hellodata, err := io.ReadAll(clientConn)
 	if err != nil {
 		log.Printf("Failed to read hello message from client: %v", err)
@@ -130,7 +131,8 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		if err := AddNewClient(&Client{Name: hello.Client.Name, Conn: clientConn, Map: hello.Map}); err != nil {
 			hrc := utils.SerilizeData(&common.HelloRecv{Code: 500, Msg: fmt.Sprintf("client hello faild:%v", err)})
 
-			clientConn.Write(hrc)
+			// clientConn.Write(hrc)
+			common.SendCmd(clientConn, hrc)
 			return
 		}
 
@@ -162,24 +164,28 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 
 		select {
 		case <-listen_fail:
-			clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
+			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
+			common.SendCmd(clientConn,utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
 			return
 		default:
 			// finally success
 			log.Printf("success listen on client %s map port %v", hello.Client.Name, hello.Map)
-			clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
+			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
+			common.SendCmd(clientConn,utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
 		}
 		close(listen_fail)
 	case "sub":
-		clientConn.Write([]byte("ok"))
+		// clientConn.Write([]byte("ok"))
+		common.SendCmd(clientConn,[]byte("ok"))
 		// new sub conn from client
-		buf := make([]byte, 1024)
-		n, err := clientConn.Read(buf)
+		// buf := make([]byte, 1024)
+		// n, err := clientConn.Read(buf)
+		d,err := common.ReadCmd(clientConn)
 		if err != nil {
 			log.Printf("Failed to read hello message from client: %v", err)
 			return
 		}
-		if string(buf[:n]) != "ready" {
+		if string(d) != "ready" {
 			log.Printf("client %s sub conn not ready", hello.Client.Name)
 			return
 		}

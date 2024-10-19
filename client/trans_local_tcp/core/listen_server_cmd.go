@@ -24,8 +24,8 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			log.Println("with server conn is closed")
 			return
 		}
-		// msgData, err := io.ReadAll(serverConn)
-		msgData, err := common.ReadConn(serverConn)
+		// msgData, err := common.ReadConn(serverConn)        // 这里有bug
+		msgData, err := common.ReadCmd(serverConn)
 		if err != nil {
 			log.Printf("Failed to communicate with server: %v\n", utils.WrapErrorLocation(err))
 			// os.Exit(1)
@@ -42,7 +42,8 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			// log.Printf("Received ping message from server: %s\n", msgData)
 			// resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			// serverConn.Write(resData)
-			_, err = serverConn.Write([]byte("pong"))
+			// _, err = serverConn.Write([]byte("pong"))
+			err = common.SendCmd(serverConn, []byte("pong"))
 			if err != nil {
 				log.Println("Failed to send pong to server: ", err)
 				return
@@ -55,7 +56,8 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 				log.Println("failed to deserialize new connection request message: ", err)
 				continue
 			}
-			_, err = serverConn.Write([]byte("new-conn-request-ack"))         // ack to server
+			// _, err = serverConn.Write([]byte("new-conn-request-ack"))         // ack to server
+			err = common.SendCmd(serverConn, []byte("new-conn-request-ack")) // ack to server
 			if err != nil {
 				log.Println("failed to send new-conn-request-ack to server", utils.WrapErrorLocation(err))
 				continue
@@ -67,17 +69,20 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			}
 			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
 			if err != nil {
-				newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				// newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				common.SendCmd(newServerSubConn, utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				continue
 			}
 			hello := common.HelloMessage{Type: "sub", ConnId: newcmd.ConnId}
 			hello.Client.Name = config.Config.Client.Name
-			_, err = newServerSubConn.Write(utils.SerilizeData(hello)) // hello to server
+			// _, err = newServerSubConn.Write(utils.SerilizeData(hello)) // hello to server
+			err = common.SendCmd(newServerSubConn, utils.SerilizeData(hello)) // hello to server
 			if err != nil {
 				log.Println("fail to hello to server")
 				continue
 			}
-			_, err = newServerSubConn.Read(make([]byte, 1024)) // ack
+			// _, err = newServerSubConn.Read(make([]byte, 1024)) // ack
+			_, err = common.ReadCmd(newServerSubConn)
 			if err != nil {
 				log.Println("fail to ack new conn from server")
 				continue
@@ -88,7 +93,8 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			var ready = make(chan bool, 2)
 			go common.TransForConnDataClient(localConn, newServerSubConn, &ready)
 			<-ready
-			newServerSubConn.Write([]byte("ready"))
+			// newServerSubConn.Write([]byte("ready"))
+			common.SendCmd(newServerSubConn,[]byte("ready"))
 			close(ready)
 			log.Println("success new sub connection to server", hello.ConnId)
 		default:

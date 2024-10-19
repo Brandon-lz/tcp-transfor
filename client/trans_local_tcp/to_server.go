@@ -61,7 +61,8 @@ func sayMainHelloToServer(serverConn *net.TCPConn) error {
 		return utils.WrapErrorLocation(err)
 	}
 	// 发送数据
-	_, err = serverConn.Write(utils.SerilizeData(hello))
+	// _, err = serverConn.Write(utils.SerilizeData(hello))
+	err = common.SendCmd(serverConn, utils.SerilizeData(hello))
 	if err != nil {
 		return utils.WrapErrorLocation(err)
 	}
@@ -69,7 +70,8 @@ func sayMainHelloToServer(serverConn *net.TCPConn) error {
 	log.Println("Sent hello message to server")
 	// 接收数据
 
-	msgdata, err := common.ReadConn(serverConn)
+	// msgdata, err := common.ReadConn(serverConn)
+	msgdata,err := common.ReadCmd(serverConn)
 	if err != nil {
 		return utils.WrapErrorLocation(err)
 	}

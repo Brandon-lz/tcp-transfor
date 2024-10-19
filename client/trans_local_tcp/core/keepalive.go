@@ -15,7 +15,8 @@ func KeepAlive(serverConn *net.TCPConn) {
 		ping := common.ServerCmd{
 			Type: "ping",
 		}
-		_, err := serverConn.Write(utils.SerilizeData(ping))
+		// _, err := serverConn.Write(utils.SerilizeData(ping))
+		err := common.SendCmd(serverConn, utils.SerilizeData(ping))
 		if err != nil {
 			panic(err)
 		}
