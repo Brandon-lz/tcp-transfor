@@ -11,7 +11,7 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-var serverConnSet = make(map[int]*net.TCPConn)
+var serverConnReadySignalWithId = make(map[int]chan bool)          // connId : readySignal
 
 func CreateNewConnToServer() (*net.TCPConn, error) {
 	// var err error

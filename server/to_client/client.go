@@ -2,6 +2,7 @@ package toclient
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"time"
 
@@ -82,28 +83,24 @@ func CheckClientAlive() {
 			// 	isDisconnect = true
 			// }
 			func(c *Client) {
-				ccm,ok := CCMList[c.Name]
-				if!ok {
+				ccm, ok := CCMList[c.Name]
+				if !ok {
 					return
 				}
 				ccm.Cmdrwlock.Lock()
 				defer ccm.Cmdrwlock.Unlock()
-				// if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+				// utils.PrintDataAsJson(c.Name)
+				// if _, err := c.Conn.Read([]byte{}); err != nil {
 				// 	isDisconnect = true
 				// }
-				if err := common.SendCmd(c.Conn, utils.SerilizeData(common.ServerCmd{Type: "ping"}));err != nil {
+				if err := common.SendCmd(c.Conn, utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
 					isDisconnect = true
 				}
-				// if _, err := c.Conn.Read(make([]byte, 1024)); err != nil {
-				// 	isDisconnect = true
-				// }
-				if _,err := common.ReadCmd(c.Conn);err!=nil{
-					isDisconnect = true
-				}
+				
 			}(c)
 
 			if isDisconnect {
-				fmt.Println("Client ", c.Name, " disconnected")
+				log.Println("Client ", c.Name, " disconnected")
 				for _, ccm := range CCMList {
 					if ccm.ClientName == c.Name {
 						quitAgent.Publish(ccm.ClientName, "quit")
@@ -112,6 +109,7 @@ func CheckClientAlive() {
 				}
 				delete(ClientSet, c.Name)
 				c.Conn.Close()
+				delete(CCMList, c.Name)
 			}
 		}
 
