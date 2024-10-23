@@ -49,7 +49,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		defer user2serverConn.Close()
 		defer server2clientConn.Close()
 
-		var d = make([]byte,1024)
+		d := make([]byte, 1024)
 		for {
 			n, err := user2serverConnSocket.Read(d)
 			if err != nil {
