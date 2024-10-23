@@ -49,8 +49,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		defer user2serverConn.Close()
 		defer server2clientConn.Close()
 
+		var d []byte
 		for {
-			d, err := user2serverConnSocket.ReadLine()
+			n, err := user2serverConnSocket.Read(d)
 			if err != nil {
 				if err == io.EOF {
 					return
@@ -58,6 +59,10 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				log.Println("receive data from user error, close conn", err.Error(), utils.GetCodeLine(1))
 				break
 			}
+			if n == 0{
+				
+			}
+
 			log.Println("从用户接收到并传送给客户端的数据:", string(d))
 
 			// if err != nil {
