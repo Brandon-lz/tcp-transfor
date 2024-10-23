@@ -32,7 +32,6 @@ func (ts *TcpSocket) ReadLine() ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		utils.PrintDataAsJson(d)
 		ts._buf.Write(d)
 		l := len(ts._buf.Bytes())
 		if ts._buf.Bytes()[l-2] == '\r' {
