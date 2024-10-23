@@ -49,7 +49,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		defer user2serverConn.Close()
 		defer server2clientConn.Close()
 
-		var d []byte
+		var d = make([]byte,1024)
 		for {
 			n, err := user2serverConnSocket.Read(d)
 			if err != nil {
@@ -60,7 +60,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				break
 			}
 			if n == 0{
-				
+
 			}
 
 			log.Println("从用户接收到并传送给客户端的数据:", string(d))
