@@ -16,17 +16,23 @@ type TcpSocket struct {
 }
 
 func (ts *TcpSocket) SendBytes(b []byte) error {
-	b = append(b, []byte("\r\n")...)
+	// b = append(b, []byte("\r\n")...)
 	_, err := ts.Write(b)
+	if err!=nil{
+		return err
+	}
+	_, err = ts.Write([]byte("\r\n"))
 	return err
 }
 
 func (ts *TcpSocket) ReadLine() ([]byte, error) {
+	rd := bufio.NewReader(ts.TCPConn)
 	for {
-		d, err := bufio.NewReader(ts.TCPConn).ReadBytes('\n')
+		d, err := rd.ReadBytes('\n')
 		if err != nil {
 			return nil, err
 		}
+		utils.PrintDataAsJson(d)
 		ts._buf.Write(d)
 		l := len(ts._buf.Bytes())
 		if ts._buf.Bytes()[l-2] == '\r' {
@@ -59,8 +65,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				log.Println("receive data from user error, close conn", err.Error(), utils.GetCodeLine(1))
 				break
 			}
-			if n == 0{
-
+			if n == 0 {
+				log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
+				return
 			}
 
 			log.Println("从用户接收到并传送给客户端的数据:", string(d))
@@ -70,7 +77,10 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 			// 	return
 			// }
 			// _, err = server2clientConn.Write([]byte(_data))
-			err = server2clientConnSocket.SendBytes(utils.AESEncrypt(d))
+			aesd := utils.AESEncrypt(d)
+			utils.PrintDataAsJson(aesd)
+
+			err = server2clientConnSocket.SendBytes(aesd)
 			if err != nil {
 				log.Println("failed to write data to server:", err)
 				return
@@ -111,7 +121,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 			continue
 		}
 		log.Println("从客户端接收到并传送给用户的数据:", string(d))
-		err = user2serverConnSocket.SendBytes(d)
+		_, err = user2serverConnSocket.Write(d)
 		if err != nil {
 			log.Println("failed to write data to user:", err)
 			return
@@ -127,17 +137,23 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 	local2clientConnSocket := TcpSocket{TCPConn: local2clientConn, _buf: bytes.Buffer{}}
 	client2serverConnSocket := TcpSocket{TCPConn: client2serverConn, _buf: bytes.Buffer{}}
 
+
 	go func() {
 		defer local2clientConn.Close()
 		defer client2serverConn.Close()
 
+		d := make([]byte, 1024)
 		for {
-			d, err := local2clientConnSocket.ReadLine()
+			n, err := local2clientConnSocket.Read(d)
 			if err != nil {
 				if err == io.EOF {
 					return
 				}
 				log.Println("receive data from local error, close conn", err, utils.GetCodeLine(1))
+				return
+			}
+			if n == 0 {
+				log.Println("receive empty data from local, close conn", utils.GetCodeLine(1))
 				return
 			}
 
@@ -199,7 +215,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 
 		log.Println("从服务器接收到并传送给本地的数据:", string(d))
 
-		err = local2clientConnSocket.SendBytes(d)
+		_, err = local2clientConnSocket.Write(d)
 		if err != nil {
 			log.Println("failed to write data to local:", err)
 			return

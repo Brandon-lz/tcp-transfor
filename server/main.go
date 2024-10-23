@@ -22,6 +22,7 @@ func main(){
     defer initLog().Close()
 	defer utils.RecoverAndLog()
     config.LoadConfig()
+    utils.AESInit()
     go toclient.CheckClientAlive()
     toclient.ListenClientConn()
 
