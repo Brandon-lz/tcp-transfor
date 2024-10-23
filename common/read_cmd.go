@@ -8,8 +8,9 @@ import (
 
 func ReadCmd(conn *net.TCPConn) ([]byte, error) {
 	buf := bytes.Buffer{}
+	rd := bufio.NewReader(conn)
 	for {
-		d, err := bufio.NewReader(conn).ReadBytes('\n')
+		d, err := rd.ReadBytes('\n')
 		if err != nil {
 		}
 		buf.Write(d)
