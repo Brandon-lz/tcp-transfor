@@ -11,6 +11,7 @@ func ReadCmd(conn *net.TCPConn) ([]byte, error) {
 	for {
 		d, err := bufio.NewReader(conn).ReadBytes('\n')
 		if err != nil {
+			return nil,err
 		}
 		buf.Write(d)
 		l := len(buf.Bytes())

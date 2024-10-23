@@ -1,6 +1,8 @@
 package common
 
 import (
+	"bufio"
+	"bytes"
 	"io"
 	"log"
 	"net"
@@ -8,10 +10,38 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
+type TcpSocket struct {
+	*net.TCPConn
+	_buf bytes.Buffer
+}
+
+func (ts *TcpSocket) SendBytes(b []byte) error {
+	b = append(b, []byte("\r\n")...)
+	_, err := ts.Write(b)
+	return err
+}
+
+func (ts *TcpSocket) ReadLine() ([]byte, error) {
+	for {
+		d, err := bufio.NewReader(ts.TCPConn).ReadBytes('\n')
+		if err != nil {
+			return nil, err
+		}
+		ts._buf.Write(d)
+		l := len(ts._buf.Bytes())
+		if ts._buf.Bytes()[l-2] == '\r' {
+			return ts._buf.Bytes()[:l-2], nil
+		}
+	}
+}
+
 func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net.TCPConn) {
 	defer utils.RecoverAndLog()
 	defer user2serverConn.Close()
 	defer server2clientConn.Close()
+
+	user2serverConnSocket := TcpSocket{TCPConn: user2serverConn,_buf:bytes.Buffer{}}
+	server2clientConnSocket := TcpSocket{TCPConn: server2clientConn,_buf:bytes.Buffer{}}
 
 	go func() {
 		defer utils.RecoverAndLog()
@@ -21,9 +51,9 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 
 		// user -> server
 		// user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
-		readBuff := make([]byte, 1024)
 		for {
-			n, err := user2serverConn.Read(readBuff)
+			// n, err := user2serverConn.Read(readBuff)
+			d,err := user2serverConnSocket.ReadLine()
 			if err != nil {
 				if err == io.EOF {
 					return
@@ -31,23 +61,18 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				log.Println("receive data from user error, close conn", err.Error(), utils.GetCodeLine(1))
 				break
 			}
-			if n == 0 {
-				if CheckConnIsClosed(user2serverConn) {
-					log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
-					break
-				}
-				continue
-			}
+		
 
 			// log.Println("从用户接收到并传送给客户端的数据:", string(readBuff[:n]))
 
-			// _data, err := utils.AESEncryptWithKey(readBuff)
+			
+
 			// if err != nil {
 			// 	log.Println("failed to decrypt data from user:", err)
 			// 	return
 			// }
 			// _, err = server2clientConn.Write([]byte(_data))
-			_, err = server2clientConn.Write(readBuff[:n])
+			_, err = server2clientConn.Write(utils.AESEncrypt(d))
 			if err != nil {
 				log.Println("failed to write data to server:", err)
 				return
@@ -70,7 +95,8 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 
 		readbuffer := make([]byte, 1024)
 		for {
-			n, err := server2clientConn.Read(readbuffer)
+			// n, err := server2clientConn.Read(readbuffer)
+			server2clientConnSocket
 			if err != nil {
 				if err == io.EOF {
 					return
