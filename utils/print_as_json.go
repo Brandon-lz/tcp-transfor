@@ -19,7 +19,7 @@ const (
 	White  = "\033[37m" // 白色
 )
 
-var loc, _ = time.LoadLocation("Asia/Shanghai")
+var loc, locerr = time.LoadLocation("Asia/Shanghai")
 
 func PrintDataAsJson(m interface{}, doPrint ...bool) (res string) { // 默认打印
 	d, err := json.Marshal(m)
@@ -28,7 +28,11 @@ func PrintDataAsJson(m interface{}, doPrint ...bool) (res string) { // 默认打
 	}
 	res = string(d)
 	if len(doPrint) == 0 || doPrint[0] {
-		fmt.Println(Green, "-------PrintDataAsJson at:", time.Now().In(loc), getCodeLine(2), "\n", Reset, res)
+		if locerr != nil {
+			fmt.Println(Green, "-------PrintDataAsJson at:", time.Now(), getCodeLine(2), "\n", Reset, res)
+		} else {
+			fmt.Println(Green, "-------PrintDataAsJson at:", time.Now().In(loc), getCodeLine(2), "\n", Reset, res)
+		}
 	}
 	return
 }

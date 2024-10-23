@@ -8,8 +8,9 @@ import (
 )
 
 func main() {
-    data := []byte("Hello, world! This is a test.\r\n")
-    reader := bufio.NewReader(bytes.NewReader(data))
+	
+	data := []byte("Hello, world! This is a test.\r\n")
+	reader := bufio.NewReader(bytes.NewReader(data))
 
 	buf := bytes.Buffer{}
 	for {
@@ -20,22 +21,22 @@ func main() {
 		buf.Write(d)
 		l := len(buf.Bytes())
 		if buf.Bytes()[l-2] == '\r' {
-			fmt.Println("2222222222",string(buf.Bytes()[:l-2]))
+			fmt.Println("2222222222", string(buf.Bytes()[:l-2]))
 			break
-		} 
+		}
 	}
 
-    // 使用 ReadBytes 直到遇到 '!'
-    result, err := reader.ReadBytes('!')
-    if err != nil && err != io.EOF {
-        fmt.Println("Error:", err)
-    }
-    fmt.Println("ReadBytes result:", string(result))
+	// 使用 ReadBytes 直到遇到 '!'
+	result, err := reader.ReadBytes('!')
+	if err != nil && err != io.EOF {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println("ReadBytes result:", string(result))
 
-    // 使用 ReadString 直到遇到 '.'
-    resultString, err := reader.ReadString('.')
-    if err != nil && err != io.EOF {
-        fmt.Println("Error:", err)
-    }
-    fmt.Println("ReadString result:", resultString)
+	// 使用 ReadString 直到遇到 '.'
+	resultString, err := reader.ReadString('.')
+	if err != nil && err != io.EOF {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println("ReadString result:", resultString)
 }
