@@ -37,7 +37,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			log.Println("Failed to deserialize server command: ", err)
 			continue
 		}
-		log.Println("new command received from server: ", utils.PrintDataAsJson(cmd))
+		// log.Println("new command received from server: ", utils.PrintDataAsJson(cmd))
 		switch cmd.Type {
 		case "ping":
 			// log.Printf("Received ping message from server: %s\n", msgData)
@@ -49,7 +49,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			// 	log.Println("Failed to send pong to server: ", err)
 			// 	return
 			// }
-			utils.PrintDataAsJson("Received ping message from server: ")
+			// utils.PrintDataAsJson("Received ping message from server: ")
 
 		case "new-conn-request":
 			log.Println("Received new connection request from server")
