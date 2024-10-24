@@ -27,6 +27,7 @@ func main() {
 
 	config.LoadConfig()
 	fmt.Println("config loaded")
+	utils.AESInit()
 	// translocaltcp.Start()
 	for {
 		translocaltcp.CommunicateToServer() // block, until fail

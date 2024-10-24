@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	"github.com/Brandon-lz/tcp-transfor/common"
@@ -18,17 +19,25 @@ type ResponseToServer struct {
 	Data interface{} `json:"data"`
 }
 
+var aliveDeadline = time.Now().Add(time.Second * 6)
+
+
 func ListenServerCmd(serverConn *net.TCPConn) {
-	for {
-		if common.CheckConnIsClosed(serverConn) {
-			log.Println("with server conn is closed")
-			return
+	go func(){
+		for{
+			if time.Now().After(aliveDeadline) {
+				log.Println("server connection is not alive")
+				serverConn.Close()
+				return
+			}
+			time.Sleep(time.Second * 2)
 		}
-		// msgData, err := common.ReadConn(serverConn)        // 这里有bug
+	}()
+	for {
+		aliveDeadline = time.Now().Add(time.Second * 6)
 		msgData, err := common.ReadCmd(serverConn)
 		if err != nil {
 			log.Printf("Failed to communicate with server: %v\n", utils.WrapErrorLocation(err))
-			// os.Exit(1)
 			return
 		}
 
@@ -37,7 +46,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			log.Println("Failed to deserialize server command: ", err)
 			continue
 		}
-		log.Println("new command received from server: ", utils.PrintDataAsJson(cmd))
+		// log.Println("new command received from server: ", utils.PrintDataAsJson(cmd))
 		switch cmd.Type {
 		case "ping":
 			// log.Printf("Received ping message from server: %s\n", msgData)

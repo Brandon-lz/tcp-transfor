@@ -1,13 +1,18 @@
-package main
+package test
 
 import (
 	"fmt"
 	"io"
 	"log"
 	"net"
+	"testing"
 )
 
-func main() {
+func TestTCP(t *testing.T) {
+	run()
+}
+
+func run() {
 	// 源地址和目标地址
 	sourceAddr := "localhost:8080"
 	targetAddr := "localhost:9090"

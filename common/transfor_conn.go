@@ -23,7 +23,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		// user2serverConn.SetDeadline(time.Now().Add(200 * time.Second))
 		readBuff := make([]byte, 1024)
 		for {
-			n, err := user2serverConn.Read(readBuff)
+			n, err := user2serverConn.Read(readBuff) // receive from user
 			if err != nil {
 				if err == io.EOF {
 					return
@@ -47,7 +47,11 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 			// 	return
 			// }
 			// _, err = server2clientConn.Write([]byte(_data))
-			_, err = server2clientConn.Write(readBuff[:n])
+
+			// _, err = server2clientConn.Write(utils.AESEncrypt(readBuff[:n]))    
+			aesd := utils.AESEncrypt(readBuff[:n])
+			utils.PrintDataAsJson(aesd)
+			err = SendCmd(server2clientConn, aesd)     // send to client
 			if err != nil {
 				log.Println("failed to write data to server:", err)
 				return
@@ -68,9 +72,10 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 		// 	panic(fmt.Errorf("failed to set deadline for %s: %v", server2clientConn.RemoteAddr(), utils.WrapErrorLocation(err)))
 		// }
 
-		readbuffer := make([]byte, 1024)
+		// readbuffer := make([]byte, 1024)
 		for {
-			n, err := server2clientConn.Read(readbuffer)
+			// n, err := server2clientConn.Read(readbuffer)      // receive from client
+			data, err := ReadCmd(server2clientConn)
 			if err != nil {
 				if err == io.EOF {
 					return
@@ -78,13 +83,13 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				log.Println("receive data from client error, close conn", err, utils.GetCodeLine(1))
 				return
 			}
-			if n == 0 {
-				if CheckConnIsClosed(server2clientConn) {
-					log.Println("receive empty data from client, close conn")
-					return
-				}
-				continue
-			}
+			// if n == 0 {
+			// 	if CheckConnIsClosed(server2clientConn) {
+			// 		log.Println("receive empty data from client, close conn")
+			// 		return
+			// 	}
+			// 	continue
+			// }
 
 			// log.Println("从客户端接收到并传送给用户的数据:", string(readbuffer[:n]))
 
@@ -94,7 +99,11 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 			// 	return
 			// }
 			// _, err = user2serverConn.Write(_data)
-			_, err = user2serverConn.Write(readbuffer[:n])
+			daesData, err := utils.AESDecrypt(data)
+			if err != nil {
+				log.Println("failed to decrypt data from client", err)
+			}
+			_, err = user2serverConn.Write(daesData) // send to user
 			if err != nil {
 				log.Println("failed to write data to user:", err)
 				return
@@ -122,7 +131,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 		// local -> server
 		readBuff := make([]byte, 1024)
 		for {
-			n, err := local2clientConn.Read(readBuff)
+			n, err := local2clientConn.Read(readBuff) // read from local
 			if err != nil {
 				if err == io.EOF {
 					return
@@ -144,7 +153,9 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 			// 	return
 			// }
 			// _, err = client2serverConn.Write([]byte(_data))
-			_, err = client2serverConn.Write(readBuff[:n])
+			aesd := utils.AESEncrypt(readBuff[:n])
+			utils.PrintDataAsJson(aesd)
+			err = SendCmd(client2serverConn,aesd) // send to server
 			if err != nil {
 				log.Println("failed to write data to server:", err)
 				return
@@ -170,9 +181,10 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 	// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
 	// }
 
-	readbuffer := make([]byte, 1024)
+	// readbuffer := make([]byte, 1024)
 	for {
-		n, err := client2serverConn.Read(readbuffer)
+		// n, err := client2serverConn.Read(readbuffer)
+		data, err := ReadCmd(client2serverConn) // read from server
 		if err != nil {
 			if err == io.EOF {
 				return
@@ -180,13 +192,13 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 			log.Println("receive data from server error, close conn", err, utils.GetCodeLine(1))
 			return
 		}
-		if n == 0 {
-			if CheckConnIsClosed(client2serverConn) {
-				log.Println("receive empty data from server, close conn")
-				return
-			}
-			continue
-		}
+		// if n == 0 {
+		// 	if CheckConnIsClosed(client2serverConn) {
+		// 		log.Println("receive empty data from server, close conn")
+		// 		return
+		// 	}
+		// 	continue
+		// }
 		// log.Println("从服务器接收到并传送给本地的数据:", string(readbuffer[:n]))
 		// _data, err := utils.AESDecryptWithKey(string(readbuffer[:n]))
 		// if err != nil {
@@ -194,7 +206,12 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 		// 	return
 		// }
 		// _, err = local2clientConn.Write(_data)
-		_, err = local2clientConn.Write(readbuffer[:n])
+		// _, err = local2clientConn.Write(readbuffer[:n])
+		daesData, err := utils.AESDecrypt(data)
+		if err != nil {
+			log.Println("failed to decrypt data from server:", err)
+		}
+		_, err = local2clientConn.Write(daesData) // send  to local
 		if err != nil {
 			log.Println("failed to write data to local:", err)
 			return

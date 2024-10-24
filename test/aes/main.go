@@ -12,7 +12,7 @@ import (
 func main() {
 	// When decoded the key should be 16 bytes (AES-128) or 32 (AES-256).
 	key, _ := hex.DecodeString("6368616e676520746869732070617373776f726420746f206120736563726574")
-	plaintext := []byte("exampleplaintext")
+	plaintext := []byte("exampleplaintext\r2\n!")
 
 	block, err := aes.NewCipher(key)
 	if err != nil {
@@ -32,4 +32,7 @@ func main() {
 
 	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
 	fmt.Printf("%x\n", ciphertext)
+
+	originText,err := aesgcm.Open(nil,nonce,ciphertext,nil)
+	fmt.Println(string(originText))
 }
