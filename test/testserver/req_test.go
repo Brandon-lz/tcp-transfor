@@ -11,7 +11,7 @@ import (
 func TestRequest(t *testing.T) {
 	errTimes := 0
 	wg := &sync.WaitGroup{}
-	for range 5 {
+	for range 10 {
 		wg.Add(1)
 		go func(){
 			defer wg.Done()

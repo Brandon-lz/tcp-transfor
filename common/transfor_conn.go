@@ -32,10 +32,11 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				break
 			}
 			if n == 0 {
-				if CheckConnIsClosed(user2serverConn) {
-					log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
-					break
-				}
+				
+				// if CheckConnIsClosed(user2serverConn) {
+				// 	log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
+				// 	break
+				// }
 				continue
 			}
 
@@ -79,10 +80,10 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				return
 			}
 			if n == 0 {
-				if CheckConnIsClosed(server2clientConn) {
-					log.Println("receive empty data from client, close conn")
-					return
-				}
+				// if CheckConnIsClosed(server2clientConn) {
+				// 	log.Println("receive empty data from client, close conn")
+				// 	return
+				// }
 				continue
 			}
 
@@ -109,6 +110,7 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 	defer local2clientConn.Close()
 	defer client2serverConn.Close()
 
+
 	// fmt.Println(<-ready)
 
 	// quit := make(chan bool)
@@ -131,10 +133,10 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 				return
 			}
 			if n == 0 {
-				if CheckConnIsClosed(local2clientConn) {
-					log.Println("receive empty data from local, close conn")
-					return
-				}
+				// if CheckConnIsClosed(local2clientConn) {
+				// 	log.Println("receive empty data from local, close conn")
+				// 	return
+				// }
 				continue
 			}
 			// log.Println("从本地接收到并传送给服务器的数据:", string(readBuff[:n]))

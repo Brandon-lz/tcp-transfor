@@ -62,25 +62,25 @@ type ConnCouple struct {
 }
 
 type clientConnManager struct {
-	ClientName          string
-	ClientConn          *net.TCPConn
-	Cmdrwlock           *sync.Mutex
-	ClientSubConnWithId map[int]*net.TCPConn
-	ClientSubConnReadySignalWithId map[int]chan bool          // 当前子连接准好的信号
-	clientSubConnIdSet  map[int]struct{}
-	clientSubConnIdLock sync.Mutex
+	ClientName                     string
+	ClientConn                     *net.TCPConn
+	Cmdrwlock                      *sync.Mutex
+	ClientSubConnWithId            map[int]*net.TCPConn
+	ClientSubConnReadySignalWithId map[int]chan bool // 当前子连接准好的信号
+	clientSubConnIdSet             map[int]struct{}
+	clientSubConnIdLock            sync.Mutex
 	// Quit              string
 }
 
 func NewclientConnManager(clientConn *net.TCPConn, clientName string) clientConnManager {
 	return clientConnManager{
-		ClientName:          clientName,
-		ClientConn:          clientConn,
-		Cmdrwlock:           &sync.Mutex{},
-		ClientSubConnWithId: make(map[int]*net.TCPConn),
-		ClientSubConnReadySignalWithId: make(map[int]chan bool,2),
-		clientSubConnIdSet:  make(map[int]struct{}),
-		clientSubConnIdLock: sync.Mutex{},
+		ClientName:                     clientName,
+		ClientConn:                     clientConn,
+		Cmdrwlock:                      &sync.Mutex{},
+		ClientSubConnWithId:            make(map[int]*net.TCPConn),
+		ClientSubConnReadySignalWithId: make(map[int]chan bool, 2),
+		clientSubConnIdSet:             make(map[int]struct{}),
+		clientSubConnIdLock:            sync.Mutex{},
 		// Quit:     string,
 	}
 }
@@ -143,7 +143,7 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		// 	clientSubConnIdLock: sync.Mutex{},
 		// 	Quit:                make(chan bool),
 		// }
-		ccm := NewclientConnManager(clientConn, hello.Client.Name)          // 从这里开始有并发竞争了
+		ccm := NewclientConnManager(clientConn, hello.Client.Name) // 从这里开始有并发竞争了
 
 		ccm.ClientName = hello.Client.Name
 
@@ -156,7 +156,7 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 
 		for _, m := range hello.Map {
 			wg.Add(1)
-			go newListenerOnClientMapPort(&ccm, m.ServerPort, m.LocalPort, listen_fail, &wg)       // listen new user conn
+			go newListenerOnClientMapPort(&ccm, m.ServerPort, m.LocalPort, listen_fail, &wg) // listen new user conn
 		}
 
 		wg.Wait()
@@ -165,22 +165,27 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		case <-listen_fail:
 			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
 			log.Println("listen on client map port faild")
-			ccm.Cmdrwlock.Lock()
-			common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
-			ccm.Cmdrwlock.Unlock()
+			func() {
+				ccm.Cmdrwlock.Lock()
+				defer ccm.Cmdrwlock.Unlock()
+				common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
+			}()
+
 			return
 		default:
 			// finally success
 			log.Printf("success listen on client %s map port %v", hello.Client.Name, hello.Map)
 			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
-			ccm.Cmdrwlock.Lock()
-			common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
-			ccm.Cmdrwlock.Unlock()
+			func() {
+				ccm.Cmdrwlock.Lock()
+				defer ccm.Cmdrwlock.Unlock()
+				common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
+			}()
 		}
 		close(listen_fail)
 	case "sub":
 		// clientConn.Write([]byte("ok"))
-		common.SendCmd(clientConn, []byte("ok"))          // 这里由于是新的连接，并不在ccm里，所以没有并发竞争
+		common.SendCmd(clientConn, []byte("ok")) // 这里由于是新的连接，并不在ccm里，所以没有并发竞争
 		// new sub conn from client
 		// buf := make([]byte, 1024)
 		// n, err := clientConn.Read(buf)
@@ -196,15 +201,23 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		ccm := CCMList[hello.Client.Name]
 		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
 		ccm.ClientSubConnReadySignalWithId[hello.ConnId] = make(chan bool, 2)
-		
+
 		<-ccm.ClientSubConnReadySignalWithId[hello.ConnId]
 		close(ccm.ClientSubConnReadySignalWithId[hello.ConnId])
 		delete(ccm.ClientSubConnReadySignalWithId, hello.ConnId)
-		common.SendCmd(ccm.ClientConn,utils.SerilizeData(common.ServerCmd{Type:"sub-conn-ready",Data: hello.ConnId}))
+		err = func() error {
+			ccm.Cmdrwlock.Lock()
+			defer ccm.Cmdrwlock.Unlock()
+			return common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "sub-conn-ready", Data: hello.ConnId}))
+		}()
+		if err != nil {
+			utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn ready faild:%v", hello.Client.Name, err))
+			return
+		}
 		utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn ready", hello.Client.Name))
 		return
-	case "ping":
-		common.SendCmd(clientConn, utils.SerilizeData(common.ServerCmd{Type: "Pone"}))
+	// case "ping":      // 暂时去掉
+	// common.SendCmd(clientConn, utils.SerilizeData(common.ServerCmd{Type: "Pone"}))
 	default:
 		log.Println("unknown hello type", hello.Type)
 	}
@@ -267,7 +280,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn *net.TCPConn, client
 	for {
 		if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
 			ccm.ClientSubConnReadySignalWithId[connId] <- true
-			go common.TransForConnDataServer(userConn, newSubConn) 
+			go common.TransForConnDataServer(userConn, newSubConn)
 			return
 		} else {
 			timeoutCount++
