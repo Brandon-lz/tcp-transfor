@@ -143,7 +143,7 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		// 	clientSubConnIdLock: sync.Mutex{},
 		// 	Quit:                make(chan bool),
 		// }
-		ccm := NewclientConnManager(clientConn, hello.Client.Name)
+		ccm := NewclientConnManager(clientConn, hello.Client.Name)          // 从这里开始有并发竞争了
 
 		ccm.ClientName = hello.Client.Name
 
@@ -165,18 +165,22 @@ func dealCmdFromClient(clientConn *net.TCPConn) {
 		case <-listen_fail:
 			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
 			log.Println("listen on client map port faild")
+			ccm.Cmdrwlock.Lock()
 			common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
+			ccm.Cmdrwlock.Unlock()
 			return
 		default:
 			// finally success
 			log.Printf("success listen on client %s map port %v", hello.Client.Name, hello.Map)
 			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
+			ccm.Cmdrwlock.Lock()
 			common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
+			ccm.Cmdrwlock.Unlock()
 		}
 		close(listen_fail)
 	case "sub":
 		// clientConn.Write([]byte("ok"))
-		common.SendCmd(clientConn, []byte("ok"))
+		common.SendCmd(clientConn, []byte("ok"))          // 这里由于是新的连接，并不在ccm里，所以没有并发竞争
 		// new sub conn from client
 		// buf := make([]byte, 1024)
 		// n, err := clientConn.Read(buf)
