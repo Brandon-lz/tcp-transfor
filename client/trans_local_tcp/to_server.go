@@ -53,7 +53,10 @@ func CommunicateToServer() {
 // 	Msg  string `json:"msg"`
 // }
 
-func sayMainHelloToServer(serverConn *net.TCPConn) error {
+func sayMainHelloToServer(serverConn net.Conn) error {
+	defer utils.RecoverAndLog(func(err error) {
+		log.Printf("Error occurred in CommunicateToServer: %v\n", utils.WrapErrorLocation(err))
+	})
 	var hello = common.HelloMessage{Type: "main"}
 
 	_, err := utils.DeSerializeData(config.Config, &hello)

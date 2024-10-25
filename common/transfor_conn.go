@@ -8,7 +8,7 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net.TCPConn) {
+func TransForConnDataServer(user2serverConn net.Conn, server2clientConn net.Conn) {
 	defer utils.RecoverAndLog()
 	defer user2serverConn.Close()
 	defer server2clientConn.Close()
@@ -32,7 +32,7 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 				break
 			}
 			if n == 0 {
-				
+
 				// if CheckConnIsClosed(user2serverConn) {
 				// 	log.Println("receive empty data from user, close conn", utils.GetCodeLine(1))
 				// 	break
@@ -105,11 +105,10 @@ func TransForConnDataServer(user2serverConn *net.TCPConn, server2clientConn *net
 	}
 }
 
-func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *net.TCPConn) {
+func TransForConnDataClient(local2clientConn net.Conn, client2serverConn net.Conn) {
 	defer utils.RecoverAndLog()
 	defer local2clientConn.Close()
 	defer client2serverConn.Close()
-
 
 	// fmt.Println(<-ready)
 
@@ -171,7 +170,6 @@ func TransForConnDataClient(local2clientConn *net.TCPConn, client2serverConn *ne
 	// } else {
 	// 	src.SetDeadline(time.Now().Add(8 * time.Hour))
 	// }
-
 	readbuffer := make([]byte, 1024)
 	for {
 		n, err := client2serverConn.Read(readbuffer)

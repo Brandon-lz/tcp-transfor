@@ -18,7 +18,10 @@ type ResponseToServer struct {
 	Data interface{} `json:"data"`
 }
 
-func ListenServerCmd(serverConn *net.TCPConn) {
+func ListenServerCmd(serverConn net.Conn) {
+	defer utils.RecoverAndLog(func(err error) {
+		log.Printf("Error occurred in CommunicateToServer: %v\n", utils.WrapErrorLocation(err))
+	})
 	for {
 		if common.CheckConnIsClosed(serverConn) {
 			log.Println("with server conn is closed")
@@ -49,8 +52,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			// 	log.Println("Failed to send pong to server: ", err)
 			// 	return
 			// }
-			// utils.PrintDataAsJson("Received ping message from server: ")
-
+			fmt.Println("alive")
 		case "new-conn-request":
 			log.Println("Received new connection request from server")
 			newcmd, err := utils.DeSerializeData(cmd.Data, &common.NewConnCreateRequestMessage{})
@@ -94,6 +96,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 				utils.PrintDataAsJson("fail to ack new conn from server:" + string(ok))
 				continue
 			}
+			utils.PrintDataAsJson(fmt.Sprintf("success new sub connection to server: %d", hello.ConnId))
 			// serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
 			// go TransForConnData(localConn, newServerSubConn)
 			// var ready = make(chan bool, 2)
@@ -106,6 +109,7 @@ func ListenServerCmd(serverConn *net.TCPConn) {
 			go func() {
 				// ready <- true
 				<-serverConnReadySignalWithId[newcmd.ConnId]
+				utils.PrintDataAsJson(fmt.Sprintf("ready to transfor data %d", newcmd.ConnId))
 				go common.TransForConnDataClient(localConn, newServerSubConn)
 				close(serverConnReadySignalWithId[newcmd.ConnId])
 				delete(serverConnReadySignalWithId, newcmd.ConnId)

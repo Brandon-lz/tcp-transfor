@@ -2,15 +2,8 @@ package common
 
 import "net"
 
-func SendCmd(conn *net.TCPConn, cmd []byte) error {
+func SendCmd(conn net.Conn, cmd []byte) error {
+	cmd = append(cmd, []byte("\r\n")...)
 	_, err := conn.Write(cmd)
-	if err != nil {
-		return err
-	}
-	_, err = conn.Write([]byte("\r\n"))
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
-

@@ -6,7 +6,7 @@ import (
 	"net"
 )
 
-func ReadCmd(conn *net.TCPConn) ([]byte, error) {
+func ReadCmd(conn net.Conn) ([]byte, error) {
 	buf := bytes.Buffer{}
 	rd := bufio.NewReader(conn)
 	for {
