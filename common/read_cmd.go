@@ -6,7 +6,7 @@ import (
 	"net"
 )
 
-func ReadCmd(conn net.Conn) ([]byte, error) {
+func ReadCmd(conn net.Conn) ([]byte, error) {          // 这种会丢数据，还是需要用面向对象编程
 	buf := bytes.Buffer{}
 	rd := bufio.NewReader(conn)
 	for {
