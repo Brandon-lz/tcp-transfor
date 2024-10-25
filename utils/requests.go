@@ -9,7 +9,7 @@ import (
     "time"
 )
 
-var reqTimeOut = 3 * time.Second
+var reqTimeOut = 30 * time.Second
 
 func PostRequest(urlstr string, body string) (res *http.Response, err error) {
     client := &http.Client{}

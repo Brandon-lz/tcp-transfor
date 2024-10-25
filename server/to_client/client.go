@@ -83,17 +83,17 @@ func CheckClientAlive() {
 			// 	isDisconnect = true
 			// }
 			func(c *Client) {
-				// ccm, ok := CCMList[c.Name]
-				// if !ok {
-				// 	return
-				// }
-				// ccm.Cmdrwlock.Lock()
-				// defer ccm.Cmdrwlock.Unlock()
+				ccm, ok := CCMList[c.Name]
+				if !ok {
+					return
+				}
+				ccm.Cmdrwlock.Lock()
+				defer ccm.Cmdrwlock.Unlock()
 				// utils.PrintDataAsJson(c.Name)
 				// if _, err := c.Conn.Read([]byte{}); err != nil {
 				// 	isDisconnect = true
 				// }
-				if err := common.SendCmd(c.Conn, utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+				if err := common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
 					log.Println("与",c.Name,"的连接断开")
 					isDisconnect = true
 				}

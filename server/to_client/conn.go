@@ -49,7 +49,7 @@ func ListenClientConn() {
 		log.Printf("New client conn from %s", conn.RemoteAddr())
 		lcconn := common.NewConnLocked(conn)
 		go dealCmdFromClient(lcconn)
-		time.Sleep(50*time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 }
 
@@ -167,30 +167,17 @@ func dealCmdFromClient(clientConn net.Conn) {
 		case <-listen_fail:
 			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
 			log.Println("listen on client map port faild")
-			func() {
-				// ccm.Cmdrwlock.Lock()
-				// defer ccm.Cmdrwlock.Unlock()
-				common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
-			}()
-
+			common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port faild"}))
 			return
 		default:
 			// finally success
 			log.Printf("success listen on client %s map port %v", hello.Client.Name, hello.Map)
-			// clientConn.Write(utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
-			func() {
-				// ccm.Cmdrwlock.Lock()
-				// defer ccm.Cmdrwlock.Unlock()
-				common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
-			}()
+			common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 200, Msg: "hello success"})) // response to client main conn result
 		}
 		close(listen_fail)
 	case "sub":
 		// clientConn.Write([]byte("ok"))
 		common.SendCmd(clientConn, []byte("ok")) // 这里由于是新的连接，并不在ccm里，所以没有并发竞争
-		// new sub conn from client
-		// buf := make([]byte, 1024)
-		// n, err := clientConn.Read(buf)
 		d, err := common.ReadCmd(clientConn)
 		if err != nil {
 			log.Printf("Failed to read hello message from client: %v", err)
@@ -200,7 +187,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 			utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn not ready", hello.Client.Name))
 			return
 		}
-		utils.PrintDataAsJson("client sub conn ready11111111111")
+		utils.PrintDataAsJson("111111111111111111")
 		ccm := CCMList[hello.Client.Name]
 		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
 		ccm.ClientSubConnReadySignalWithId[hello.ConnId] = make(chan bool, 2)
@@ -208,7 +195,8 @@ func dealCmdFromClient(clientConn net.Conn) {
 		<-ccm.ClientSubConnReadySignalWithId[hello.ConnId]
 		close(ccm.ClientSubConnReadySignalWithId[hello.ConnId])
 		delete(ccm.ClientSubConnReadySignalWithId, hello.ConnId)
-		err = common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "sub-conn-ready", Data: hello.ConnId}))
+		fmt.Println(22222222222222222, hello.ConnId)
+		err = common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "sub-conn-ready", Data: hello.ConnId})) // 并发死锁导致有些到不了这里
 		if err != nil {
 			utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn faild:%v", hello.Client.Name, err))
 			return
@@ -280,7 +268,7 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLoca
 	timeoutCount := 0
 	for {
 		if newSubConn, ok := ccm.ClientSubConnWithId[connId]; ok {
-			utils.PrintDataAsJson(fmt.Sprintf("get sub conn success:%d",connId))
+			utils.PrintDataAsJson(fmt.Sprintf("get sub conn success:%d", connId))
 			ccm.ClientSubConnReadySignalWithId[connId] <- true
 			go common.TransForConnDataServer(userConn, newSubConn)
 			return
