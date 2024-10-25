@@ -23,7 +23,7 @@ func NewConnSocket(conn net.Conn) *ConnSocket {
 }
 
 func (s *ConnSocket) SendLine(b []byte) (n int, err error) {
-	b = append(b, []byte("\r\n")...)
+	b = append(utils.AESEncrypt(b), []byte(";;\n")...)
 	return s.Conn.Write(b)
 }
 
@@ -43,9 +43,9 @@ func (s *ConnSocket) RecvLine() (line []byte, err error) {
 		_data = s.buf.Bytes()
 		l := len(_data)
 		if l > 2 {
-			if _data[l-2] == '\r' { // 对于结束符是\r\n的情况
+			if _data[l-2] == ';' && _data[l-3] == ';' { // 对于结束符是\r\n的情况
 				s.buf.Reset()
-				return _data[:l-2],nil
+				return utils.AESDecrypt(_data[:l-3])
 			} else {
 				// s := string(_data)
 				// utils.PrintDataAsJson("1111111111: " + s + " " + utils.GetCodeLine(2))

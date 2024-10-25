@@ -1,9 +1,13 @@
 package common
 
-import "net"
+import (
+	"net"
+
+	"github.com/Brandon-lz/tcp-transfor/utils"
+)
 
 func SendCmd(conn net.Conn, cmd []byte) error {
-	cmd = append(cmd, []byte("\r\n")...)
+	cmd = append(utils.AESEncrypt(cmd), []byte(";;\n")...)
 	_, err := conn.Write(cmd)
 	return err
 }
