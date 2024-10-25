@@ -2,6 +2,7 @@ package toclient
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"time"
 
@@ -13,7 +14,7 @@ var ClientSet = make(map[string]*Client)
 
 type Client struct {
 	Name    string `json:"name"`
-	Conn    *net.TCPConn
+	Conn    net.Conn
 	SubConn map[int]*net.TCPConn
 	Map     []struct {
 		LocalPort  int `json:"local-port"`
@@ -82,22 +83,25 @@ func CheckClientAlive() {
 			// 	isDisconnect = true
 			// }
 			func(c *Client) {
-				ccm,ok := CCMList[c.Name]
-				if!ok {
+				ccm, ok := CCMList[c.Name]
+				if !ok {
 					return
 				}
 				ccm.Cmdrwlock.Lock()
 				defer ccm.Cmdrwlock.Unlock()
-				if _, err := c.Conn.Write(utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+				// utils.PrintDataAsJson(c.Name)
+				// if _, err := c.Conn.Read([]byte{}); err != nil {
+				// 	isDisconnect = true
+				// }
+				if err := common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
+					log.Println("与",c.Name,"的连接断开")
 					isDisconnect = true
 				}
-				if _, err := c.Conn.Read(make([]byte, 1024)); err != nil {
-					isDisconnect = true
-				}
+				
 			}(c)
 
 			if isDisconnect {
-				fmt.Println("Client ", c.Name, " disconnected")
+				log.Println("Client ", c.Name, " disconnected")
 				for _, ccm := range CCMList {
 					if ccm.ClientName == c.Name {
 						quitAgent.Publish(ccm.ClientName, "quit")
@@ -106,6 +110,7 @@ func CheckClientAlive() {
 				}
 				delete(ClientSet, c.Name)
 				c.Conn.Close()
+				delete(CCMList, c.Name)
 			}
 		}
 

@@ -18,15 +18,16 @@ func cmdToClientGetNewConn(ccm *clientConnManager, connId, LocalPort, ServerPort
 			ServerPort: ServerPort,
 		},
 	}
-	clientConn := ccm.ClientConn
-	_, err := clientConn.Write(utils.SerilizeData(sercmd))
+	// _, err := clientConn.Write(utils.SerilizeData(sercmd))
+	err := common.SendCmd(ccm.ClientConn, utils.SerilizeData(sercmd))
 	log.Println("send new conn request to client", utils.PrintDataAsJson(sercmd))
 	if err != nil {
 		return utils.WrapErrorLocation(err, "cmdToClientGetNewConn")
 	}
 
 	// ack
-	_, err = clientConn.Read(make([]byte, 1024))
+	// _, err = clientConn.Read(make([]byte, 1024))
+	_, err = common.ReadCmd(ccm.ClientConn)
 	if err != nil {
 		log.Println("read ack error", utils.WrapErrorLocation(err))
 		return err

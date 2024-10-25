@@ -1,0 +1,70 @@
+version: '3.8'
+
+
+services:
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  db:
+    image: postgres:latest
+    # restart: unless-stopped
+    # env_file:
+    #   # Ensure that the variables in .env match the same variables in devcontainer.json
+    #   - .env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOSTNAME=localhost
+    volumes:
+      - "/home/moccus/tmp/db:/var/lib/postgresql/data"
+    ports:
+      - 35432:5432
+    networks:
+      - db-net
+
+  adminer:
+    image: adminer
+    ports:
+      - 30002:8080
+    environment:
+      - ADMINER_DESIGN=pepa-linha
+    networks:
+      - db-net
+
+  minio:
+    image: 'bitnami/minio:latest'
+    ports:
+      - '39000:9000'     # api port
+      - '39001:9001'    # webui port
+    environment:
+      - MINIO_ROOT_USER=minio-root-user
+      - MINIO_ROOT_PASSWORD=minio-root-password
+    volumes:
+      - /home/moccus/tmp/minio_data:/bitnami/minio/data
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - db-net
+  
+  cacher:
+    image: redis/redis-stack:latest
+    ports:
+      - 36379:6379   
+      - 38001:8001      # webui port
+    volumes:
+      - /home/moccus/tmp/redis_data:/data
+    networks:
+      - db-net
+  
+
+networks:
+
+  db-net:
+
+
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
