@@ -187,7 +187,6 @@ func dealCmdFromClient(clientConn net.Conn) {
 			utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn not ready", hello.Client.Name))
 			return
 		}
-		utils.PrintDataAsJson("111111111111111111")
 		ccm := CCMList[hello.Client.Name]
 		ccm.ClientSubConnWithId[hello.ConnId] = clientConn
 		ccm.ClientSubConnReadySignalWithId[hello.ConnId] = make(chan bool, 2)
@@ -195,8 +194,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 		<-ccm.ClientSubConnReadySignalWithId[hello.ConnId]
 		close(ccm.ClientSubConnReadySignalWithId[hello.ConnId])
 		delete(ccm.ClientSubConnReadySignalWithId, hello.ConnId)
-		fmt.Println(22222222222222222, hello.ConnId)
-		err = common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "sub-conn-ready", Data: hello.ConnId})) // 并发死锁导致有些到不了这里
+		err = common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "sub-conn-ready", Data: hello.ConnId})) // 通知客户端子连接已经准备好，开始交换数据
 		if err != nil {
 			utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn faild:%v", hello.Client.Name, err))
 			return

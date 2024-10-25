@@ -18,16 +18,20 @@ type ResponseToServer struct {
 	Data interface{} `json:"data"`
 }
 
-func ListenServerCmd(serverConn net.Conn) {
+func ListenServerCmd(conn net.Conn) {
 	defer utils.RecoverAndLog(func(err error) {
 		log.Printf("Error occurred in CommunicateToServer: %v\n", utils.WrapErrorLocation(err))
 	})
+
+	serverConn := common.NewConnSocket(conn)
+
 	for {
 		// if common.CheckConnIsClosed(serverConn) {
 		// 	log.Println("with server conn is closed")
 		// 	return
 		// }
-		msgData, err := common.ReadCmd(serverConn)
+		// msgData, err := common.ReadCmd(serverConn)
+		msgData, err := serverConn.RecvLine()
 		if err != nil {
 			log.Printf("Failed to communicate with server: %v\n", utils.WrapErrorLocation(err))
 			// os.Exit(1)
@@ -78,7 +82,6 @@ func ListenServerCmd(serverConn net.Conn) {
 			}
 			hello := common.HelloMessage{Type: "sub", ConnId: newcmd.ConnId}
 			hello.Client.Name = config.Config.Client.Name
-			// _, err = newServerSubConn.Write(utils.SerilizeData(hello)) // hello to server
 			err = common.SendCmd(newServerSubConn, utils.SerilizeData(hello)) // hello to server
 			if err != nil {
 				log.Println("fail to hello to server")
@@ -91,16 +94,11 @@ func ListenServerCmd(serverConn net.Conn) {
 				continue
 			}
 			if string(ok) != "ok" {
-				// log.Println("fail to ack new conn from server")
 				utils.PrintDataAsJson("fail to ack new conn from server:" + string(ok))
 				continue
 			}
 			utils.PrintDataAsJson(fmt.Sprintf("success new sub connection to server: %d", hello.ConnId))
-			// serverConn.Write(utils.SerilizeData(ResponseToServer{Code: 200, Msg: "New connection created", Data: newcmd.ConnId})) // 是否还需要通知？，可能会降低性能
-			// go TransForConnData(localConn, newServerSubConn)
-			// var ready = make(chan bool, 2)
 			serverConnReadySignalWithId[newcmd.ConnId] = make(chan bool, 1)
-			fmt.Println(11111111111111)
 			err = common.SendCmd(newServerSubConn, []byte("ready"))
 			if err != nil {
 				log.Println("fail to send ready to server")
@@ -109,7 +107,6 @@ func ListenServerCmd(serverConn net.Conn) {
 			go func() {
 				// ready <- true
 				<-serverConnReadySignalWithId[newcmd.ConnId]
-				fmt.Println(3333333333333333)
 				utils.PrintDataAsJson(fmt.Sprintf("ready to transfor data %d", newcmd.ConnId))
 				go common.TransForConnDataClient(localConn, newServerSubConn)
 				close(serverConnReadySignalWithId[newcmd.ConnId])
@@ -118,12 +115,7 @@ func ListenServerCmd(serverConn net.Conn) {
 				log.Println("success new sub connection to server", hello.ConnId)
 			}()
 		case "sub-conn-ready":
-			fmt.Println(2222222222222222)
 			serverConnReadySignalWithId[int(cmd.Data.(float64))] <- true
-			err := common.SendCmd(serverConn, 	[]byte("ready"))
-			if err != nil {
-				panic(err)
-			}
 		default:
 			log.Println("Unknown command received from server", cmd.Type)
 		}
