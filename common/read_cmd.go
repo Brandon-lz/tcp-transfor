@@ -15,7 +15,7 @@ func ReadCmd(conn net.Conn) ([]byte, error) {          // 这种会丢数据，�
 		}
 		buf.Write(d)
 		l := len(buf.Bytes())
-		if buf.Bytes()[l-2] == '\r' {
+		if l > 1 && buf.Bytes()[l-2] == '\r' {
 			return buf.Bytes()[:l-2],nil
 		} 
 	}

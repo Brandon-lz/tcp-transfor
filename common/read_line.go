@@ -42,7 +42,7 @@ func (s *ConnSocket) RecvLine() (line []byte, err error) {
 		}
 		_data = s.buf.Bytes()
 		l := len(_data)
-		if l > 2 {
+		if l > 1 {
 			if _data[l-2] == '\r' { // 对于结束符是\r\n的情况
 				s.buf.Reset()
 				return _data[:l-2],nil
