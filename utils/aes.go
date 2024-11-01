@@ -47,16 +47,18 @@ func AESInit() {
 
 func AESEncrypt(plaintext []byte) []byte {
 	src := aesgcm.Seal(nil, nonce, plaintext, nil)
-	// buf := make([]byte, base64.StdEncoding.EncodedLen(len(src)))
-	// base64.StdEncoding.Encode(buf, src)
-	
-	return []byte(base64.StdEncoding.EncodeToString(src))
+	// return []byte(base64.StdEncoding.EncodeToString(src))
+	buf := make([]byte, base64.StdEncoding.EncodedLen(len(src)))
+	base64.StdEncoding.Encode(buf, src)
+	return buf
 }
 
 func AESDecrypt(ciphertextbytes []byte) ([]byte, error) {
-	ciphertextdata, err := base64.StdEncoding.DecodeString(string(ciphertextbytes))
-	if err != nil{
-		return nil,err
+	dbuf := make([]byte, base64.StdEncoding.DecodedLen(len(ciphertextbytes)))
+	n, err := base64.StdEncoding.Decode(dbuf, ciphertextbytes)
+	// ciphertextdata, err := base64.StdEncoding.DecodeString(string(ciphertextbytes))
+	if err != nil {
+		return nil, err
 	}
-	return aesgcm.Open(nil, nonce, ciphertextdata, nil)
+	return aesgcm.Open(nil, nonce, dbuf[:n], nil)
 }
