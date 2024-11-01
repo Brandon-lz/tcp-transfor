@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"encoding/base64"
 	"encoding/hex"
 )
 
@@ -45,9 +46,17 @@ func AESInit() {
 }
 
 func AESEncrypt(plaintext []byte) []byte {
-	return aesgcm.Seal(nil, nonce, plaintext, nil)
+	src := aesgcm.Seal(nil, nonce, plaintext, nil)
+	// buf := make([]byte, base64.StdEncoding.EncodedLen(len(src)))
+	// base64.StdEncoding.Encode(buf, src)
+	
+	return []byte(base64.StdEncoding.EncodeToString(src))
 }
 
 func AESDecrypt(ciphertextbytes []byte) ([]byte, error) {
-	return aesgcm.Open(nil, nonce, ciphertextbytes, nil)
+	ciphertextdata, err := base64.StdEncoding.DecodeString(string(ciphertextbytes))
+	if err != nil{
+		return nil,err
+	}
+	return aesgcm.Open(nil, nonce, ciphertextdata, nil)
 }
