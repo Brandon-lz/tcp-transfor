@@ -12,6 +12,7 @@ func ReadCmd(conn net.Conn) ([]byte, error) {          // 这种会丢数据，�
 	for {
 		d, err := rd.ReadBytes('\n')
 		if err != nil {
+			return nil, err
 		}
 		buf.Write(d)
 		l := len(buf.Bytes())
