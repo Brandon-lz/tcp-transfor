@@ -50,11 +50,11 @@ func ListenServerCmd(conn net.Conn) {
 			// resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			// serverConn.Write(resData)
 			// _, err = serverConn.Write([]byte("pong"))
-			// err = common.SendCmd(serverConn, []byte("pong"))
-			// if err != nil {
-			// 	log.Println("Failed to send pong to server: ", err)
-			// 	return
-			// }
+			err = common.SendCmd(serverConn, []byte("pong"))
+			if err != nil {
+				log.Println("Failed to send pong to server: ", err)
+				return
+			}
 			// fmt.Println("alive")
 		case "new-conn-request":
 			log.Println("Received new connection request from server")

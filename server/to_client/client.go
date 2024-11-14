@@ -94,10 +94,16 @@ func CheckClientAlive() {
 				// 	isDisconnect = true
 				// }
 				if err := common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
-					log.Println("与",c.Name,"的连接断开")
+					log.Println("与", c.Name, "的连接断开")
 					isDisconnect = true
+					return
 				}
-				
+				if _, err := common.ReadCmd(ccm.ClientConn); err != nil {
+					log.Println("与", c.Name, "的连接断开")
+					isDisconnect = true
+					return
+				}
+
 			}(c)
 
 			if isDisconnect {
