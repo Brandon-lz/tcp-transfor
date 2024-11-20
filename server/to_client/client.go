@@ -98,6 +98,7 @@ func CheckClientAlive() {
 					isDisconnect = true
 					return
 				}
+				ccm.ClientConn.SetReadDeadline(time.Now().Add(6*time.Second))
 				if _, err := common.ReadCmd(ccm.ClientConn); err != nil {
 					log.Println("与", c.Name, "的连接断开")
 					isDisconnect = true
