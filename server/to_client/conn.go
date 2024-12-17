@@ -199,7 +199,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 			utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn faild:%v", hello.Client.Name, err))
 			return
 		}
-		utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn ready22222222", hello.Client.Name))
+		utils.PrintDataAsJson(fmt.Sprintf("client %s sub conn ready", hello.Client.Name))
 		return
 	// case "ping":      // 暂时去掉
 	// common.SendCmd(clientConn, utils.SerilizeData(common.ServerCmd{Type: "Pone"}))
