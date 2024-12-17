@@ -12,11 +12,11 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-var serverConnReadySignalWithId = make(map[int]chan bool)          // connId : readySignal
+var serverConnReadySignalWithId = make(map[int]chan bool) // connId : readySignal
 
 func CreateNewConnToServer() (net.Conn, error) {
 	defer utils.RecoverAndLog(func(err error) {
-		utils.PrintDataAsJson("Error occurred in CommunicateToServer"+err.Error())
+		utils.PrintDataAsJson("Error occurred in CommunicateToServer" + err.Error())
 	})
 	// var err error
 	// // 连接到服务器
@@ -39,9 +39,14 @@ func CreateNewConnToServer() (net.Conn, error) {
 	return CreateNewConn(ip, port)
 }
 
+// 创建本地端口tcp连接
 func CreateNewConnToLocalPort(localPort int) (net.Conn, error) {
-	// 创建本地端口tcp连接
 	return CreateNewConn("127.0.0.1", localPort)
+}
+
+// 创建与本机能访问到的  host+port的连接
+func CreateNewConnToRemotePort(ip string, port int) (net.Conn, error) {
+	return CreateNewConn(ip, port)
 }
 
 func CreateNewConn(host string, localPort int) (net.Conn, error) {

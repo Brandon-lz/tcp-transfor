@@ -50,11 +50,11 @@ func ListenServerCmd(conn net.Conn) {
 			// resData, _ := json.Marshal(ResponseToServer{Id: cmd.Id, Code: 200, Msg: "pong"})
 			// serverConn.Write(resData)
 			// _, err = serverConn.Write([]byte("pong"))
-			// err = common.SendCmd(serverConn, []byte("pong"))
-			// if err != nil {
-			// 	log.Println("Failed to send pong to server: ", err)
-			// 	return
-			// }
+			err = common.SendCmd(serverConn, []byte("pong"))
+			if err != nil {
+				log.Println("Failed to send pong to server: ", err)
+				return
+			}
 			// fmt.Println("alive")
 		case "new-conn-request":
 			log.Println("Received new connection request from server")
@@ -74,7 +74,12 @@ func ListenServerCmd(conn net.Conn) {
 				log.Println("failed to create new connection to server: ", err)
 				continue
 			}
-			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
+			// localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
+			ip := "127.0.0.1"
+			if newcmd.LocalHost != "" {
+				ip = newcmd.LocalHost
+			}
+			localConn, err := CreateNewConnToRemotePort(ip, newcmd.LocalPort)
 			if err != nil {
 				// newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				common.SendCmd(newServerSubConn, utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
