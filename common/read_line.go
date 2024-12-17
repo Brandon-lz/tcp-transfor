@@ -43,6 +43,7 @@ func (s *ConnSocket) RecvLine() (line []byte, err error) {
 		l := len(_data)
 		if l > 2 {
 			if _data[l-2] == ';' && _data[l-3] == ';' { // 对于结束符是\r\n的情况
+
 				s.buf.Reset()
 				return utils.AESDecrypt(_data[:l-3])
 			} else {

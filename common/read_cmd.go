@@ -8,7 +8,9 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
+
 func ReadCmd(conn net.Conn) ([]byte, error) { // 这种连续读取的情况下会丢数据，还是需要用面向对象编程
+
 	buf := bytes.Buffer{}
 	rd := bufio.NewReader(conn)
 	// conn.SetReadDeadline(time.Now().Add(2*time.Second))
