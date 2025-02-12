@@ -77,6 +77,7 @@ func ListenServerCmd(conn net.Conn) {
 			localConn, err := CreateNewConnToLocalPort(newcmd.LocalPort)
 			if err != nil {
 				// newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				log.Println("error for connect to ",newcmd.LocalPort,"\nerr:",err.Error())
 				common.SendCmd(newServerSubConn, utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				continue
 			}
