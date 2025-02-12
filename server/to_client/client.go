@@ -17,6 +17,7 @@ type Client struct {
 	Conn    net.Conn
 	SubConn map[int]*net.TCPConn
 	Map     []struct {
+		LocalHost string `json:"local-host"`
 		LocalPort  int `json:"local-port"`
 		ServerPort int `json:"server-port"`
 	} `json:"map"`

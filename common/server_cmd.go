@@ -11,6 +11,7 @@ type ServerCmd struct {
 
 type NewConnCreateRequestMessage struct {
 	ConnId     int `json:"conn-id"` // 服务端-本客户端之间有多个连接，每个连接都有唯一的conn-id，拿着conn-id返回给服务端去注册新连接
+	LocalHost string `josn:"local-host"`
 	LocalPort  int `json:"local-port"`
 	ServerPort int `json:"server-port"`
 }
