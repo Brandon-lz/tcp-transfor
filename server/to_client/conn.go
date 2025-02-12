@@ -158,7 +158,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 
 		for _, m := range hello.Map {
 			wg.Add(1)
-			go newListenerOnClientMapPort(&ccm, m.ServerPort, m.LocalPort, listen_fail, &wg) // listen new user conn
+			go newListenerOnClientMapPort(&ccm, m.ServerPort, m.LocalHost, m.LocalPort, listen_fail, &wg) // listen new user conn
 		}
 
 		wg.Wait()
@@ -208,7 +208,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 	}
 }
 
-func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalPort int, failSign chan bool, wg *sync.WaitGroup) {
+func newListenerOnClientMapPort(ccm *clientConnManager, listenPort int, clientLocalHost string, clientLocalPort int, failSign chan bool, wg *sync.WaitGroup) {
 	defer utils.RecoverAndLog()
 	defer wg.Done()
 
@@ -244,18 +244,18 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort, clientLocalP
 
 			userConnl := common.NewConnLocked(userConn)
 
-			go whenNewUserConnComeIn(ccm, userConnl, clientLocalPort, listenPort)
+			go whenNewUserConnComeIn(ccm, userConnl, clientLocalHost, clientLocalPort, listenPort)
 		}
 	}()
 
 }
 
-func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLocalPort, listenPort int) {
+func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLocalHost string, clientLocalPort, listenPort int) {
 	defer utils.RecoverAndLog()
 	// new conn to server
 	log.Println("new user conn ")
 	connId := ccm.getNewConnId()
-	if err := cmdToClientGetNewConn(ccm, connId, clientLocalPort, listenPort); err != nil {
+	if err := cmdToClientGetNewConn(ccm, connId, clientLocalHost, clientLocalPort, listenPort); err != nil {
 		log.Printf("Failed to get new conn to client: %v", utils.WrapErrorLocation(err, "cmdToClientGetNewConn"))
 		return
 	}

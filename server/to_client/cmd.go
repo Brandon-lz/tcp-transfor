@@ -7,13 +7,14 @@ import (
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
-func cmdToClientGetNewConn(ccm *clientConnManager, connId, LocalPort, ServerPort int) error {
+func cmdToClientGetNewConn(ccm *clientConnManager, connId int, clientLocalHost string, LocalPort, ServerPort int) error {
 	ccm.Cmdrwlock.Lock()
 	defer ccm.Cmdrwlock.Unlock()
 	sercmd := common.ServerCmd{
 		Type: "new-conn-request",
 		Data: common.NewConnCreateRequestMessage{
 			ConnId:     connId,
+			LocalHost:  clientLocalHost,
 			LocalPort:  LocalPort,
 			ServerPort: ServerPort,
 		},
