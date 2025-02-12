@@ -50,6 +50,8 @@ func (s *ConnSocket) RecvLine() (line []byte, err error) {
 				// s := string(_data)
 				// utils.PrintDataAsJson("1111111111: " + s + " " + utils.GetCodeLine(2))
 			}
+		}else{
+			// 继续接收
 		}
 
 	}
