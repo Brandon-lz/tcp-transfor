@@ -82,6 +82,7 @@ func ListenServerCmd(conn net.Conn) {
 			localConn, err := CreateNewConnToRemotePort(ip, newcmd.LocalPort)
 			if err != nil {
 				// newServerSubConn.Write(utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
+				log.Println("error for connect to ", ip, ":", newcmd.LocalPort,err.Error())
 				common.SendCmd(newServerSubConn, utils.SerilizeData(ResponseToServer{Id: cmd.Id, Code: 500, Msg: fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort)}))
 				continue
 			}
@@ -122,7 +123,7 @@ func ListenServerCmd(conn net.Conn) {
 		case "sub-conn-ready":
 			serverConnReadySignalWithId[int(cmd.Data.(float64))] <- true
 		default:
-			log.Println("Unknown command received from server", cmd.Type)
+			log.Println("Unknown command received from server", string(msgData))
 		}
 	}
 

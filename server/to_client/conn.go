@@ -204,7 +204,7 @@ func dealCmdFromClient(clientConn net.Conn) {
 	// case "ping":      // 暂时去掉
 	// common.SendCmd(clientConn, utils.SerilizeData(common.ServerCmd{Type: "Pone"}))
 	default:
-		log.Println("unknown hello type", hello.Type)
+		log.Println("unknown hello type", string(hellodata))
 	}
 }
 
