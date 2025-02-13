@@ -6,7 +6,7 @@ host = "127.0.0.1:38080"
 name = "ubuntu223"            # 全局唯一的客户端名称
 
 [[map]]
-local-host = "192.168.2.61"
+# local-host = "192.168.2.61"
 local-port = 9090
 server-port = 9091
 
