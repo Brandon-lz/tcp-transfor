@@ -5,12 +5,13 @@ host = "127.0.0.1:38080"
 [client]
 name = "ubuntu223"            # 全局唯一的客户端名称
 
+# local-host 留空表示本机 127.0.0.1，可配置为本机能访问的内网地址
 [[map]]
-# local-host = "192.168.2.61"
+# local-host = "10.0.0.5"
 local-port = 9090
 server-port = 9091
 
-[[map]]
-local-port = 22
-server-port = 30022
-
+# 示例：把本机 SSH(22) 转发到 30022
+# [[map]]
+# local-port = 22
+# server-port = 30022

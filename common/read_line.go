@@ -1,59 +1,31 @@
 package common
 
-import (
-	"bufio"
-	"bytes"
-	"net"
-	"github.com/Brandon-lz/tcp-transfor/utils"
-)
+import "net"
 
+// ConnSocket 兼容旧接口的行读取/写入封装，内部复用同一个带缓冲 LineReader
 type ConnSocket struct {
 	net.Conn
-	buf  bytes.Buffer
-	rd   *bufio.Reader
+	lr *LineReader
 }
 
 func NewConnSocket(conn net.Conn) *ConnSocket {
-	return &ConnSocket{
-		Conn: conn,
-		buf:  bytes.Buffer{},
-		rd:   bufio.NewReader(conn),
-	}
+	return &ConnSocket{Conn: conn, lr: NewLineReader(conn)}
+}
+
+// NewConnSocketWithReader 复用外部 LineReader（同一连接上多阶段读时必用）
+func NewConnSocketWithReader(conn net.Conn, lr *LineReader) *ConnSocket {
+	return &ConnSocket{Conn: conn, lr: lr}
 }
 
 func (s *ConnSocket) SendLine(b []byte) (n int, err error) {
-	b = append(b, []byte(";;;\n")...)
-	return s.Conn.Write(b)
+	err = SendCmd(s.Conn, b)
+	n = len(b) + 4
+	return
 }
 
+// RecvLine 读取一条以 ";;;\n" 结尾的消息
 func (s *ConnSocket) RecvLine() (line []byte, err error) {
-	var _data = []byte{}
-	for {
-		d, err := s.rd.ReadBytes('\n')
-		if err != nil {
-			utils.PrintDataAsJson("readBytes error: " + err.Error() + " " + utils.GetCodeLine(2))
-			return nil, err
-		}
-		_, err = s.buf.Write(d)
-		if err != nil {
-			utils.PrintDataAsJson("RecvLine error at: " + utils.GetCodeLine(2))
-			return nil, err
-		}
-		_data = s.buf.Bytes()
-		l := len(_data)
-		if l > 3 {
-			if _data[l-2] == ';' && _data[l-3] == ';' &&  _data[l-4] == ';'{ // 对于结束符是\r\n的情况
-				s.buf.Reset()
-				return _data[:l-4],nil
-			} else {
-				// s := string(_data)
-				// utils.PrintDataAsJson("1111111111: " + s + " " + utils.GetCodeLine(2))
-			}
-		}else{
-			// 继续接收
-		}
-
-	}
+	return s.lr.ReadOne()
 }
 
 func (s *ConnSocket) Close() error {

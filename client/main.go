@@ -4,28 +4,36 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"time"
+
+	_ "net/http/pprof" // 通过 init 注册到 DefaultServeMux
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	translocaltcp "github.com/Brandon-lz/tcp-transfor/client/trans_local_tcp"
 	"github.com/Brandon-lz/tcp-transfor/utils"
-
-	"net/http"
-	_ "net/http/pprof"
 )
 
+// startPprof 启动 pprof 调试端点（失败不影响主流程）
+func startPprof(addr string) {
+	go func() {
+		log.Printf("pprof listening on %s", addr)
+		if err := http.ListenAndServe(addr, nil); err != nil {
+			log.Printf("pprof server stopped: %v", err)
+		}
+	}()
+}
 
 func main() {
-	go func() {
-		log.Println(http.ListenAndServe("localhost:6060", nil))
-	}()
+	startPprof("localhost:6061")
 	log.Println("client start")
 	initLog()
-	// defer .Close()
 	defer utils.RecoverAndLog()
 
-	config.LoadConfig()
+	if err := config.LoadConfig(); err != nil {
+		log.Fatalf("load client config failed: %v", err)
+	}
 	fmt.Println("config loaded")
 	for {
 		translocaltcp.CommunicateToServer() // block, until fail

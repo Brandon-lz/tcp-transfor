@@ -1,25 +1,23 @@
 package config
 
 import (
-	"github.com/Brandon-lz/tcp-transfor/utils"
+	"os"
+
 	"github.com/BurntSushi/toml"
+	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
 var Config ConfigDF
 
-// config.toml
+// config.toml example
 // [server]
-// host = "127.0.0.1:8080"
-
+// host = "127.0.0.1:38080"
+//
 // [client]
 // name = "ubuntu1"            # 全局唯一的客户端名称
-
+//
 // [[map]]
 // local-port = 9090
-// server-port = 9090
-
-// [[map]]
-// local-port = 9091
 // server-port = 9091
 
 type ConfigDF struct {
@@ -31,15 +29,27 @@ type ConfigDF struct {
 	} `json:"client"`
 	Map []struct {
 		LocalHost string `json:"local-host"`
-		LocalPort  int `json:"local-port"`
-		ServerPort int `json:"server-port"`
+		LocalPort  int    `json:"local-port"`
+		ServerPort int    `json:"server-port"`
 	} `json:"map"`
 }
 
+// LoadConfig 从当前目录的 config.toml 读取配置；不存在时回退到仓库内 client/config.toml
 func LoadConfig() error {
+	candidates := []string{"config.toml", "../client/config.toml"}
+	var file string
+	var err error
+	for _, c := range candidates {
+		if _, statErr := os.Stat(c); statErr == nil {
+			file = c
+			break
+		}
+	}
+	if file == "" {
+		return err
+	}
 	var configData map[string]interface{}
-	tomlFile := "config.toml"
-	if _, err := toml.DecodeFile(tomlFile, &configData); err != nil {
+	if _, err = toml.DecodeFile(file, &configData); err != nil {
 		return err
 	}
 	utils.DeSerializeData(configData, &Config)

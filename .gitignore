@@ -24,3 +24,6 @@ server
 server.exe
 client
 client.exe
+
+# local end-to-end test runtime (binaries + logs)
+.test-runtime/
