@@ -20,10 +20,20 @@
 # Go workspace file
 go.work
 
-server
-server.exe
-client
-client.exe
+# 编译产物。`go build .` 会把二进制放进各自目录（client/client、server/server），
+# 所以必须写成带路径的形式：裸写 client / server 会把 client/ 和 server/ 两个
+# 源码目录整体忽略掉，导致这两个目录下的新文件既不会被 git add 收录，也会被
+# 大多数按 .gitignore 过滤的搜索工具跳过。
+client/client
+client/client.exe
+server/server
+server/server.exe
+/tcp-transfor
+/tcp-transfor.exe
+
+# 运行期日志（服务端/客户端在各自工作目录生成）
+sys.log
+panic.log
 
 # local end-to-end test runtime (binaries + logs)
 .test-runtime/

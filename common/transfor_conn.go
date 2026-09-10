@@ -13,10 +13,16 @@ const forwardTimeout = 8 * time.Hour
 
 type connOption func(net.Conn)
 
+// nodelayer 由 *net.TCPConn 实现。这里用接口断言而不是 *net.TCPConn 断言：
+// 一旦某个连接被包装成自定义 net.Conn 类型，*net.TCPConn 断言会静默失败，
+// Nagle 设置就被无声跳过（旧版 ConnLocked 就踩过这个坑）。
+// 注：Go 的 net 包对 TCP 连接默认就设了 TCP_NODELAY=1，这里只是把意图写明。
+type nodelayer interface{ SetNoDelay(bool) error }
+
 func noDelay(c net.Conn) {
-	if tc, ok := c.(*net.TCPConn); ok {
+	if nd, ok := c.(nodelayer); ok {
 		// 转发小数据包时关闭 Nagle，避免小包被攒批延迟
-		_ = tc.SetNoDelay(true)
+		_ = nd.SetNoDelay(true)
 	}
 }
 

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/BurntSushi/toml"
@@ -46,12 +47,14 @@ func LoadConfig() error {
 		}
 	}
 	if file == "" {
-		return err
+		return fmt.Errorf("config.toml not found, tried: %v", candidates)
 	}
 	var configData map[string]interface{}
 	if _, err = toml.DecodeFile(file, &configData); err != nil {
 		return err
 	}
-	utils.DeSerializeData(configData, &Config)
+	if _, err = utils.DeSerializeData(configData, &Config); err != nil {
+		return fmt.Errorf("failed to parse config file %s: %w", file, err)
+	}
 	return nil
 }

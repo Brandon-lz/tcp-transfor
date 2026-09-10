@@ -5,22 +5,27 @@ import (
 	"log"
 	"net"
 	"sync"
+	"time"
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
 	"github.com/Brandon-lz/tcp-transfor/common"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
+const (
+	// localDialTimeout 拨本地端口的上限。它要明显小于 server 侧等 ack 的超时（10s），
+	// 这样本地连不上时 server 能立刻收到 500 而不是干等；同时它也是命令循环被拨号
+	// 阻塞的最长时间，所以还必须小于 server 的心跳等待窗口（6s），
+	// 否则一个慢拨号会让心跳应答迟到、被误判断连。
+	localDialTimeout = 4 * time.Second
+
+	// subConnReadyTimeout 等 server 回 sub-conn-ready 的上限。server 若已放弃这条用户
+	// 连接（比如它那边的等待超时了），本地连接和子连接不能一直挂着。
+	subConnReadyTimeout = 10 * time.Second
+)
+
 type readyEntry struct {
 	ch chan struct{} // 收到 server 的 sub-conn-ready 信号后关闭
-}
-
-// ResponseToServer 子连接握手失败的应答
-type ResponseToServer struct {
-	Id   int         `json:"id"`
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
 }
 
 // serverCmdHandler 管理"已发出 new-conn-request、等待 server 确认 ready"的连接
@@ -105,31 +110,38 @@ func ListenServerCmd(conn net.Conn, lr *common.LineReader) {
 				log.Println("failed to deserialize new connection request message: ", err)
 				continue
 			}
-			// ack to server
-			if err := common.SendCmd(serverConn, []byte("new-conn-request-ack")); err != nil {
-				log.Println("failed to send new-conn-request-ack to server", utils.WrapErrorLocation(err))
-				continue
-			}
-
-			var localConn net.Conn
-			newServerSubConn, err := CreateNewConnToServer()
-			if err != nil {
-				log.Println("failed to create new connection to server: ", err)
-				continue
-			}
 			ip := "127.0.0.1"
 			if newcmd.LocalHost != "" {
 				ip = newcmd.LocalHost
 			}
-			localConn, err = CreateNewConnToRemotePort(ip, newcmd.LocalPort)
+			// 先拨本地端口，再把结果回给 server：本地连不上时 server 立刻收到 500，
+			// 不用像旧实现那样把失败推给子连接、靠 server 侧 10s 超时兜底
+			localConn, err := CreateNewConnToRemotePortTimeout(ip, newcmd.LocalPort, localDialTimeout)
 			if err != nil {
-				// 通知 server 本地连接失败，server 侧等不到 ready 信号会超时并断开用户连接
-				common.SendCmd(newServerSubConn, utils.SerilizeData(ResponseToServer{
+				log.Println("failed to create local connection: ", utils.WrapErrorLocation(err))
+				common.SendCmd(serverConn, utils.SerilizeData(common.ResponseToServer{
 					Id:   cmd.Id,
 					Code: 500,
 					Msg:  fmt.Sprintf("Failed to create local connection:%d", newcmd.LocalPort),
 				}))
-				newServerSubConn.Close()
+				continue
+			}
+
+			// ack to server（带上 conn-id：server 侧读取已异步化，靠 id 把并发请求的应答匹配回去）
+			if err := common.SendCmd(serverConn, utils.SerilizeData(common.ResponseToServer{
+				Id:   cmd.Id,
+				Code: 200,
+				Msg:  "new-conn-request-ack",
+			})); err != nil {
+				log.Println("failed to send new-conn-request-ack to server", utils.WrapErrorLocation(err))
+				localConn.Close()
+				continue
+			}
+
+			newServerSubConn, err := CreateNewConnToServer()
+			if err != nil {
+				log.Println("failed to create new connection to server: ", err)
+				localConn.Close()
 				continue
 			}
 
@@ -164,10 +176,20 @@ func ListenServerCmd(conn net.Conn, lr *common.LineReader) {
 				h.remove(newcmd.ConnId)
 				continue
 			}
-			// 等 server 确认双向 ready 后开始转发（替代原来并发不安全的 map 信号）
+			// 等 server 确认双向 ready 后开始转发（替代原来并发不安全的 map 信号）。
+			// 带超时：server 若已放弃这条用户连接就不会再发 sub-conn-ready，
+			// 无限等待的话本地连接和子连接会一直挂着。
 			go func(connId int, lc net.Conn, sc net.Conn, e *readyEntry) {
 				defer utils.RecoverAndLog()
-				<-e.ch
+				select {
+				case <-e.ch:
+				case <-time.After(subConnReadyTimeout):
+					utils.PrintDataAsJson(fmt.Sprintf("timeout waiting sub-conn-ready from server, close sub conn %d", connId))
+					h.remove(connId)
+					lc.Close()
+					sc.Close()
+					return
+				}
 				utils.PrintDataAsJson(fmt.Sprintf("ready to transfor data %d", connId))
 				go common.TransForConnDataClient(lc, sc)
 				h.remove(connId)

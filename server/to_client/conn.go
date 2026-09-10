@@ -23,6 +23,13 @@ var (
 	connIdCounter  atomic.Uint32
 )
 
+const (
+	pingInterval   = 2 * time.Second  // 心跳间隔
+	pongTimeout    = 6 * time.Second  // 等 pong 超时
+	ackTimeout     = 10 * time.Second // 等 new-conn-request 应答超时
+	subConnTimeout = 10 * time.Second // 等客户端子连接就绪超时
+)
+
 func getCCMByName(name string) (*clientConnManager, bool) {
 	ccmMu.RLock()
 	defer ccmMu.RUnlock()
@@ -38,13 +45,21 @@ func removeCCMByName(name string) {
 
 // clientConnManager 管理一个客户端的主连接和它的子连接
 type clientConnManager struct {
-	ClientName   string
-	ClientConn   net.Conn
-	LR           *common.LineReader // 主连接复用的行读取器
-	ckmu         *sync.Mutex        // 保护主连接命令收发 + closed + 子连接表（与心跳互斥）
-	ccmCond      *sync.Cond         // 子连接就绪信号（绑定 ckmu）
-	closed       bool
-	ClientSubConnWithId map[int]net.Conn
+	ClientName string
+	ClientConn net.Conn
+	LR         *common.LineReader // 主连接复用的行读取器，只由 readLoop 读取
+
+	ckmu   *sync.Mutex // 只用于串行化主连接上的写入，并保护 closed（不在持锁期间做网络等待）
+	closed bool
+	done   chan struct{} // 首次关闭时关闭，唤醒所有等待者
+
+	pongWait chan struct{}                        // 心跳 pong 通知（容量 1，只有心跳 goroutine 消费）
+	ackMu    sync.Mutex                           // 保护 acks
+	acks     map[int]chan common.ResponseToServer // connId -> new-conn-request 应答等待者
+
+	subMu               sync.Mutex            // 保护子连接表和就绪等待者
+	ClientSubConnWithId map[int]net.Conn      // connId -> 客户端子连接
+	subWaiters          map[int]chan net.Conn // connId -> 子连接就绪通知
 }
 
 func NewclientConnManager(clientConn net.Conn, clientName string, lr *common.LineReader) *clientConnManager {
@@ -53,58 +68,175 @@ func NewclientConnManager(clientConn net.Conn, clientName string, lr *common.Lin
 		ClientConn:          clientConn,
 		LR:                  lr,
 		ClientSubConnWithId: make(map[int]net.Conn),
+		subWaiters:          make(map[int]chan net.Conn),
+		acks:                make(map[int]chan common.ResponseToServer),
+		pongWait:            make(chan struct{}, 1),
+		done:                make(chan struct{}),
 	}
 	ccm.ckmu = &sync.Mutex{}
-	ccm.ccmCond = sync.NewCond(ccm.ckmu)
 	return ccm
 }
 
-// markClosed 标记关闭并唤醒所有等待者
-func (cm *clientConnManager) markClosed() {
+// markClosed 标记关闭并唤醒所有等待者（幂等，返回是否首次关闭）
+func (cm *clientConnManager) markClosed() bool {
 	cm.ckmu.Lock()
+	first := !cm.closed
 	cm.closed = true
-	cm.ccmCond.Broadcast()
 	cm.ckmu.Unlock()
+
+	if !first {
+		return false
+	}
+	close(cm.done) // 唤醒等子连接就绪、等 pong 的 goroutine
 	cm.ClientConn.Close()
+
+	// 唤醒正在等 new-conn-request 应答的请求者，避免它们空等一整个超时
+	cm.ackMu.Lock()
+	for id, ch := range cm.acks {
+		select {
+		case ch <- common.ResponseToServer{Id: id, Code: 500, Msg: "client connection closed"}:
+		default:
+		}
+	}
+	cm.ackMu.Unlock()
+	return true
 }
 
-// waitSubConnReady 阻塞等待指定 id 的子连接注册，带超时；无忙轮询。
-// 全程持有 ckmu（与心跳、命令收发串行），靠 registerSub 的 Broadcast 唤醒。
-func (cm *clientConnManager) waitSubConnReady(connId int, timeout time.Duration) (net.Conn, bool) {
-	cm.ckmu.Lock()
-	defer cm.ckmu.Unlock()
-	deadline := time.Now().Add(timeout)
+// cleanup 客户端确认失联后的统一清理：通知 listener 退出、摘掉 client 与 ccm（只执行一次）
+func (cm *clientConnManager) cleanup(reason string) {
+	if !cm.markClosed() {
+		return
+	}
+	log.Printf("client %s disconnected: %s", cm.ClientName, reason)
+	quitAgent.Publish(cm.ClientName, "quit")
+	RemoveClient(cm.ClientName)
+	removeCCMByName(cm.ClientName)
+}
+
+// ---- 主连接读取分派 ----
+
+// readLoop 是主连接唯一的读取者：把 pong 和 new-conn-request 应答分派给各自的等待者。
+// 读取过程不持有 ckmu，所以心跳等待、新建连接的等待、子连接注册互不阻塞。
+// 也不使用 SetReadDeadline：读取超时全部由等待者自己的 select 超时表达，避免残留的
+// 读截止时间影响这条连接上后续的读取。
+func (cm *clientConnManager) readLoop() {
+	defer utils.RecoverAndLog()
 	for {
-		if sub, ok := cm.ClientSubConnWithId[connId]; ok {
-			return sub, true
+		line, err := cm.LR.ReadOne()
+		if err != nil {
+			cm.cleanup(fmt.Sprintf("main conn read error: %v", err))
+			return
 		}
-		if cm.closed || time.Now().After(deadline) {
-			return nil, false
+		if string(line) == "pong" {
+			cm.notifyPong()
+			continue
 		}
-		cm.ccmCond.Wait()
+		resp, derr := utils.DeSerializeData(line, &common.ResponseToServer{})
+		if derr != nil {
+			utils.PrintDataAsJson(fmt.Sprintf("client %s: unexpected main conn message: %s", cm.ClientName, line))
+			continue
+		}
+		cm.dispatchAck(resp)
 	}
 }
 
-// registerSub 注册子连接并唤醒等待者（必须持有者内部加锁 ckmu）
+// drainPong 发新 ping 前清掉可能残留的旧 pong，避免把上一轮的应答当成这一轮的
+func (cm *clientConnManager) drainPong() {
+	select {
+	case <-cm.pongWait:
+	default:
+	}
+}
+
+func (cm *clientConnManager) notifyPong() {
+	select {
+	case cm.pongWait <- struct{}{}:
+	default: // 已有未消费的 pong，丢弃
+	}
+}
+
+// addAck 注册应答等待者（必须在发送请求之前调用，避免应答先于注册到达）
+func (cm *clientConnManager) addAck(connId int) chan common.ResponseToServer {
+	ch := make(chan common.ResponseToServer, 1)
+	cm.ackMu.Lock()
+	cm.acks[connId] = ch
+	cm.ackMu.Unlock()
+	return ch
+}
+
+func (cm *clientConnManager) removeAck(connId int) {
+	cm.ackMu.Lock()
+	delete(cm.acks, connId)
+	cm.ackMu.Unlock()
+}
+
+func (cm *clientConnManager) dispatchAck(resp common.ResponseToServer) {
+	cm.ackMu.Lock()
+	ch, ok := cm.acks[resp.Id]
+	cm.ackMu.Unlock()
+	if !ok {
+		utils.PrintDataAsJson(fmt.Sprintf("client %s: unexpected ack id:%d", cm.ClientName, resp.Id))
+		return
+	}
+	select {
+	case ch <- resp:
+	default:
+	}
+}
+
+// ---- 子连接注册与等待 ----
+
+// waitSubConnReady 阻塞等待指定 id 的子连接注册，等待期间不持有任何互斥锁
+func (cm *clientConnManager) waitSubConnReady(connId int, timeout time.Duration) (net.Conn, bool) {
+	cm.subMu.Lock()
+	if sub, ok := cm.ClientSubConnWithId[connId]; ok { // 等待前就已经注册好了
+		cm.subMu.Unlock()
+		return sub, true
+	}
+	ch := make(chan net.Conn, 1)
+	cm.subWaiters[connId] = ch
+	cm.subMu.Unlock()
+	defer func() {
+		cm.subMu.Lock()
+		delete(cm.subWaiters, connId)
+		cm.subMu.Unlock()
+	}()
+
+	select {
+	case sub := <-ch:
+		return sub, true
+	case <-cm.done: // 客户端已断开
+		return nil, false
+	case <-time.After(timeout):
+		return nil, false
+	}
+}
+
+// registerSub 注册子连接并唤醒等待者
 func (cm *clientConnManager) registerSub(connId int, sub net.Conn) bool {
-	cm.ckmu.Lock()
-	defer cm.ckmu.Unlock()
+	cm.subMu.Lock()
+	defer cm.subMu.Unlock()
 	if _, dup := cm.ClientSubConnWithId[connId]; dup {
 		return false
 	}
 	cm.ClientSubConnWithId[connId] = sub
-	cm.ccmCond.Broadcast()
+	if ch, waiting := cm.subWaiters[connId]; waiting {
+		select {
+		case ch <- sub:
+		default:
+		}
+	}
 	return true
 }
 
 // delSubConn 转发结束后释放子连接
 func (cm *clientConnManager) delSubConn(id int) {
-	cm.ckmu.Lock()
+	cm.subMu.Lock()
 	sub, ok := cm.ClientSubConnWithId[id]
 	if ok {
 		delete(cm.ClientSubConnWithId, id)
 	}
-	cm.ckmu.Unlock()
+	cm.subMu.Unlock()
 	if ok {
 		sub.Close()
 	}
@@ -149,15 +281,20 @@ func ListenClientConn() {
 			continue
 		}
 		log.Printf("New client conn from %s", conn.RemoteAddr())
-		go dealCmdFromClient(common.NewConnLocked(conn))
+		go dealCmdFromClient(conn)
 	}
 }
 
-// CheckClientAlive 每 2 秒 ping 一次所有客户端，断开则清理
+// CheckClientAlive 每 2 秒给所有客户端发一次 ping。
+// 分两阶段：先在持锁期间只做发送（微秒级），再在不持锁的情况下统一等 pong。
+// 旧实现持着 ckmu 发 ping、读 pong（最长 6s），同一时间段内的 new-conn-request
+// 和子连接注册全被堵住；读取超时也不再依赖 SetReadDeadline（那种截止时间会残留
+// 在这条连接上，影响后续读取）。
 func CheckClientAlive() {
 	defer utils.RecoverAndLog()
+	ping := utils.SerilizeData(common.ServerCmd{Type: "ping"})
 	for {
-		time.Sleep(2 * time.Second)
+		time.Sleep(pingInterval)
 
 		ccmMu.RLock()
 		ccms := make([]*clientConnManager, 0, len(CCMList))
@@ -166,32 +303,31 @@ func CheckClientAlive() {
 		}
 		ccmMu.RUnlock()
 
+		// 阶段一：只发 ping，锁只覆盖写入
+		pinged := make([]*clientConnManager, 0, len(ccms))
 		for _, ccm := range ccms {
-			dead := false
 			ccm.ckmu.Lock()
-			if err := common.SendCmd(ccm.ClientConn, utils.SerilizeData(common.ServerCmd{Type: "ping"})); err != nil {
-				log.Println("与", ccm.ClientName, "的连接断开")
-				dead = true
+			if ccm.closed {
+				ccm.ckmu.Unlock()
+				continue
 			}
-			if !dead {
-				ccm.ClientConn.SetReadDeadline(time.Now().Add(6 * time.Second))
-				pong, err := ccm.LR.ReadOne()
-				if err != nil {
-					log.Println("与", ccm.ClientName, "的连接断开")
-					dead = true
-				} else if string(pong) != "pong" {
-					log.Println("与", ccm.ClientName, "的连接断开: bad pong", string(pong))
-					dead = true
-				}
-			}
+			ccm.drainPong()
+			err := common.SendCmd(ccm.ClientConn, ping)
 			ccm.ckmu.Unlock()
+			if err != nil {
+				ccm.cleanup("ping send failed: " + err.Error())
+				continue
+			}
+			pinged = append(pinged, ccm)
+		}
 
-			if dead {
-				log.Println("Client ", ccm.ClientName, " disconnected")
-				quitAgent.Publish(ccm.ClientName, "quit")
-				ccm.markClosed()
-				RemoveClient(ccm.ClientName)
-				removeCCMByName(ccm.ClientName)
+		// 阶段二：等 pong，不持任何锁；pong 由 readLoop 分派
+		for _, ccm := range pinged {
+			select {
+			case <-ccm.pongWait:
+			case <-ccm.done: // readLoop 已判定断开并清理
+			case <-time.After(pongTimeout):
+				ccm.cleanup("ping timeout")
 			}
 		}
 	}
@@ -264,6 +400,9 @@ func dealCmdFromClient(clientConn net.Conn) {
 		ccmMu.Lock()
 		CCMList[hello.Client.Name] = ccm
 		ccmMu.Unlock()
+
+		// 主连接的读取统一交给 readLoop：pong 与 new-conn-request 应答都由它分派
+		go ccm.readLoop()
 	case "sub":
 		_ = common.SendCmd(clientConn, []byte("ok")) // sub 连接是新连接，无并发竞争
 		d, err := lr.ReadOne()
@@ -332,8 +471,9 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort int, clientLo
 				continue
 			}
 
-			userConnl := common.NewConnLocked(userConn)
-			go whenNewUserConnComeIn(ccm, userConnl, clientLocalHost, clientLocalPort, listenPort)
+			// 直接用 *net.TCPConn：转发路径上每条连接只有一个读 goroutine 和一个写 goroutine，
+			// 主连接上的命令读写由 ccm.ckmu 串行化，包装加锁只会平白多两次 mutex 开销
+			go whenNewUserConnComeIn(ccm, userConn, clientLocalHost, clientLocalPort, listenPort)
 		}
 	}()
 }
@@ -349,8 +489,8 @@ func whenNewUserConnComeIn(ccm *clientConnManager, userConn net.Conn, clientLoca
 		return
 	}
 
-	// 条件变量等待子连接 ready（最长 10s），替代原有的 2ms 忙轮询
-	subConn, ok := ccm.waitSubConnReady(connId, 10*time.Second)
+	// 等待子连接 ready（超时由 subConnTimeout 控制），等待期间不持任何锁
+	subConn, ok := ccm.waitSubConnReady(connId, subConnTimeout)
 	if !ok {
 		log.Printf("ERROR: Timeout to get new conn from client id:%d", connId)
 		userConn.Close()

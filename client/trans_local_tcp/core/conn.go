@@ -6,9 +6,9 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/Brandon-lz/tcp-transfor/client/config"
-	"github.com/Brandon-lz/tcp-transfor/common"
 	"github.com/Brandon-lz/tcp-transfor/utils"
 )
 
@@ -44,9 +44,16 @@ func CreateNewConnToLocalPort(localPort int) (net.Conn, error) {
 	return CreateNewConn("127.0.0.1", localPort)
 }
 
-// 创建与本机能访问到的  host+port的连接
-func CreateNewConnToRemotePort(ip string, port int) (net.Conn, error) {
-	return CreateNewConn(ip, port)
+// CreateNewConnToRemotePortTimeout 建一条到 host:port 的连接，带连接超时。
+// 目标无响应时（例如 IP 被静默丢包）net 的默认拨号超时可能长达两分钟，
+// 而调用方必须在有限时间内得出结论，所以这里显式设上限。
+func CreateNewConnToRemotePortTimeout(ip string, port int, timeout time.Duration) (net.Conn, error) {
+	addr := net.JoinHostPort(ip, strconv.Itoa(port))
+	conn, err := net.DialTimeout("tcp", addr, timeout)
+	if err != nil {
+		return nil, utils.WrapErrorLocation(err, fmt.Sprintf("Failed to connect %s within %s", addr, timeout))
+	}
+	return conn, nil
 }
 
 func CreateNewConn(host string, localPort int) (net.Conn, error) {
@@ -62,5 +69,5 @@ func CreateNewConn(host string, localPort int) (net.Conn, error) {
 		localTarget := host + ":" + strconv.Itoa(localPort)
 		return nil, utils.WrapErrorLocation(err, fmt.Sprintf("Failed to create local connection %s: %v\n", localTarget, err))
 	}
-	return common.NewConnLocked(newConn), nil
+	return newConn, nil
 }
