@@ -14,6 +14,11 @@ import (
 
 var serverConnReadySignalWithId = make(map[int]chan bool) // connId : readySignal
 
+// defaultDialTimeout 是拨号上限。net 默认的 TCP 拨号在目标无响应时可以挂住一两分钟，
+// 而客户端主循环必须能在有限时间内回到"读 server 命令"的状态（否则心跳应答会迟到、
+// 被 server 误判成掉线），所以这里统一加上限。
+const defaultDialTimeout = 10 * time.Second
+
 func CreateNewConnToServer() (net.Conn, error) {
 	defer utils.RecoverAndLog(func(err error) {
 		utils.PrintDataAsJson("Error occurred in CommunicateToServer" + err.Error())
@@ -64,7 +69,7 @@ func CreateNewConn(host string, localPort int) (net.Conn, error) {
 	}
 	// localConn, err := net.Dial("tcp", localTarget)
 
-	newConn, err := net.DialTCP("tcp", nil, tcpAddr)
+	newConn, err := net.DialTimeout("tcp", tcpAddr.String(), defaultDialTimeout)
 	if err != nil {
 		localTarget := host + ":" + strconv.Itoa(localPort)
 		return nil, utils.WrapErrorLocation(err, fmt.Sprintf("Failed to create local connection %s: %v\n", localTarget, err))

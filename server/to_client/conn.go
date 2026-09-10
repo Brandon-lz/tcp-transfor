@@ -25,9 +25,9 @@ var (
 
 const (
 	pingInterval   = 2 * time.Second  // 心跳间隔
-	pongTimeout    = 6 * time.Second  // 等 pong 超时
-	ackTimeout     = 10 * time.Second // 等 new-conn-request 应答超时
-	subConnTimeout = 10 * time.Second // 等客户端子连接就绪超时
+	pongTimeout    = 15 * time.Second // 等 pong 超时（放宽：客户端偶发卡顿不应直接判死整条隧道）
+	ackTimeout     = 20 * time.Second // 等 new-conn-request 应答超时（客户端可能要先拨本地端口）
+	subConnTimeout = 20 * time.Second // 等客户端子连接就绪超时
 )
 
 func getCCMByName(name string) (*clientConnManager, bool) {
