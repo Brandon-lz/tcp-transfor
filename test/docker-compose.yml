@@ -36,7 +36,7 @@ services:
       - db-net
 
   minio:
-    image: 'bitnami/minio:latest'
+    image: 'soldevelo/minio:latest'
     ports:
       - '39000:9000'     # api port
       - '39001:9001'    # webui port
