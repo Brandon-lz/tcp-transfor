@@ -11,8 +11,9 @@ import (
 var Config ConfigDF
 
 type ConfigDF struct {
-	Port    int `toml:"port"`
-	Timeout int `toml:"timeout"`
+	Port    int `toml:"port" json:"port"`
+	Timeout int `toml:"timeout" json:"timeout"`
+	UIPort  int `toml:"ui-port" json:"ui-port"` // 只读状态接口端口，只监听 127.0.0.1
 }
 
 // LoadConfig 从当前目录的 config.toml 读取配置；不存在时回退到仓库内 server/config.toml

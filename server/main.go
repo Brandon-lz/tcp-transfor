@@ -24,10 +24,19 @@ func startPprof(addr string) {
 }
 
 func main() {
+	// 子命令：只查询运行中实例的状态，不启动服务
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "clients", "list", "ls":
+			os.Exit(runClientsCmd(os.Args[2:]))
+		}
+	}
+
 	startPprof(":6060")
 	defer initLog().Close()
 	defer utils.RecoverAndLog()
 	config.LoadConfig()
+	startStatusAPI()
 	go toclient.CheckClientAlive()
 	toclient.ListenClientConn()
 }

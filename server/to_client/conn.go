@@ -21,6 +21,7 @@ var (
 	quitAgent      = gopubsub.NewAgent()
 	serverListener *net.TCPListener
 	connIdCounter  atomic.Uint32
+	ccmSeqCounter  atomic.Uint64
 )
 
 const (
@@ -37,9 +38,14 @@ func getCCMByName(name string) (*clientConnManager, bool) {
 	return ccm, ok
 }
 
-func removeCCMByName(name string) {
+// removeCCMByName 只在 CCMList[name] 仍是 cm 自己时删除，
+// 避免老会话的清理把同名新会话的 ccm 摘掉。
+func removeCCMByName(name string, cm *clientConnManager) {
 	ccmMu.Lock()
 	defer ccmMu.Unlock()
+	if cur, ok := CCMList[name]; ok && cm != nil && cur != cm {
+		return
+	}
 	delete(CCMList, name)
 }
 
@@ -60,6 +66,10 @@ type clientConnManager struct {
 	subMu               sync.Mutex            // 保护子连接表和就绪等待者
 	ClientSubConnWithId map[int]net.Conn      // connId -> 客户端子连接
 	subWaiters          map[int]chan net.Conn // connId -> 子连接就绪通知
+
+	// quitTopic 是本实例独占的退出广播主题（名字#序号）。
+	// 按 ClientName 广播时，同名新会话的 listener 会被老会话迟到的 quit 关掉。
+	quitTopic string
 }
 
 func NewclientConnManager(clientConn net.Conn, clientName string, lr *common.LineReader) *clientConnManager {
@@ -74,6 +84,7 @@ func NewclientConnManager(clientConn net.Conn, clientName string, lr *common.Lin
 		done:                make(chan struct{}),
 	}
 	ccm.ckmu = &sync.Mutex{}
+	ccm.quitTopic = fmt.Sprintf("%s#%d", clientName, ccmSeqCounter.Add(1))
 	return ccm
 }
 
@@ -108,9 +119,9 @@ func (cm *clientConnManager) cleanup(reason string) {
 		return
 	}
 	log.Printf("client %s disconnected: %s", cm.ClientName, reason)
-	quitAgent.Publish(cm.ClientName, "quit")
-	RemoveClient(cm.ClientName)
-	removeCCMByName(cm.ClientName)
+	quitAgent.Publish(cm.quitTopic, "quit")
+	RemoveClient(cm.ClientName, cm.ClientConn)
+	removeCCMByName(cm.ClientName, cm)
 }
 
 // ---- 主连接读取分派 ----
@@ -386,8 +397,10 @@ func dealCmdFromClient(clientConn net.Conn) {
 		select {
 		case lerr := <-failSign:
 			log.Printf("listen on client map port failed: %v", lerr)
-			RemoveClient(hello.Client.Name) // 清理，保证同名客户端可以重试
-			_ = common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: "listen on client map port failed"}))
+			// 必须先把 500 发出去：RemoveClient 会关闭这条连接，
+			// 先关再写的话 500 会被吞掉，客户端只能看到 EOF。
+			_ = common.SendCmd(clientConn, utils.SerilizeData(common.HelloRecv{Code: 500, Msg: fmt.Sprintf("listen on client map port failed: %v", lerr)}))
+			RemoveClient(hello.Client.Name, clientConn) // 清理，保证同名客户端可以重试
 			ccm.markClosed()
 			return
 		default:
@@ -450,7 +463,7 @@ func newListenerOnClientMapPort(ccm *clientConnManager, listenPort int, clientLo
 	log.Printf("New listener on %s:%d", ccm.ClientName, listenPort)
 
 	// 订阅客户端退出信号，退出时取消订阅并关闭 listener
-	suber, cancel := quitAgent.Subscribe(ccm.ClientName)
+	suber, cancel := quitAgent.Subscribe(ccm.quitTopic)
 	go func() {
 		<-suber.Msg
 		cancel(quitAgent, suber)
